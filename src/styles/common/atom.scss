@@ -1,0 +1,88 @@
+// 定义一些原子类
+
+// flex
+.display-flex {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.display-flex_wrap {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.flex_1 {
+  flex: 1 1 auto;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+// 图标
+.iconfont {
+  cursor: pointer;
+}
+
+// 单行省略号
+.overEllipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: normal;
+}
+
+// margin && padding
+
+@for $i from 1 to 20 {
+  .mt_#{$i} {
+    margin-top: $i + px;
+  }
+
+  .mb_#{$i} {
+    margin-bottom: $i + px;
+  }
+
+  .ml_#{$i} {
+    margin-left: $i + px;
+  }
+
+  .mr_#{$i} {
+    margin-right: $i + px;
+  }
+
+  .pt_#{$i} {
+    padding-top: $i + px;
+  }
+
+  .pb_#{$i} {
+    padding-bottom: $i + px;
+  }
+
+  .pl_#{$i} {
+    padding-left: $i + px;
+  }
+
+  .pr_#{$i} {
+    padding-right: $i + px;
+  }
+}
+
+// font-size
+
+@for $i from 11 to 30 {
+  .ft_#{$i} {
+    font-size: $i + px !important;
+  }
+}
