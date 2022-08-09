@@ -1,5 +1,5 @@
 <template>
-  <div class="search-container">
+  <div class="app-main-page search-container">
     <div class="search-title-box">
       <h2 class="search-title-keywords">{{keywords}}</h2>
       <span class="search-title-count">找到 {{count}} 个结果</span>
@@ -7,16 +7,16 @@
     <h3 class="search-tips">双击歌曲播放</h3>
     <el-tabs v-model="activeIndex">
       <el-tab-pane label="歌曲" name="songs">
-        <el-table :lazy="true" :data="songList"  class="songs-table" @row-dblclick="playMusic">
-          <el-table-column prop="name" label="音乐标题">
+        <el-table :lazy="true" :data="songList"  @row-dblclick="playMusic">
+          <el-table-column prop="name" label="音乐标题"  show-overflow-tooltip="true">
             <template slot-scope="scope">
               <span>{{scope.row.name}}</span>
               <sup v-if="scope.row.mvid" class="iconfont icon-mv mv-tag">MV</sup>
             </template>
           </el-table-column>
           <el-table-column prop="artists[0].name" label="歌手"></el-table-column>
-          <el-table-column prop="album.name" label="专辑" width="250"></el-table-column>
-          <el-table-column prop="duration" label="时长" width="150">
+          <el-table-column prop="album.name" label="专辑" width="250px" show-overflow-tooltip="true"></el-table-column>
+          <el-table-column prop="duration" label="时长" width="150px">
             <template slot-scope="scope">
               <span>{{scope.row.duration | mstotime}}</span>
             </template>

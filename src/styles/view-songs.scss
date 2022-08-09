@@ -1,20 +1,28 @@
 .songs-container .tab-bar {
   display: flex;
-  justify-content: flex-end;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 }
 
 .songs-container .tab-bar .item {
-  font-size: 15px;
+  font-size: 1rem;
   color: gray;
-  margin-right: 20px;
   cursor: pointer;
 }
 
+.songs-container .tab-bar .item::after {
+  content: '|';
+  padding: 0 1rem;
+}
+
+.songs-container .tab-bar .item:last-child::after {
+  content: '';
+}
 .songs-container .tab-bar .item.active {
   color: #dd6d60;
 }
 
-.songs-container .song-table .song-wrap>span {
+.songs-container .song-table .song-wrap > span {
   margin-top: 20px;
   display: inline-block;
   color: #bebebe;
@@ -56,4 +64,3 @@
 .songs-container .song-table .img-wrap .icon-play::before {
   transform: translateX(0px);
 }
-

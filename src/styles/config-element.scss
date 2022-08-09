@@ -54,10 +54,13 @@
 }
 
 
-
 .el-table {
   border-bottom: none;
   border-collapse: collapse;
+}
+
+.el-talbe thead {
+  line-height: 1.5;
 }
 
 .el-table th>.cell {
@@ -74,8 +77,6 @@
 .el-pagination.is-background .el-pager li:not(.disabled).active {
   background-color: #dd6d60;
 }
-
-
 
 .el-table tbody {
   border-bottom: none;
@@ -118,13 +119,13 @@
 
 .el-table .img-wrap {
   position: relative;
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
 }
 
 .el-table .img-wrap img {
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
   border-radius: 5px;
 }
 

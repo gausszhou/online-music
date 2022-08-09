@@ -1,11 +1,20 @@
-.app-main {
-  .tab-nav {
-    background-color: #fff;
-    // position: absolute;
-    top: 0;
-    width: 100%;
+.app-main-view {
+  padding-left: 1rem;
+  height: 100%;
+  .app-main-nav {
     z-index: 11;
+    top: 0;
+    height: var(--app-tabnav-height);
+    width: 100%;
+    background-color: #fff;
   }
+}
+
+.app-main-page{
+  padding: 0 1rem;
+  padding-top: 1rem;
+  height: calc(100% - var(--app-tabnav-height));
+  overflow-y: scroll;
 }
 
 // 导航

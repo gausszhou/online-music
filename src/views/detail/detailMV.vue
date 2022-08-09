@@ -1,5 +1,5 @@
 <template>
-  <div class="video-container">
+  <div class="video-container display-flex">
     <div class="mv-wrap">
       <h3 class="title">MV详情</h3>
       <!-- mv -->
@@ -18,7 +18,7 @@
           <h2 class="title">{{detail.name}}</h2>
           <span class="date">发布: {{detail.publishTime}}</span>
           <span class="number">播放: {{detail.playCount | numbertocount}}次</span>
-          <!-- <p class="desc">{{detail.desc}}</p> -->
+          <p class="desc">{{detail.desc}}</p>
           <div>
             <span v-for="(item,index) in detail.videoGroup" :key="index">{{item.name}}</span>
           </div>
@@ -59,7 +59,7 @@
         :page-size="limit"
       ></el-pagination>
     </div>
-
+    <!--  -->
     <div class="mv-recommend">
       <h3 class="title">相关推荐</h3>
       <div class="mvs">
@@ -72,7 +72,7 @@
                 <div class="iconfont icon-play"></div>
                 <div class="num">{{item.playCount | numbertocount}}</div>
               </div>
-              <span class="time">{{duration}}</span>
+              <span class="time">{{item.duration}}</span>
             </div>
             <div class="info-wrap">
               <div class="name">{{item.name}}</div>
@@ -157,5 +157,3 @@ export default {
   }
 };
 </script>
-
-<style></style>

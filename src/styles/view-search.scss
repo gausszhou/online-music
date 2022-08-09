@@ -1,10 +1,6 @@
-
-
 .search-container .search-title-box {
   display: flex;
-  align-items: flex-end;
-  margin-bottom: 2rem;
-  margin-top: 2rem;
+  align-items: center;
 }
 
 .search-container .song-wrap {
@@ -47,7 +43,7 @@
   position: relative;
 }
 
-.search-container .items .item .img-wrap>.icon-play {
+.search-container .items .item .img-wrap > .icon-play {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -64,11 +60,11 @@
   opacity: 0;
 }
 
-.search-container .items .item .img-wrap>.icon-play::before {
+.search-container .items .item .img-wrap > .icon-play::before {
   transform: translateX(0px);
 }
 
-.search-container .items .item .img-wrap:hover>.icon-play {
+.search-container .items .item .img-wrap:hover > .icon-play {
   opacity: 1;
 }
 
@@ -120,4 +116,12 @@
 
 .search-container .items.mv .item {
   width: 250px;
+}
+
+.mv-tag {
+  position: relative;
+  top: -5px;
+  right: -5px;
+  font-size: 12px;
+  color: red;
 }

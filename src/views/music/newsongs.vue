@@ -4,46 +4,33 @@
     <div class="tab-bar">
       <span
         class="item"
-        v-for="(item,index) in tagList"
+        v-for="(item, index) in tagList"
         :key="index"
         @click="tag = item.tag"
         :class="{ active: tag == item.tag }"
-      >{{item.label}} |</span>
+        >{{ item.label }}</span
+      >
     </div>
     <!-- 底部的table -->
-    <table class="el-table playlit-table">
-      <thead>
-        <th>序号</th>
-        <th>封面</th>
-        <th>音乐标题</th>
-        <th>歌手</th>
-        <th>专辑</th>
-        <th>时长</th>
-      </thead>
-      <tbody>
-        <tr v-for="(item, index) in list" :key="index" class="el-table__row">
-          <td>{{ index + 1 }}</td>
-          <td>
-            <div class="img-wrap">
-              <img :src="item.album.picUrl" alt />
-              <span @click="getMusic(item)" class="iconfont icon-play"></span>
-            </div>
-          </td>
-          <td>
-            <div class="song-wrap">
-              <div class="name-wrap">
-                <span>{{ item.name }}</span>
-                <span class="iconfont icon-mv"></span>
-              </div>
-              <span></span>
-            </div>
-          </td>
-          <td>{{ item.album.artists['0'].name }}</td>
-          <td>{{ item.album.name }}</td>
-          <td>{{ item.duration | mstotime }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <el-table  :lazy="true" :data="list" border stripe @row-click="getMusic">
+      <el-table-column type="index" label="序号" width="50px"></el-table-column>
+      <el-table-column prop="name" label="标题"></el-table-column>
+      <el-table-column label="歌手">
+        <template slot-scope="scope">
+          <span>{{ scope.row.album.artists['0'].name }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="专辑">
+        <template slot-scope="scope">
+          <span>{{ scope.row.album.name }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="时长">
+        <template slot-scope="scope">
+          <span>{{ scope.row.duration | mstotime }}</span>
+        </template>
+      </el-table-column>
+    </el-table>
     <!-- 分页器-->
     <el-pagination
       @current-change="handleCurrentChange"
@@ -57,7 +44,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'latestMusic',
   data() {
@@ -68,7 +54,7 @@ export default {
         { tag: 7, label: '华语' },
         { tag: 96, label: '欧美' },
         { tag: 8, label: '日本' },
-        { tag: 16, label: '韩国' },
+        { tag: 16, label: '韩国' }
       ],
       // 当前分类标签
       tag: '0',
@@ -77,41 +63,38 @@ export default {
       lists: [],
       total: 100,
       page: 1
-    };
+    }
   },
   watch: {
     tag() {
-      this.getTopSong();
+      this.getTopSong()
     },
     page(newV) {
-      this.list = this.lists.slice((newV - 1) * 10, newV * 10);
+      this.list = this.lists.slice((newV - 1) * 10, newV * 10)
     }
   },
   created() {
-    this.getTopSong();
+    this.getTopSong()
   },
   methods: {
     // 获取列表数据
     getTopSong() {
       // 获取 最新音乐数据
       let params = {
-        type: this.tag,
-      };
-      this.$http.getTopSong(params).then(res => {
-        this.lists = res.data.data;
-        this.list = this.lists.slice((this.page - 1) * 10, this.page * 10);
-      });
-
+        type: this.tag
+      }
+      this.$http.getTopSong(params).then((res) => {
+        this.lists = res.data.data
+        this.list = this.lists.slice((this.page - 1) * 10, this.page * 10)
+      })
     },
     // 播放歌曲
     getMusic(item) {
-      this.$store.dispatch('getMusic', item);
+      this.$store.dispatch('getMusic', item)
     },
     handleCurrentChange(page) {
-      this.page = page;
+      this.page = page
     }
   }
 }
 </script>
-
-<style></style>

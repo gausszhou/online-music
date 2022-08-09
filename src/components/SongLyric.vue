@@ -1,7 +1,7 @@
 <template>
-  <vdrr class="lyric" :draggable="true" :resizable="false" :h="80">
-    <div>{{$store.state.lyric[index].word||''}}</div>
-  </vdrr>
+  <VueDragResize class="lyric" :draggable="true" :resizable="false" :h="80">
+    <div>{{ $store.state.lyric[index].word || '' }}</div>
+  </VueDragResize>
 </template>
 
 <script>
@@ -16,18 +16,18 @@ export default {
   data() {
     return {
       index: 0
-    };
+    }
   },
   computed: {
     lyric() {
-      return this.$store.state.lyric;
+      return this.$store.state.lyric
     }
   },
   watch: {
     time(newV) {
       for (let i = 0; i < this.lyric.length; i++) {
         if (newV > this.lyric[i].time) {
-          this.index = i;
+          this.index = i
         }
       }
     }
@@ -38,7 +38,7 @@ export default {
 <style scoped>
 .lyric {
   z-index: 99998;
-  position: fixed;
+  position: absolute;
   overflow: hidden;
   bottom: 90px;
   height: 80px;
@@ -47,8 +47,8 @@ export default {
   min-width: 50%;
   transform: translateX(-50%);
   border-radius: 2px;
-  background-color: rgba(0, 0, 0, 0.62);
-  color: #f7362c;
+  background-color: rgba(128, 128, 128, 0.62);
+  color: #409eff;
   text-shadow: 1px 1px 1px rgba(128, 0, 0, 0.38);
   font-size: 28px;
   display: flex;

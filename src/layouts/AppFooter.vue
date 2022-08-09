@@ -1,49 +1,86 @@
 <template>
-  <div class="app-footer audio-box" :class="{'nosongs':this.playList.length==0}">
+  <div
+    class="app-footer audio-box"
+    :class="{ nosongs: this.playList.length == 0 }"
+  >
     <div class="audio-bar" @mouseup="mouseup">
       <!-- 左边的歌曲信息 -->
       <div class="song-info">
-        <div class="img-box" @click="toggleSongDrawer()" :class="{show:song.picUrl,open:songDrawerVisible}">
+        <div
+          class="img-box"
+          @click="toggleSongDrawer()"
+          :class="{ show: song.picUrl, open: songDrawerVisible }"
+        >
           <i class="iconfont arrow arrow-left icon-arrow-left-bottom"></i>
           <i class="iconfont arrow arrow-right icon-arrow-right-top"></i>
-          <img class="img" :class="{ 'running':isPlay&&(!songDrawerVisible) }" :src="song.picUrl" />
+          <img
+            class="img"
+            :class="{ running: isPlay && !songDrawerVisible }"
+            :src="song.picUrl"
+          />
         </div>
         <div class="name-box">
-          <div class="text-over-elli song-name ft_16">{{song.name}}</div>
+          <div class="text-over-elli song-name ft_16">{{ song.name }}</div>
           <div>
             <span
               class="text-over-elli song-author ft_14"
-              v-for="(item,index) in song.author"
+              v-for="(item, index) in song.author"
               :key="index"
-            >{{item.name}}&nbsp;&nbsp;</span>
+              >{{ item.name }}&nbsp;&nbsp;</span
+            >
           </div>
         </div>
       </div>
       <!-- 播放控制 -->
       <div class="song-control">
         <div class="switch-control">
-          <i class="iconfont ft_28 button-control" @click="swtichMode" :class="modeList[mode].class"></i>
-          <i class="iconfont button-control ft_28 icon-pre" @click="switchSong(-1)"></i>
+          <i
+            class="iconfont ft_28 button-control"
+            @click="swtichMode"
+            :class="modeList[mode].class"
+          ></i>
+          <i
+            class="iconfont button-control ft_28 icon-pre"
+            @click="switchSong(-1)"
+          ></i>
           <i
             class="iconfont button-control button-toggle ft_28"
-            :class="isPlay  ? 'icon-pause':'icon-play'"
+            :class="isPlay ? 'icon-pause' : 'icon-play'"
             @click="toggleSong()"
           ></i>
-          <i class="iconfont button-control ft_28 icon-next" @click="switchSong(1)"></i>
-          <i class="button-control ft_20 button-lyric" @click="toggleLyric">词</i>
+          <i
+            class="iconfont button-control ft_28 icon-next"
+            @click="switchSong(1)"
+          ></i>
+          <i class="button-control ft_20 button-lyric" @click="toggleLyric"
+            >词</i
+          >
         </div>
-        <div class="progress display-flex">
-          <span class="tiem">{{currentTime | stotime}}</span>
-          <el-slider class="control-progress" v-model="amount" :show-tooltip="false" @change="changeProgress"></el-slider>
-          <span class="time">{{totalTime | stotime}}</span>
+        <div class="progress">
+          <span class="time">{{ currentTime | stotime }}</span>
+          <el-slider
+            class="control-progress"
+            v-model="amount"
+            :show-tooltip="false"
+            @change="changeProgress"
+          ></el-slider>
+          <span class="time">{{ totalTime | stotime }}</span>
         </div>
       </div>
       <!-- 音量控制和播放列表 -->
       <div class="list-control display-flex">
         <div class="flex_1"></div>
         <i class="iconfont ft_28 icon-volume"></i>
-        <el-slider class="control-volume" v-model="volume" :show-tooltip="false" @change="changevolume(volume)"></el-slider>
-        <i class="iconfont ft_28 button-menu icon-menu" @click="openDrawer()"></i>
+        <el-slider
+          class="control-volume"
+          v-model="volume"
+          :show-tooltip="false"
+          @change="changevolume(volume)"
+        ></el-slider>
+        <i
+          class="iconfont ft_28 button-menu icon-menu"
+          @click="openPlayList()"
+        ></i>
       </div>
     </div>
     <!-- 真正的audio标签，不显示 -->
@@ -58,22 +95,31 @@
     ></audio>
     <!-- 播放列表组件 -->
     <transition-group name="fade">
-      <SongPlayList class="play-list" key="playList" v-if="$store.state.menuVisible"/>
-      <SongLyric key="lyric" v-if="lyricVisible" :time="currentTime"/>
+      <SongPlayList
+        class="play-list"
+        key="playList"
+        v-if="$store.state.menuVisible"
+        @change="closeSongPlayList"
+      />
+      <SongLyric key="lyric" v-if="songLyricVisible" :time="currentTime" />
     </transition-group>
     <transition name="drawer">
-      <SongDrawer key="songDrawer" v-if="songDrawerVisible" @change="closeSongDrawer()" />
+      <SongDrawer
+        key="drawer"
+        v-if="songDrawerVisible"
+        @change="closeSongDrawer()"
+      />
     </transition>
   </div>
 </template>
 
 <script>
-import SongPlayList from "@/components/SongPlayList.vue";
-import SongLyric from "@/components/SongLyric.vue";
-import SongDrawer from "@/components/SongDrawer.vue";
+import SongPlayList from '@/components/SongPlayList.vue'
+import SongLyric from '@/components/SongLyric.vue'
+import SongDrawer from '@/components/SongDrawer.vue'
 
 export default {
-  name: "AppFooter",
+  name: 'AppFooter',
   components: {
     SongPlayList,
     SongLyric,
@@ -95,7 +141,7 @@ export default {
           label: '单曲循环'
         },
         {
-          mode: 2,// 顺序播放，最后一首播放完毕，暂停
+          mode: 2, // 顺序播放，最后一首播放完毕，暂停
           class: 'icon-mode-order',
           label: '顺序播放'
         },
@@ -113,148 +159,154 @@ export default {
       loaded: false,
       orderList: [],
       current: -1,
-      lyricVisible: false,
+      songLyricVisible: false,
       isSlider: false,
       songDrawerVisible: false
-    };
+    }
   },
   computed: {
     isPlay() {
-      return this.$store.state.isPlay;
+      return this.$store.state.isPlay
     },
     song() {
-      return this.$store.state.song;
+      return this.$store.state.song
     },
     playList() {
-      return this.$store.state.playList;
+      return this.$store.state.playList
     }
   },
   watch: {
     song: {
       handler() {
-        this.loaded = false;
-
+        this.loaded = false
       },
       deep: true
     }
   },
   mounted() {
     // 设置初始音量
-    this.$refs.audio.volume = this.volume / 100;
+    this.$refs.audio.volume = this.volume / 100
   },
   methods: {
     loadeddata() {
-      this.loaded = true;
+      this.loaded = true
     },
     swtichMode() {
-      this.mode = (this.mode + this.modeList.length + 1) % this.modeList.length;
+      this.mode = (this.mode + this.modeList.length + 1) % this.modeList.length
     },
     switchSong(num) {
-      let number = 0;
+      let number = 0
       switch (this.mode) {
         case 0:
-          number = num;
-          this.setSong(number);
-          break;
+          number = num
+          this.setSong(number)
+          break
         case 1:
-          number = 0;
-          this.setSong(number);
-          break;
+          number = 0
+          this.setSong(number)
+          break
         case 2:
-          if (this.$store.state.activeIndex < this.$store.state.playList.length - 1) {
-            number = 1;
-            this.setSong(number);
+          if (
+            this.$store.state.activeIndex <
+            this.$store.state.playList.length - 1
+          ) {
+            number = 1
+            this.setSong(number)
           }
-          break;
+          break
         case 3:
-          number = Math.floor(Math.random() * this.$store.state.playList.length);
+          number = Math.floor(Math.random() * this.$store.state.playList.length)
           if (num == -1) {
-            this.current == this.current - 1;
-            number = this.orderList[this.current] || -1;
-            this.setSong(number);
+            this.current == this.current - 1
+            number = this.orderList[this.current] || -1
+            this.setSong(number)
           } else {
-            this.orderList.push(number);
-            this.current++;
-            this.setSong(number);
+            this.orderList.push(number)
+            this.current++
+            this.setSong(number)
           }
-          break;
+          break
         default:
-          break;
+          break
       }
     },
     setSong(number) {
-      let list = this.$store.state.playList;
-      let index = this.$store.state.activeIndex;
+      let list = this.$store.state.playList
+      let index = this.$store.state.activeIndex
       if (list.length > 1) {
-        this.$refs.audio.pause();
-        this.$store.commit('setIsPlay', false);
-        index = (index + list.length + number) % list.length;
-        let next = list[index];
-        this.$store.dispatch('playMusic', next);
-        this.$store.commit('setIndex', index);
-
+        this.$refs.audio.pause()
+        this.$store.commit('setIsPlay', false)
+        index = (index + list.length + number) % list.length
+        let next = list[index]
+        this.$store.dispatch('playMusic', next)
+        this.$store.commit('setIndex', index)
       }
     },
     toggleSong() {
       if (this.isPlay) {
-        this.$store.commit('setIsPlay', false);
-        this.$refs.audio.pause();
+        this.$store.commit('setIsPlay', false)
+        this.$refs.audio.pause()
       } else {
         if (this.song.audioUrl) {
-          this.$store.commit('setIsPlay', true);
-          this.$refs.audio.play();
+          this.$store.commit('setIsPlay', true)
+          this.$refs.audio.play()
           this.audioEffects()
         }
       }
     },
     toggleLyric() {
       if (this.song.audioUrl && this.$store.state.lyric.length) {
-        this.lyricVisible = !this.lyricVisible;
+        this.songLyricVisible = !this.songLyricVisible
       }
     },
     mouseup() {
       setTimeout(() => {
-        this.isSlider = false;
-      }, 100);
+        this.isSlider = false
+      }, 100)
     },
     changeProgress(e) {
-      this.isSlider = true;
-      this.$refs.audio.currentTime = e * this.totalTime / 100;
-      this.amount = e;
+      this.isSlider = true
+      this.$refs.audio.currentTime = (e * this.totalTime) / 100
+      this.amount = e
     },
     changevolume(e) {
-      this.$refs.audio.volume = e / 100;
+      this.$refs.audio.volume = e / 100
     },
     onAudioTimeUpdate() {
       // 防止NaN
       if (this.loaded) {
-        this.totalTime = this.$refs.audio.duration;
-        this.currentTime = this.$refs.audio.currentTime;
-        if (!this.isSlider) this.amount = 100 * this.currentTime / this.totalTime;
+        this.totalTime = this.$refs.audio.duration
+        this.currentTime = this.$refs.audio.currentTime
+        if (!this.isSlider)
+          this.amount = (100 * this.currentTime) / this.totalTime
         if (this.amount >= 100) {
-          this.switchSong(1);
+          this.switchSong(1)
         }
       }
     },
     // 打开播放列表
-    openDrawer() {
-      this.$store.commit('setMenuVisible', !this.$store.state.menuVisible);
+    openPlayList() {
+      this.$store.commit('setMenuVisible', !this.$store.state.menuVisible)
+    },
+    closeSongPlayList() {
+      this.$store.commit('setMenuVisible', !this.$store.state.menuVisible)
     },
     // 打开歌曲详情
     toggleSongDrawer() {
-      this.songDrawerVisible = !this.songDrawerVisible;
+      this.songDrawerVisible = !this.songDrawerVisible
     },
     closeSongDrawer() {
-      this.songDrawerVisible = false;
+      this.songDrawerVisible = false
     },
+
     audioEffects() {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      const audioContext = new AudioContext();
-      const audioElement = this.$refs.audio;
-      console.log(audioContext, audioElement);
-    },
-  },
-};
+      const AudioContext = window.AudioContext || window.webkitAudioContext
+      const audioContext = new AudioContext()
+      const audioElement = this.$refs.audio
+      console.log(audioContext, audioElement)
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -270,12 +322,13 @@ export default {
 .drawer-enter-active,
 .drawer-leave-active {
   transition: transform 0.5s; // 不能用all
-  transform-origin: left bottom;
-  transform: scaleX(1) scaleY(1);
+  transform-origin:  bottom;
+  transform: translateY(0);
 }
 .drawer-enter, .drawer-leave-to /* .fade-leave-active below version 2.1.8 */ {
   transition: transform 0.5s;
-  transform-origin: left bottom;
-  transform: scaleX(0) scaleY(0);
+  transform-origin: bottom;
+  transform: translateY(100%);
+
 }
 </style>

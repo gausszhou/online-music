@@ -1,44 +1,45 @@
 <template>
-  <div class="video-container">
-    <el-tabs v-model="tab" @tab-click="switchTab" class="tab-nav">
-      <el-tab-pane name="latestMV">
+  <div class="app-main-view video-container">
+    <el-tabs v-model="tab" @tab-click="switchTab" class="app-main-nav">
+      <el-tab-pane name="newMV">
         <span slot="label">视频</span>
       </el-tab-pane>
       <el-tab-pane name="allMV">
         <span slot="label">MV</span>
       </el-tab-pane>
     </el-tabs>
-    <keep-alive>
-      <router-view></router-view>
-    </keep-alive>
+    <div class="app-main-page">
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'videoVue',
-  components: {
-  },
+  components: {},
   data() {
     return {
-      tab: 'latestMV'
-    };
+      tab: 'newMV'
+    }
   },
   watch: {
     '$route.name': {
       handler(newV) {
-        this.tab = newV;
+        this.tab = newV
       }
     }
   },
   methods: {
     switchTab() {
-      this.goto(this.tab);
+      this.goto(this.tab)
     },
     goto(name) {
-      if (this.$route.name == name) return;
-      this.$router.replace({ name });
-    },
+      if (this.$route.name == name) return
+      this.$router.replace({ name })
+    }
   }
 }
 </script>

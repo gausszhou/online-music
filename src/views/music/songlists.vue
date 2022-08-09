@@ -1,5 +1,5 @@
 <template>
-  <div class="playlists-container">
+  <div class="songlist-container">
     <div class="top-card">
       <div class="icon-wrap">
         <img :src="topList.coverImgUrl" alt />
@@ -7,7 +7,6 @@
       <div class="content-wrap">
         <div class="tag" @click="toSongSheetDetail(topList)">精品歌单</div>
         <div class="title">{{ topList.name }}</div>
-        <div class="info">{{ topList.description }}</div>
       </div>
       <img :src="topList.coverImgUrl" alt class="bg" />
       <div class="bg-mask"></div>
@@ -30,7 +29,6 @@
           <div class="item" v-for="(item, index) in list" :key="index" @click="toSongSheetDetail(item)">
             <div class="img-wrap">
               <div class="num-wrap">
-                播放量:
                 <span class="num">{{ item.playCount | numbertocount }}</span>
               </div>
               <img :src="item.coverImgUrl" alt />

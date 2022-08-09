@@ -1,100 +1,78 @@
-
-
 .singer-container {
   padding-top: 20px;
 }
 
-.singer-container .filter-wrap>div {
+.singer-container .filter-wrap > div {
   margin-bottom: 10px;
   vertical-align: baseline;
   display: flex;
   align-items: center;
 }
 
-.singer-container .filter-wrap>div .tabs-wrap>span {
+.singer-container .filter-wrap > div .tabs-wrap > span {
   font-size: 16px;
   height: 100%;
   margin: 5px 10px;
 }
 
-.singer-container .filter-wrap>div li {
+.singer-container .filter-wrap > div li {
   font-size: 14px;
   height: 100%;
   margin: 5px 10px;
 }
 
-.singer-container .filter-wrap>div span.title {
+.singer-container .filter-wrap > div span.title {
   color: gray;
   cursor: pointer;
   padding: 5px 20px;
 }
 
-.singer-container .filter-wrap>div span.title.active {
+.singer-container .filter-wrap > div span.title.active {
   color: #dd6d60;
   background-color: #fcf6f5;
   border-radius: 20px;
 }
 
-.singer-container .filter-wrap>div span.title::before {
-  content: "";
+.singer-container .filter-wrap > div span.title::before {
+  content: '';
 }
 
-.singer-container .filter-wrap>div ul {
+.singer-container .filter-wrap > div ul {
   display: flex;
   flex-wrap: wrap;
 }
 
-.singer-container .filter-wrap>div ul li:not(:last-child) {
+.singer-container .filter-wrap > div ul li:not(:last-child) {
   border-right: 1px solid #f2f2f1;
 }
 
-.singer-container .mvs .items {
+//
+
+.singer-container .singers .items {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
 }
 
-.singer-container .mvs .items .item {
-  width: 250px;
+.singer-container .singers .items .item {
+  flex: 0 0 20%;
   cursor: pointer;
-  margin-right: 25px;
-  margin-bottom: 30px;
+  margin-bottom: 1rem;
 }
 
-.singer-container .mvs .items .item .img-wrap {
+.singer-container .singers .items .item {
   width: 100%;
   position: relative;
+  overflow: hidden;
 }
 
-.singer-container .mvs .items .item .img-wrap img {
-  width: 100%;
+.singer-container .singers .items .item .img-wrap img {
+  width: 160px;
+  height: 160px;
   border-radius: 5px;
 }
 
-.singer-container .mvs .items .item .img-wrap .num-wrap {
-  position: absolute;
-  color: white;
-  top: 0;
-  right: 0;
-  display: flex;
-  align-content: center;
+.singer-container .singers .items .item .info-wrap .name {
+  margin-top: 0.5rem;
   font-size: 15px;
-  padding-right: 5px;
-  padding-top: 2px;
-}
-
-.singer-container .mvs .items .item .img-wrap .num-wrap .icon-play {
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  margin-right: 5px;
-}
-
-.singer-container .mvs .items .item .info-wrap .name {
-  font-size: 15px;
-}
-
-.singer-container .mvs .items .item .info-wrap .singer {
-  font-size: 14px;
-  color: #c5c5c5;
 }

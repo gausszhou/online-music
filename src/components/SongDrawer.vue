@@ -26,12 +26,12 @@ export default {
 
 <style lang="scss" scoped>
 .song-drawer {
-  position: fixed;
-  z-index: 12;
+  position: absolute;
+  z-index: 9;
   left:0;
-  bottom: 50px;
+  bottom: 80px;
   width: 100vw;
-  height: calc(100vh - 50px);
+  height: calc(100vh - 80px);
   background-color: #f7f7f7;
 }
 
@@ -89,6 +89,7 @@ export default {
   outline: none;
   background-color: #f1f3f4;
 }
+
 /* 旋转的动画 */
 @keyframes Rotate {
   from {

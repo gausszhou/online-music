@@ -1,5 +1,5 @@
 <template>
-  <div class="latest-mv-container">
+  <div class="mv-container">
     <div class="filter-wrap">
       <div class="seciton-wrap">
         <!-- 分类切换 地区 -->

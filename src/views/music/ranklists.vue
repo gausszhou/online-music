@@ -1,21 +1,17 @@
 <template>
-  <div class="ranklist-container">
-    <div class="rankList">
-      <h3 class="title"></h3>
-      <div class="items">
-        <div class="item" v-for="(item, index) in list" :key="index" @click="toSongSheetDetail(item)">
-          <div class="img-wrap">
-            <div class="desc-wrap">
-              <span class="desc">{{item.description}}</span>
-            </div>
-            <div class="updateFrequency">{{item.updateFrequency}}</div>
-            <img :src="item.coverImgUrl" alt />
-            <span class="iconfont icon-play"></span>
-          </div>
-          <p class="name">
-            {{ item.name }}
-            <span class="num">{{item.playCount | numbertocount}}</span>
-          </p>
+  <div class="rank-list">
+    <h3 class="title">全球榜</h3>
+    <div class="items">
+      <div
+        class="item"
+        v-for="(item, index) in list"
+        :key="index"
+        @click="toSongSheetDetail(item)"
+      >
+        <div class="item-box img-wrap">
+          <img :src="item.coverImgUrl" alt />
+          <span class="iconfont icon-play"></span>
+            <span class="num">{{ item.playCount | numbertocount }}</span>
         </div>
       </div>
     </div>
@@ -27,17 +23,17 @@ export default {
   name: 'rankList',
   data() {
     return {
-      list: [],
-    };
+      list: []
+    }
   },
   created() {
-    this.getTopList();
+    this.getTopList()
   },
   methods: {
     getTopList() {
-      this.$http.getTopList().then(res => {
-        this.list = res.data.list;
-      });
+      this.$http.getTopList().then((res) => {
+        this.list = res.data.list
+      })
     },
     toSongSheetDetail(item) {
       this.$router.push({
@@ -45,11 +41,10 @@ export default {
         query: {
           id: item.id
         }
-      });
-    },
-  },
+      })
+    }
+  }
 }
 </script>
 
-<style>
-</style>
+<style></style>

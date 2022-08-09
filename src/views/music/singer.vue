@@ -3,11 +3,15 @@
     <div class="filter-wrap">
       <div class="seciton-wrap">
         <!-- 分类切换 语种 -->
-
         <ul class="tabs-wrap">
           <span class="section-type">语种:</span>
-          <li class="tab" v-for="(item,index) in areaList" :key="index">
-            <span class="title" :class="{ active: area == item.value }" @click="area = item.value">{{item.label}}</span>
+          <li class="tab" v-for="(item, index) in areaList" :key="index">
+            <span
+              class="title"
+              :class="{ active: area == item.value }"
+              @click="area = item.value"
+              >{{ item.label }}</span
+            >
           </li>
         </ul>
       </div>
@@ -15,26 +19,40 @@
       <div class="type-wrap">
         <ul class="tabs-wrap">
           <span class="type-type">分类:</span>
-          <li class="tab" v-for="(item,index) in typeList" :key="index">
-            <span class="title" :class="{ active: type == item.value }" @click="type = item.value">{{item.label}}</span>
+          <li class="tab" v-for="(item, index) in typeList" :key="index">
+            <span
+              class="title"
+              :class="{ active: type == item.value }"
+              @click="type = item.value"
+              >{{ item.label }}</span
+            >
           </li>
         </ul>
       </div>
       <div class="init-wrap">
         <ul class="tabs-wrap">
           <span class="init-type">筛选:</span>
-          <li class="tab" v-for="(item,index) in initialList" :key="index">
-            <span class="title" :class="{ active: initial == item.value }" @click="initial = item.value">{{item.label}}</span>
+          <li class="tab" v-for="(item, index) in initialList" :key="index">
+            <span
+              class="title"
+              :class="{ active: initial == item.value }"
+              @click="initial = item.value"
+              >{{ item.label }}</span
+            >
           </li>
         </ul>
       </div>
     </div>
-    <div class="mvs singers">
+    <div class="singers">
       <div class="items">
-        <div class="item" v-for="(item, index) in list" :key="index">
+        <div
+          class="item"
+          v-for="(item, index) in list"
+          :key="index"
+          @click="toSingerDetail(item)"
+        >
           <div class="img-wrap">
             <img :src="item.img1v1Url" alt />
-            <div class="num-wrap"></div>
           </div>
           <div class="info-wrap">
             <div class="name">{{ item.name }}</div>
@@ -56,7 +74,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'singer',
   data() {
@@ -67,7 +84,8 @@ export default {
         { value: 96, label: '欧美' },
         { value: 8, label: '日本' },
         { value: 16, label: '韩国' },
-        { value: 0, label: '其他' }],
+        { value: 0, label: '其他' }
+      ],
       typeList: [
         { value: -1, label: '全部' },
         { value: 1, label: '男歌手' },
@@ -111,23 +129,23 @@ export default {
       type: -1,
       initial: -1,
       list: []
-    };
+    }
   },
   // 侦听器
   watch: {
     area() {
-      this.handleTagChange();
+      this.handleTagChange()
     },
     type() {
-      this.handleTagChange();
+      this.handleTagChange()
     },
     initial() {
-      this.handleTagChange();
+      this.handleTagChange()
     }
   },
   created() {
     // 获取数据
-    this.getData();
+    this.getData()
   },
   methods: {
     getData() {
@@ -137,20 +155,28 @@ export default {
         initial: this.initial,
         limit: this.limit,
         offset: (this.page - 1) * this.limit
-      };
-      this.$http.getArtistList(params).then(res => {
-        this.list = res.data.artists;
-      });
+      }
+      this.$http.getArtistList(params).then((res) => {
+        this.list = res.data.artists
+      })
     },
     // 页码改变的回调函数
     handleCurrentChange(val) {
-      this.page = val;
-      this.getData();
+      this.page = val
+      this.getData()
     },
     // 标签改变的回调函数
     handleTagChange() {
-      this.page = 1;
-      this.getData();
+      this.page = 1
+      this.getData()
+    },
+    toSingerDetail(item) {
+      this.$router.push({
+        name: 'detailSinger',
+        query: {
+          id: item.id
+        }
+      })
     }
   }
 }

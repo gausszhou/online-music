@@ -1,10 +1,19 @@
 <template>
   <div class="app-header">
     <div class="left-box">
-      <img class="app-header-logo" :src="logoUrl"  @cilck="goto('home')" alt />
+      <div class="app-header-logo">
+        <img :src="logoUrl" @click="goto('recommend')" alt />
+      </div>
+
       <div class="app-header-history">
-        <span class="app-header-history-icon iconfont icon-arrow-left" @click="go(-1)"></span>
-        <span class="app-header-history-icon iconfont icon-arrow-right" @click="go(1)"></span>
+        <span
+          class="app-header-history-icon iconfont icon-arrow-left"
+          @click="go(-1)"
+        ></span>
+        <span
+          class="app-header-history-icon iconfont icon-arrow-right"
+          @click="go(1)"
+        ></span>
       </div>
     </div>
     <div class="right-box">
@@ -22,12 +31,15 @@
         </span>
       </div>
     </div>
-    <LoginDialog v-if="loginDialogVisible" @change="loginDialogChange"></LoginDialog>
+    <LoginDialog
+      v-if="loginDialogVisible"
+      @change="loginDialogChange"
+    ></LoginDialog>
   </div>
 </template>
 
 <script>
-import LoginDialog from "@/components/LoginDialog.vue";
+import LoginDialog from '@/components/LoginDialog.vue'
 export default {
   name: 'AppHeader',
   components: {
@@ -37,38 +49,39 @@ export default {
     return {
       query: '',
       loginDialogVisible: false,
-      logoUrl: require('@/assets/images/logo.png'),
-    };
+      logoUrl: require('@/assets/images/logo.png')
+    }
   },
   methods: {
     openLoginDialog() {
-      this.loginDialogVisible = true;
+      this.loginDialogVisible = true
     },
     loginDialogChange() {
-      this.loginDialogVisible = false;
+      this.loginDialogVisible = false
     },
     search() {
       if (this.query) {
-        this.$store.commit('setQuery', this.query);
+        this.$store.commit('setQuery', this.query)
         this.$router.replace({
           name: 'search',
           query: {
             keywords: this.query
           }
-        });
+        })
       } else {
         this.$message({
           message: '请输入有效内容',
           type: 'warning'
-        });
+        })
       }
     },
-    goto(name){
-      this.$router.push(name)
+    goto(name) {
+      console.log(name)
+      this.$router.replace({ name })
     },
     go(num) {
-      this.$router.go(num);
+      this.$router.go(num)
     }
-  },
+  }
 }
 </script>

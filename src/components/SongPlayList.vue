@@ -1,31 +1,40 @@
 <template>
-  <div class="play-list">
-    <div class="play-list-title">播放列表</div>
-    <div class="play-list-control">
-      <div class="total">总{{$store.state.playList.length}}首</div>
-      <div class="subscribe">
-        <i></i>
-        收藏全部
-      </div>
-      <div class="clearall">
+  <div class="playlist">
+    <div class="playlist-mask" @click="close"></div>
+    <div class="playlist-content">
+    <h2 class="playlist-title">当前播放</h2>
+    <div class="playlist-control">
+      <div class="total">总{{ $store.state.playList.length }}首</div>
+      <div class="clear">
         <i></i>
         清空全部
       </div>
     </div>
-    <ul class="play-list-box">
-      <li class="song-item text-over-elli" v-for="(item,index) in $store.state.playList" :key="item.id">
-        <span class="name text-over-elli">{{item.name}}</span>
+    <ul class="playlist-box">
+      <li
+        class="song-item text-over-elli"
+        v-for="(item, index) in $store.state.playList"
+        :key="item.id"
+      >
+        <span class="name text-over-elli">{{ item.name }}</span>
         <span class="mv-tag" v-if="item.mvid">MV</span>
-        <span class="author" v-for="(author,index) in item.author" :key="index">{{author.name}}.</span>
-        <span class="album text-over-elli">{{item.albumname}}</span>
+        <span class="author" v-for="(author, index) in item.author" :key="index"
+          >{{ author.name }}.</span
+        >
+        <span class="album text-over-elli">{{ item.albumname }}</span>
         <a
           href="javascript:;"
           class="iconfont play-button"
-          :class="index == $store.state.activeIndex?'icon-pause-mobile':'icon-play-mobile'"
-          @click="playMusic(item,index)"
+          :class="
+            index == $store.state.activeIndex
+              ? 'icon-pause-mobile'
+              : 'icon-play-mobile'
+          "
+          @click="playMusic(item, index)"
         ></a>
       </li>
     </ul>
+    </div>
   </div>
 </template>
 
@@ -34,48 +43,55 @@ export default {
   name: 'playList',
   methods: {
     playMusic(item, index) {
-      this.$store.dispatch('playMusic', item);
-      this.$store.commit('setIndex', index);
+      this.$store.dispatch('playMusic', item)
+      this.$store.commit('setIndex', index)
     },
-  },
+    close(){
+      this.$emit("change")
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-.play-list {
-  z-index: 13;
+.playlist-mask{
   position: fixed;
+  z-index: 8;
+  left: 0;
   right: 0;
-  bottom: 60px;
-  width: 420px;
-  height: calc(100vh - 100px);
+  top: 0;
+  bottom: 0;
+}
+.playlist-content {
+  position: absolute;
+  z-index: 9;
+  right: 0;
+  bottom: 80px;
+  width: 440px;
+  height: calc(100vh - 130px);
+  padding: 0 10px;
   background-color: #fff;
-  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  border-left: 1px solid #eee;
   border-bottom: 1px solid #eee;
-  overflow-y: auto;
-  .play-list-title {
-    height: 40px;
-    line-height: 40px;
+  .playlist-title {
+    height: 32px;
+    line-height: 32px;
     width: 210px;
-    margin: 20px auto;
-    text-align: center;
-    border: 1px solid rgba(0, 0, 0, 0.5);
-    border-radius: 40px;
-    font-size: 20px;
+    font-size: 18px;
   }
-  .play-list-control {
+  .playlist-control {
     display: flex;
-    margin: 10px 5px 5px 5px;
-    padding: 0 0 5px 0;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
     .total {
       width: 180px;
     }
-    .subscribe {
-      flex: 1;
-    }
-    .clearall {
-      flex: 1;
+    .clear {
+      color: #517eaf;
+      cursor: pointer;
     }
   }
 }
@@ -83,8 +99,6 @@ export default {
 .song-item {
   width: 100%;
   height: 30px;
-  padding: 0;
-  margin: 8px;
   overflow: hidden;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   display: flex;
@@ -123,7 +137,7 @@ export default {
     }
   }
 }
-.play-list-box {
+.playlist-box {
   overflow-y: auto;
   height: calc(100vh - 230px);
 }

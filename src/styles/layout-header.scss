@@ -4,6 +4,10 @@
   align-items: center;
 }
 
+.app-header .app-header-logo{
+  cursor: pointer;
+  width: var(--app-sidenav-width);
+}
 .app-header .left-box .app-header-history {
   padding-left: 25px;
   margin-right: 10px;
@@ -57,4 +61,8 @@
 
 .app-header .app-header-search input {
   width: 300px;
+  border-radius: 50px;
+  background-color: rgba(0, 0, 0, .1);
+  border: none;
+  color: #fff;
 }

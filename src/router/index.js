@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import Music from '@/views/music/index.vue'
 import Recommend from '@/views/music/recommend.vue'
+import Video from '@/views/video/index.vue'
 // 注册路由插件 VueRouter 使其全局可用
 Vue.use(VueRouter)
 
@@ -37,16 +38,10 @@ const routes = [
         meta: { title: '歌手' }
       },
       {
-        name: 'playlists',
-        path: 'playlists',
-        component: () => import('@/views/music/playlists.vue'),
+        name: 'songlists',
+        path: 'songlists',
+        component: () => import('@/views/music/songlists.vue'),
         meta: { title: '歌单' }
-      },
-      {
-        name: 'station',
-        path: 'station',
-        component: () => import('@/views/music/station.vue'),
-        meta: { title: '主播电台' }
       },
       {
         name: 'ranklists',
@@ -59,7 +54,7 @@ const routes = [
   {
     name: 'video',
     path: '/video',
-    component: () => import('@/views/video/index.vue'),
+    component: Video,
     children: [
       {
         name: 'allMV',

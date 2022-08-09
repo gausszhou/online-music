@@ -4,6 +4,8 @@
 @import "./config-atom.scss";
 // 引入组件库调整后样式
 @import "./config-element.scss";
+// 引入 CSS 变量
+@import "./config-variable.scss";
 
 @import "./layout.scss";
 @import "./layout-header.scss";
@@ -12,9 +14,9 @@
 
 
 @import "./view-music.scss";
-@import "./view-playlist.scss";
 @import "./view-search.scss";
 @import "./view-singer.scss";
+@import "./view-songlist.scss";
 @import "./view-songs.scss";
 @import "./view-video.scss";
 @import "./view-audio.scss";
