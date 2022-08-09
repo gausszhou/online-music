@@ -27,6 +27,7 @@
         </div>
       </div>
     </div>
+    <!--  -->
     <el-tabs v-model="activeIndex">
       <el-tab-pane label="歌曲列表" name="1">
         <table class="el-table playlist-table">

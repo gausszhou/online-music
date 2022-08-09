@@ -1,6 +1,6 @@
 <template>
   <div class="music-container">
-    <el-tabs v-model="tab" @tab-click="switchTab" class="tab-nav">
+    <el-tabs v-model="tab" @tab-click="switchTab" class="app-main-nav tab-nav">
       <el-tab-pane name="recommend">
         <span slot="label">个性推荐</span>
       </el-tab-pane>

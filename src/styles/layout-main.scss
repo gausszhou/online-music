@@ -1,7 +1,7 @@
-.main-container {
+.app-main {
   .tab-nav {
     background-color: #fff;
-    position: absolute;
+    // position: absolute;
     top: 0;
     width: 100%;
     z-index: 11;
@@ -17,7 +17,6 @@
   color: #000;
 }
 
-
 .el-tabs__item.is-active {
   color: #333;
   font-size: 20px;
@@ -28,10 +27,6 @@
   background-color: #c3473a;
 }
 
-
 .el-tabs__nav-wrap::after {
   display: none;
 }
-
-@import "./main/music.scss";
-@import "./main/video.scss";

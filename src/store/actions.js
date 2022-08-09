@@ -1,6 +1,7 @@
 import http from "@/api/http";
 export default {
   async getMusic(store, payload) {
+    console.log("action.getMusic",payload)
     let name = payload.name;
     let albumname = payload.albumname || '';
     let picUrl = payload.picUrl || '';
@@ -8,7 +9,8 @@ export default {
     let author = [payload.author];
     let musicId = payload.musicId || payload.id;
     store.commit('setIsPlay', false);
-    await http.getSongUrl({ id: musicId }).then(res => {
+    await  http.getSongUrl({ id: musicId }).then(res => {
+      console.log(res)
       if (res.data.data[0].url) {
         audioUrl = res.data.data[0].url;
         http.getLyric({ id: musicId }).then(res => {

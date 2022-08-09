@@ -26,15 +26,7 @@ function serialize(params) {
 // API接口服务器地址
 
 let baseUrl;
-let serverUrl = 'https://api.gausszhou.top/music/';
-let localUrl = 'http://localhost:3000';
-
-
-if (process.env.NODE_ENV == 'development') {
-  baseUrl = localUrl
-} else {
-  baseUrl = serverUrl
-}
+let serverUrl = 'http://api.gausszhou.top/music';
 baseUrl = serverUrl
 
 const http = {

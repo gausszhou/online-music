@@ -1,0 +1,60 @@
+
+.app-header .left-box {
+  display: flex;
+  align-items: center;
+}
+
+.app-header .left-box .app-header-history {
+  padding-left: 25px;
+  margin-right: 10px;
+}
+
+.app-header .left-box .app-header-history a {
+  color: #c3473a;
+}
+
+.app-header .left-box .app-header-history .app-header-history-icon {
+  margin-right: 10px;
+  font-size: 12px;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  text-align: center;
+  line-height: 20px;
+  color: #000;
+}
+
+.app-header .left-box .app-header-history {
+  display: flex;
+  align-items: center;
+}
+
+.app-header .left-box .app-header-history .app-header-history-icon {
+  width: 24px;
+  height: 24px;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: center;
+  color: #f1f1f1;
+  border-radius: 50%;
+  transition: 0.2s;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, .1);
+}
+
+.app-header .left-box .app-header-history .app-header-history-icon:first-child {
+  margin-right: 10px;
+}
+
+.app-header .left-box .app-header-history .app-header-history-icon:hover {
+  background-color: rgba(0, 0, 0, .3);
+  }
+
+.app-header .right-box {
+  display: flex;
+  align-items: center;
+}
+
+.app-header .app-header-search input {
+  width: 300px;
+}

@@ -1,5 +1,5 @@
 <template>
-  <div class="audio-box" :class="{'nosongs':this.playList.length==0}">
+  <div class="app-footer audio-box" :class="{'nosongs':this.playList.length==0}">
     <div class="audio-bar" @mouseup="mouseup">
       <!-- 左边的歌曲信息 -->
       <div class="song-info">
@@ -9,10 +9,10 @@
           <img class="img" :class="{ 'running':isPlay&&(!songDrawerVisible) }" :src="song.picUrl" />
         </div>
         <div class="name-box">
-          <div class="overEllipsis song-name ft_16">{{song.name}}</div>
+          <div class="text-over-elli song-name ft_16">{{song.name}}</div>
           <div>
             <span
-              class="overEllipsis song-author ft_14"
+              class="text-over-elli song-author ft_14"
               v-for="(item,index) in song.author"
               :key="index"
             >{{item.name}}&nbsp;&nbsp;</span>
@@ -58,26 +58,26 @@
     ></audio>
     <!-- 播放列表组件 -->
     <transition-group name="fade">
-      <playList class="play-list" key="playList" v-if="$store.state.menuVisible"></playList>
-      <lyric key="lyric" v-if="lyricVisible" :time="currentTime"></lyric>
+      <SongPlayList class="play-list" key="playList" v-if="$store.state.menuVisible"/>
+      <SongLyric key="lyric" v-if="lyricVisible" :time="currentTime"/>
     </transition-group>
     <transition name="drawer">
-      <songDrawer key="songDrawer" v-if="songDrawerVisible" @change="closeSongDrawer()"></songDrawer>
+      <SongDrawer key="songDrawer" v-if="songDrawerVisible" @change="closeSongDrawer()" />
     </transition>
   </div>
 </template>
 
 <script>
-import playList from "@/components/audioBar/playList.vue";
-import lyric from "@/components/audioBar/lyric.vue";
-import songDrawer from "@/components/audioBar/songDrawer.vue";
+import SongPlayList from "@/components/SongPlayList.vue";
+import SongLyric from "@/components/SongLyric.vue";
+import SongDrawer from "@/components/SongDrawer.vue";
 
 export default {
-  name: "audioVue",
+  name: "AppFooter",
   components: {
-    playList,
-    lyric,
-    songDrawer
+    SongPlayList,
+    SongLyric,
+    SongDrawer
   },
   props: {},
   data() {

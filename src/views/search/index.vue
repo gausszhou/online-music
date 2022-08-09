@@ -1,17 +1,17 @@
 <template>
-  <div class="result-container">
-    <div class="title-wrap">
-      <h2 class="title">{{keywords}}</h2>
-      <span class="sub-title">找到{{count}}个结果</span>
+  <div class="search-container">
+    <div class="search-title-box">
+      <h2 class="search-title-keywords">{{keywords}}</h2>
+      <span class="search-title-count">找到 {{count}} 个结果</span>
     </div>
+    <h3 class="search-tips">双击歌曲播放</h3>
     <el-tabs v-model="activeIndex">
       <el-tab-pane label="歌曲" name="songs">
-        <h4>双击歌曲播放</h4>
-        <el-table :lazy="true" :data="songList" style="width: 100%" class="songs-table" @row-dblclick="playMusic">
+        <el-table :lazy="true" :data="songList"  class="songs-table" @row-dblclick="playMusic">
           <el-table-column prop="name" label="音乐标题">
             <template slot-scope="scope">
               <span>{{scope.row.name}}</span>
-              <span v-if="scope.row.mvid" class="iconfont mv-tag icon-mv">MV</span>
+              <sup v-if="scope.row.mvid" class="iconfont icon-mv mv-tag">MV</sup>
             </template>
           </el-table-column>
           <el-table-column prop="artists[0].name" label="歌手"></el-table-column>
@@ -23,7 +23,6 @@
           </el-table-column>
         </el-table>
       </el-tab-pane>
-
       <el-tab-pane label="歌单" name="lists">
         <div class="items">
           <div class="item" v-for="(item,index) in playList" :key="index" @click="toSongSheetDetail(item)">
@@ -134,7 +133,8 @@ export default {
       }
     },
     playMusic(row) {
-      this.$store.dispatch('getMusic', row.id);
+      console.log(row)
+      this.$store.dispatch('getMusic', row);
     },
     toSongSheetDetail(item) {
       this.$router.push({
@@ -155,12 +155,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.song-table {
-  user-select: none;
-}
-.mv-tag {
-  color: red;
-}
-</style>

@@ -1,0 +1,150 @@
+.audio-box {
+
+  &.nosongs * {
+    color: #ccc !important;
+  }
+}
+
+.audio-bar {
+  z-index: 20;
+  height: 100%;
+  display: flex;
+  align-items: center;
+
+  .song-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  .list-control {
+    flex: 1;
+  }
+}
+
+// 信息
+.song-info {
+  .img-box {
+    margin-left: 20px;
+    position: relative;
+    cursor: pointer;
+    visibility: hidden;
+
+    .arrow {
+      display: block;
+      z-index: 11;
+      position: absolute;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0);
+    }
+
+    .arrow-left {
+      left: 10px;
+      bottom: 10px;
+    }
+
+    .arrow-right {
+      right: 10px;
+      top: 10px;
+    }
+
+    .img {
+      display: block;
+      height: 50px;
+      width: 50px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+
+    .img.running {
+      border-radius: 50%;
+      animation: rotateImg 5s linear infinite running;
+    }
+
+    @keyframes rotateImg {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    &.open,
+    &:hover {
+      .arrow {
+        color: rgba(255, 255, 255, 0.7);
+        transform: rotate(180deg);
+      }
+
+      .img {
+        filter: blur(2px);
+      }
+    }
+
+    &.show {
+      visibility: visible;
+    }
+  }
+
+  .name-box {
+    margin: 20px 0 0 20px;
+    height: 60px;
+    line-height: 25px;
+
+    .song-name {
+      font-weight: 700;
+    }
+  }
+}
+
+// 歌曲控制
+.song-control {
+  display: flex;
+
+  .switch-control {
+    display: flex;
+    justify-content: center;
+
+    .button-control {
+      margin: 0 5px;
+      padding: 5px;
+    }
+  }
+
+  .progress {
+    .time {
+      height: 20px;
+    }
+  }
+
+  .control-progress {
+    margin: 0 20px;
+    width: 360px;
+  }
+
+  .button-toggle {
+    background-color: #eee;
+    border-radius: 40px;
+  }
+
+  .button-lyric {
+    line-height: 28px;
+    cursor: pointer;
+  }
+}
+
+// 音量控制
+.list-control {
+  .button-menu {
+    margin: 0 10px 0 0;
+  }
+
+  .control-volume {
+    margin: 0 15px;
+    width: 100px;
+  }
+}
+
+

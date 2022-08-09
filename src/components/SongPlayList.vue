@@ -13,11 +13,11 @@
       </div>
     </div>
     <ul class="play-list-box">
-      <li class="song-item overEllipsis" v-for="(item,index) in $store.state.playList" :key="item.id">
-        <span class="name overEllipsis">{{item.name}}</span>
+      <li class="song-item text-over-elli" v-for="(item,index) in $store.state.playList" :key="item.id">
+        <span class="name text-over-elli">{{item.name}}</span>
         <span class="mv-tag" v-if="item.mvid">MV</span>
         <span class="author" v-for="(author,index) in item.author" :key="index">{{author.name}}.</span>
-        <span class="album overEllipsis">{{item.albumname}}</span>
+        <span class="album text-over-elli">{{item.albumname}}</span>
         <a
           href="javascript:;"
           class="iconfont play-button"

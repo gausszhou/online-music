@@ -26,10 +26,6 @@ Vue.prototype.$tools = tools;
 // 引入过滤器
 import filters from "@/utils/filters";
 Vue.use(filters);
-// 
-
-import VueDragResize from "@gausszhou/vue-drag-resize";
-Vue.component('VueDragResize', VueDragResize)
 
 // 关闭生成环境的提示
 Vue.config.productionTip = false;

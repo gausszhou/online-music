@@ -1,15 +1,14 @@
 <template>
-  <div class="topBar">
+  <div class="app-header">
     <div class="left-box">
-      <img :src="logoUrl" alt />
-      <div class="history-wrapper">
-        <span class="iconfont icon-arrow-left" @click="go(-1)"></span>
-        <span class="iconfont icon-arrow-right" @click="go(1)"></span>
+      <img class="app-header-logo" :src="logoUrl"  @cilck="goto('home')" alt />
+      <div class="app-header-history">
+        <span class="app-header-history-icon iconfont icon-arrow-left" @click="go(-1)"></span>
+        <span class="app-header-history-icon iconfont icon-arrow-right" @click="go(1)"></span>
       </div>
     </div>
     <div class="right-box">
-      <!-- <el-button class="button-login" type="primary" size="small" @click="loginDialogOpen">登录</el-button> -->
-      <div class="el-input el-input--small el-input--prefix">
+      <div class="app-header-search el-input el-input--small el-input--prefix">
         <input
           v-model.trim="query"
           @keyup.enter="search"
@@ -23,16 +22,16 @@
         </span>
       </div>
     </div>
-    <loginDialog v-if="loginDialogVisible" @change="loginDialogChange"></loginDialog>
+    <LoginDialog v-if="loginDialogVisible" @change="loginDialogChange"></LoginDialog>
   </div>
 </template>
 
 <script>
-import loginDialog from "@/components/topBar/loginDialog.vue";
+import LoginDialog from "@/components/LoginDialog.vue";
 export default {
-  name: 'topbarVue',
+  name: 'AppHeader',
   components: {
-    loginDialog
+    LoginDialog
   },
   data() {
     return {
@@ -42,7 +41,7 @@ export default {
     };
   },
   methods: {
-    loginDialogOpen() {
+    openLoginDialog() {
       this.loginDialogVisible = true;
     },
     loginDialogChange() {
@@ -64,22 +63,12 @@ export default {
         });
       }
     },
+    goto(name){
+      this.$router.push(name)
+    },
     go(num) {
       this.$router.go(num);
     }
   },
 }
 </script>
-
-<style scoped>
-.topBar .logo {
-  padding: 8px;
-  border-radius: 50%;
-  background-color: #fff;
-  font-weight: bold;
-  color: #ec4141;
-}
-.button-login {
-  margin: 0 10px;
-}
-</style>

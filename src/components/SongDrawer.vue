@@ -1,5 +1,5 @@
 <template>
-  <div class="songDrawer">
+  <div class="song-drawer">
     <!-- 歌曲信息容器 -->
     <div class="player_con" :class="{'playing':$store.state.isPlay}">
       <img :src="bar" class="play_bar" />
@@ -25,12 +25,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.songDrawer {
-  z-index: 12;
+.song-drawer {
   position: fixed;
+  z-index: 12;
+  left:0;
+  bottom: 50px;
   width: 100vw;
-  height: calc(100vh - 60px);
-  bottom: 60px;
+  height: calc(100vh - 50px);
   background-color: #f7f7f7;
 }
 
@@ -120,8 +121,10 @@ export default {
   transform-origin: 12px 12px;
   transition: 1s;
 }
+
 /* 播放杆 转回去 */
 .player_con.playing .play_bar {
   transform: rotate(0);
 }
+
 </style>

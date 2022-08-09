@@ -1,14 +1,10 @@
-/*
-样式复用
- - 轮播图
- - 最新 news
- - 推荐 recommend
- - mv
-*/
+.music-container {
+  padding-bottom: 60px;
+}
 
 // 轮播图
 .music-container .el-carousel__container {
-  height: 180px;
+  height: 220px;
 }
 
 .music-container .iconfont {
@@ -21,17 +17,12 @@
   border-radius: 10px;
 }
 
+// 
 .music-container .title {
   font-weight: normal;
   margin-bottom: 20px;
   padding-left: 8px;
 }
-
-.music-container {
-  padding-top: 60px;
-  padding-bottom: 60px;
-}
-
 
 .music-container .recommend,
 .music-container .mvs,

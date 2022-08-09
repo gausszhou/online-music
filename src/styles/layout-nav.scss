@@ -1,0 +1,29 @@
+.app-nav  {
+  background-color: #fff;
+  width: 200px;
+}
+
+.app-nav .app-nav-item {
+  height: 40px;
+  margin: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.app-nav .app-nav-item:hover {
+  background-color: #f7f7f7;
+}
+
+.app-nav .app-nav-item-link {
+  color: black;
+  padding-left: 30px;
+  font-size: 16px;
+  line-height: 40px;
+  width: 100%;
+}
+
+.app-nav .app-nav-item-link.active {
+  background-color: #f7f7f7;
+  font-weight: 700;
+}
