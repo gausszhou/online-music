@@ -61,7 +61,7 @@ export default {
     search() {
       if (this.query) {
         this.$store.commit('setQuery', this.query)
-        this.$router.replace({
+        this.$router.push({
           name: 'search',
           query: {
             keywords: this.query
