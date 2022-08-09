@@ -124,7 +124,7 @@ export default {
       ],
       total: 100,
       page: 1,
-      limit: 24,
+      limit: 20,
       area: -1,
       type: -1,
       initial: -1,

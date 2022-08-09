@@ -47,7 +47,7 @@ export default {
       this.$store.commit('setIndex', index)
     },
     close(){
-      this.$emit("change")
+      this.$emit("close")
     }
   }
 }
@@ -56,19 +56,19 @@ export default {
 <style lang="scss" scoped>
 .playlist-mask{
   position: fixed;
-  z-index: 8;
+  z-index: 9998;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
 }
 .playlist-content {
-  position: absolute;
-  z-index: 9;
+  position: fixed;
+  z-index: 9999;
   right: 0;
-  bottom: 80px;
+  top: var(--app-header-height);
+  bottom: var(--app-footer-height);
   width: 440px;
-  height: calc(100vh - 130px);
   padding: 0 10px;
   background-color: #fff;
   box-sizing: border-box;

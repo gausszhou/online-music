@@ -12,7 +12,7 @@
       >
     </div>
     <!-- 底部的table -->
-    <el-table  :lazy="true" :data="list" border stripe @row-click="getMusic">
+    <el-table :lazy="true" :data="list" border stripe @row-click="getMusic">
       <el-table-column type="index" label="序号" width="50px"></el-table-column>
       <el-table-column prop="name" label="标题"></el-table-column>
       <el-table-column label="歌手">
@@ -38,7 +38,7 @@
       layout="prev, pager, next"
       :total="total"
       :current-page="page"
-      :page-size="10"
+      :page-size="limit"
     ></el-pagination>
   </div>
 </template>
@@ -62,7 +62,8 @@ export default {
       list: [],
       lists: [],
       total: 100,
-      page: 1
+      page: 1,
+      limit: 20
     }
   },
   watch: {
@@ -70,7 +71,9 @@ export default {
       this.getTopSong()
     },
     page(newV) {
-      this.list = this.lists.slice((newV - 1) * 10, newV * 10)
+      const limit = this.limit
+      console.log(this.limit)
+      this.list = this.lists.slice((newV - 1) * limit, newV * limit)
     }
   },
   created() {
@@ -85,7 +88,8 @@ export default {
       }
       this.$http.getTopSong(params).then((res) => {
         this.lists = res.data.data
-        this.list = this.lists.slice((this.page - 1) * 10, this.page * 10)
+        const limit = this.limit
+        this.list = this.lists.slice((this.page - 1) * limit, this.page * limit)
       })
     },
     // 播放歌曲

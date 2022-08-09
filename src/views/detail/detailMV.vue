@@ -95,7 +95,7 @@ export default {
       // 页码
       page: 1,
       // 页容量
-      limit: 10,
+      limit: 20,
       detail: {},
       mvUrl: '',
       simiMV: [],

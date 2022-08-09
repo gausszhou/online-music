@@ -29,11 +29,12 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding-left: 15px;
+  gap: 1rem;
 }
 
 .music-container .recommend-news .news-list .item {
-  width: 25%;
+  // width: 25%;
+  width: 250px;
   height: 80px;
   margin: 0.5rem 0;
   display: flex;
@@ -106,13 +107,14 @@
 .music-container .recommend-songlist .items {
   width: 100%;
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .music-container .recommend-songlist .items .item {
-  flex: 0 0 20%;
+  // flex: 0 0 20%;
   height: 200px;
+  width: 160px;
   box-sizing: border-box;
   margin: 0.5rem 0;
 }

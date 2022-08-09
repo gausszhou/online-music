@@ -4,7 +4,6 @@
       <div class="app-header-logo">
         <img :src="logoUrl" @click="goto('recommend')" alt />
       </div>
-
       <div class="app-header-history">
         <span
           class="app-header-history-icon iconfont icon-arrow-left"

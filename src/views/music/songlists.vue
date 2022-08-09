@@ -63,7 +63,7 @@ export default {
       // 总条数
       total: 0,
       // 每页条数
-      limit: 10,
+      limit: 20,
       // 页码
       page: 1,
       // 顶部的推荐歌单

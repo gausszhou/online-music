@@ -17,10 +17,16 @@
     .el-slider__bar {
       height: 3px;
       border-radius: 4px;
+      background-color: #ff4e4e;
     }
 
     .el-slider__button-wrapper {
       top: -16px;
+      
+    }
+    .el-slider__button{
+      background-color: #ff4e4e;
+      border-color: #ff4e4e;
     }
 
     .el-tooltip {
@@ -70,7 +76,7 @@
 
 .el-pagination {
   margin-top: 50px;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
   text-align: center;
 }
 

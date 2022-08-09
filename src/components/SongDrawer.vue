@@ -1,72 +1,80 @@
 <template>
   <div class="song-drawer">
     <!-- 歌曲信息容器 -->
-    <div class="player_con" :class="{'playing':$store.state.isPlay}">
-      <img :src="bar" class="play_bar" />
-      <!-- 黑胶碟片 -->
-      <img :src="disc" class="disc autoRotate" />
-      <img :src="$store.state.song.picUrl" class="cover autoRotate" />
+    <div class="song-player" :class="{ playing: $store.state.isPlay }">
+      <img :src="bar" class="player-bar" />
+      <img :src="disc" class="player-disc rotate" />
+      <img :src="$store.state.song.picUrl" class="player-cover rotate" />
+    </div>
+    <!-- 歌词容器 -->
+    <div class="song-lyric">
+      <SongLyricScroll :time="time" @progress="changeProgress" />
     </div>
   </div>
 </template>
 
 <script>
-
+import SongLyricScroll from './SongLyricScroll.vue'
 export default {
   name: 'songDrawer',
+  props: {
+    time: {
+      type: [Number, String],
+      default: () => 0
+    }
+  },
+  components: {
+    SongLyricScroll
+  },
   data() {
     return {
       bar: require('@/assets/images/player_bar.png'),
-      disc: require('@/assets/images/player_disc.png'),
-    };
+      disc: require('@/assets/images/player_disc.png')
+    }
+  },
+  methods: {
+    changeProgress(e) {
+      this.$emit('progress', e)
+    }
   }
-
 }
 </script>
 
 <style lang="scss" scoped>
 .song-drawer {
-  position: absolute;
+  position: fixed;
   z-index: 9;
-  left:0;
-  bottom: 80px;
+  left: 0;
+  bottom: calc(var(--app-footer-height) + 1px);
   width: 100vw;
-  height: calc(100vh - 80px);
-  background-color: #f7f7f7;
+  height: calc(100vh - var(--app-footer-height) - 1px);
+  display: flex;
+  padding-top: 5rem;
+  justify-content: center;
+  background-color: #fff;
 }
 
 // 唱片机
-.player_con {
+.song-player {
   width: 400px;
   height: 435px;
-  position: absolute;
-  left: 100px;
-  top: 100px;
+  position: relative;
+  margin-top: 5rem;
 }
 
-.player_con2 {
-  width: 400px;
-  height: 435px;
-  position: absolute;
-  left: 200px;
-  top: 0px;
+.song-lyric {
+  margin-top: 5rem;
+  width: 450px;
 }
 
-.player_con2 video {
-  position: absolute;
-  left: 20px;
-  top: 30px;
-  width: 355px;
-  height: 265px;
-}
-
-.disc {
+.player-disc {
   position: absolute;
   left: 73px;
   top: 60px;
   z-index: 19;
 }
-.cover {
+
+.player-cover {
   position: absolute;
   left: 125px;
   top: 112px;
@@ -76,20 +84,26 @@ export default {
   z-index: 18;
 }
 
-.audio_con {
-  height: 50px;
-  background-color: #f1f3f4;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-}
-.myaudio {
-  width: 800px;
-  height: 40px;
-  margin-top: 5px;
-  outline: none;
-  background-color: #f1f3f4;
+/* 是否正在播放 */
+.song-player.playing .player-disc,
+.song-player.playing .player-cover {
+  animation-play-state: running;
 }
 
+.player-bar {
+  position: absolute;
+  left: 200px;
+  top: -10px;
+  z-index: 22;
+  transform: rotate(-25deg);
+  transform-origin: 12px 12px;
+  transition: 0.5s ease-in-out;
+}
+
+/* 播放杆 转回去 */
+.song-player.playing .player-bar {
+  transform: rotate(0);
+}
 /* 旋转的动画 */
 @keyframes Rotate {
   from {
@@ -100,32 +114,11 @@ export default {
   }
 }
 /* 旋转的类名 */
-.autoRotate {
+.rotate {
   animation-name: Rotate;
   animation-iteration-count: infinite;
   animation-play-state: paused;
   animation-timing-function: linear;
   animation-duration: 10s;
 }
-/* 是否正在播放 */
-.player_con.playing .disc,
-.player_con.playing .cover {
-  animation-play-state: running;
-}
-
-.play_bar {
-  position: absolute;
-  left: 200px;
-  top: -10px;
-  z-index: 22;
-  transform: rotate(-25deg);
-  transform-origin: 12px 12px;
-  transition: 1s;
-}
-
-/* 播放杆 转回去 */
-.player_con.playing .play_bar {
-  transform: rotate(0);
-}
-
 </style>

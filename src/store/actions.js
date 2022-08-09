@@ -50,7 +50,6 @@ export default {
       store.commit('setSong', song);
       store.commit('setPlayList', list);
       store.commit('setIsPlay', true);
-      store.commit('setIsShow', true);
     }
   },
 

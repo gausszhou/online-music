@@ -7,12 +7,11 @@ export default {
   playList: [],
   // 当前播放歌曲的序号
   activeIndex: 0,
-  // 控制播放
+  // 表示播放状态
   isPlay: false,
-  // 控制显示
-  isShow: false,
   // 查询参数
   query: '',
+  // 当前播放列表
   menuVisible: false,
   // 歌词数组
   lyric: []

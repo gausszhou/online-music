@@ -39,7 +39,7 @@
         <el-table :data="tracksShow" border stripe @row-click="getMusic">
           <el-table-column type="index" label="序号" width="50px">
           </el-table-column>
-          <el-table-column label="标题">
+          <el-table-column label="标题" show-overflow-tooltip>
             <template slot-scope="scope">
               <span>{{ scope.row.name }}</span>
               <span
@@ -50,7 +50,12 @@
               >
             </template>
           </el-table-column>
-          <el-table-column label="专辑">
+          <el-table-column label="歌手">
+            <template slot-scope="scope">
+              <span>{{ scope.row.ar[0].name }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="专辑" show-overflow-tooltip>
             <template slot-scope="scope">
               <span>{{ scope.row.al.name }}</span>
             </template>
@@ -61,10 +66,9 @@
             </template>
           </el-table-column>
         </el-table>
-
         <!-- 分页器 -->
         <el-pagination
-          @current-change="handleCurrentChangesongs"
+          @current-change="handleSongsPagesChange"
           background
           layout="prev, pager, next"
           :total="songstotal"
@@ -72,12 +76,12 @@
           :page-size="songslimit"
         ></el-pagination>
       </el-tab-pane>
-      <el-tab-pane :label="'评论(' + total + ')'" name="2">
+      <el-tab-pane :label="'评论(' + commentsTotal + ')'" name="2">
         <!-- 最新评论 -->
         <div class="comment-wrap">
           <p class="title">
             最新评论
-            <span class="number">({{ total }})</span>
+            <span class="number">({{ commentsTotal }})</span>
           </p>
           <div class="comments-wrap">
             <div class="item" v-for="(item, index) in comments" :key="index">
@@ -102,12 +106,12 @@
         </div>
         <!-- 分页器 -->
         <el-pagination
-          @current-change="handleCurrentChange"
+          @current-change="handleCommentsPagesChange"
           background
           layout="prev, pager, next"
-          :total="total"
-          :current-page="page"
-          :page-size="limit"
+          :total="commentsTotal"
+          :current-page="commentsPage"
+          :page-size="commentsLimit"
         ></el-pagination>
       </el-tab-pane>
     </el-tabs>
@@ -121,11 +125,11 @@ export default {
     return {
       activeIndex: '1',
       songstotal: 0,
-      songslimit: 10,
+      songslimit: 20,
       songspage: 1,
-      total: 0,
-      limit: 10,
-      page: 1,
+      commentsTotal: 0,
+      commentsLimit: 10,
+      commentsPage: 1,
       id: '',
       playlist: {
         creator: {},
@@ -165,13 +169,21 @@ export default {
       let params = {
         id: this.$route.query.id,
         type: 0,
-        limit: this.limit,
-        offset: (this.page - 1) * this.limit
+        limit: this.commentsLimit,
+        offset: (this.commentsPage - 1) * this.commentsLimit
       }
       this.$http.getCommentPlayList(params).then((res) => {
         this.comments = res.data.comments
-        this.total = res.data.total
+        this.commentsTotal = res.data.total
       })
+    },
+    handleSongsPagesChange(val) {
+      this.songspage = val
+      this.getPlayListDetail()
+    },
+    handleCommentsPagesChange(val) {
+      this.commentsPage = val
+      this.getCommentPlayList()
     },
     playMV(item) {
       this.$router.push({
@@ -183,14 +195,6 @@ export default {
     },
     getMusic(item) {
       this.$store.dispatch('getMusic', item)
-    },
-    handleCurrentChangesongs(val) {
-      this.songspage = val
-      this.getPlayListDetail()
-    },
-    handleCurrentChange(val) {
-      this.page = val
-      this.getCommentPlayList()
     }
   }
 }

@@ -1,5 +1,4 @@
 .audio-box {
-
   &.nosongs * {
     color: #a6a6a6 !important;
   }
@@ -32,20 +31,14 @@
 
     .arrow {
       display: block;
-      z-index: 11;
       position: absolute;
-      font-size: 14px;
+      left: 15px;
+      top: 15px;
+      width: 20px;
+      height: 20px;
+      z-index: 1;
+      font-size: 20px;
       color: rgba(0, 0, 0, 0);
-    }
-
-    .arrow-left {
-      left: 10px;
-      bottom: 10px;
-    }
-
-    .arrow-right {
-      right: 10px;
-      top: 10px;
     }
 
     .img {
@@ -58,26 +51,23 @@
 
     .img.running {
       border-radius: 50%;
-      animation: rotateImg 5s linear infinite running;
+      animation: rotate 5s linear infinite running;
     }
 
-    @keyframes rotateImg {
-      from {
-        transform: rotate(0deg);
-      }
-
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    &.open,
     &:hover {
       .arrow {
         color: rgba(255, 255, 255, 0.7);
-        transform: rotate(180deg);
       }
 
+      .img {
+        filter: blur(2px);
+      }
+    }
+    &.open {
+      .arrow {
+        // color: rgba(255, 255, 255, 0.7);
+        transform: rotate(180deg);
+      }
       .img {
         filter: blur(2px);
       }
@@ -87,60 +77,63 @@
       visibility: visible;
     }
   }
+}
+.name-box {
+  margin: 20px 0 0 20px;
+  height: 60px;
+  line-height: 25px;
 
-  .name-box {
-    margin: 20px 0 0 20px;
-    height: 60px;
-    line-height: 25px;
-
-    .song-name {
-      font-weight: 700;
-    }
+  .song-name {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .song-author {
+    font-size: 13px;
   }
 }
 
 // 歌曲控制
 .song-control {
-   flex: 1;
+  flex: 1;
   .switch-control {
     display: flex;
     justify-content: center;
 
     .button-control {
-      margin: 0 5px;
-      padding: 5px;
+      margin: 0 6px;
+      padding: 6px;
+      font-size: 20px;
+      cursor: pointer;
     }
-  }
-
-  .progress {
-    display: flex;
-    align-items: center;
-    font-size: 12px;
-    .time {
-      height: 20px;
-    }
-  }
-
-  .control-progress {
-    margin: 0 20px;
-    flex:1;
   }
 
   .button-toggle {
     background-color: #eee;
     border-radius: 40px;
   }
+}
 
-  .button-lyric {
-    line-height: 28px;
-    cursor: pointer;
-  }
+.progress {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  height: 16px;
+}
+
+.control-progress {
+  margin: 0 1rem;
+  flex: 1;
 }
 
 // 音量控制
 .list-control {
+  .button-volume {
+    font-size: 22px;
+  }
+
   .button-menu {
     margin: 0 10px 0 0;
+    font-size: 24px;
   }
 
   .control-volume {
@@ -149,4 +142,12 @@
   }
 }
 
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
 
+  to {
+    transform: rotate(360deg);
+  }
+}

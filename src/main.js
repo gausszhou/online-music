@@ -27,6 +27,7 @@ Vue.prototype.$tools = tools;
 import filters from "@/utils/filters";
 Vue.use(filters);
 
+
 // 关闭生成环境的提示
 Vue.config.productionTip = false;
 /* eslint-disable no-new */

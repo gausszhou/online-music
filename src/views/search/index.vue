@@ -8,14 +8,14 @@
     <el-tabs v-model="activeIndex">
       <el-tab-pane label="歌曲" name="songs">
         <el-table :lazy="true" :data="songList"  @row-dblclick="playMusic">
-          <el-table-column prop="name" label="音乐标题"  show-overflow-tooltip="true">
+          <el-table-column prop="name" label="音乐标题"  show-overflow-tooltip>
             <template slot-scope="scope">
               <span>{{scope.row.name}}</span>
               <sup v-if="scope.row.mvid" class="iconfont icon-mv mv-tag">MV</sup>
             </template>
           </el-table-column>
           <el-table-column prop="artists[0].name" label="歌手"></el-table-column>
-          <el-table-column prop="album.name" label="专辑" width="250px" show-overflow-tooltip="true"></el-table-column>
+          <el-table-column prop="album.name" label="专辑" width="250px" show-overflow-tooltip></el-table-column>
           <el-table-column prop="duration" label="时长" width="150px">
             <template slot-scope="scope">
               <span>{{scope.row.duration | mstotime}}</span>

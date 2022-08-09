@@ -11,8 +11,7 @@
           @click="toggleSongDrawer()"
           :class="{ show: song.picUrl, open: songDrawerVisible }"
         >
-          <i class="iconfont arrow arrow-left icon-arrow-left-bottom"></i>
-          <i class="iconfont arrow arrow-right icon-arrow-right-top"></i>
+          <i class="arrow iconfont icon-arrow-right-top"></i>
           <img
             class="img"
             :class="{ running: isPlay && !songDrawerVisible }"
@@ -20,10 +19,10 @@
           />
         </div>
         <div class="name-box">
-          <div class="text-over-elli song-name ft_16">{{ song.name }}</div>
+          <div class="text-over-elli song-name">{{ song.name }}</div>
           <div>
             <span
-              class="text-over-elli song-author ft_14"
+              class="text-over-elli song-author"
               v-for="(item, index) in song.author"
               :key="index"
               >{{ item.name }}&nbsp;&nbsp;</span
@@ -35,26 +34,24 @@
       <div class="song-control">
         <div class="switch-control">
           <i
-            class="iconfont ft_28 button-control"
+            class="button-control iconfont"
             @click="swtichMode"
             :class="modeList[mode].class"
           ></i>
           <i
-            class="iconfont button-control ft_28 icon-pre"
+            class="button-control iconfont icon-pre"
             @click="switchSong(-1)"
           ></i>
           <i
-            class="iconfont button-control button-toggle ft_28"
+            class="button-control iconfont button-toggle"
             :class="isPlay ? 'icon-pause' : 'icon-play'"
             @click="toggleSong()"
           ></i>
           <i
-            class="iconfont button-control ft_28 icon-next"
+            class="button-control iconfont icon-next"
             @click="switchSong(1)"
           ></i>
-          <i class="button-control ft_20 button-lyric" @click="toggleLyric"
-            >词</i
-          >
+          <i class="button-control button-lyric" @click="toggleLyric">词</i>
         </div>
         <div class="progress">
           <span class="time">{{ currentTime | stotime }}</span>
@@ -62,7 +59,7 @@
             class="control-progress"
             v-model="amount"
             :show-tooltip="false"
-            @change="changeProgress"
+            @change="changeProgressPercent"
           ></el-slider>
           <span class="time">{{ totalTime | stotime }}</span>
         </div>
@@ -70,17 +67,14 @@
       <!-- 音量控制和播放列表 -->
       <div class="list-control display-flex">
         <div class="flex_1"></div>
-        <i class="iconfont ft_28 icon-volume"></i>
+        <i class="button-volume iconfont icon-volume"></i>
         <el-slider
           class="control-volume"
           v-model="volume"
           :show-tooltip="false"
           @change="changevolume(volume)"
         ></el-slider>
-        <i
-          class="iconfont ft_28 button-menu icon-menu"
-          @click="openPlayList()"
-        ></i>
+        <i class="button-menu iconfont icon-menu" @click="openPlayList()"></i>
       </div>
     </div>
     <!-- 真正的audio标签，不显示 -->
@@ -99,15 +93,16 @@
         class="play-list"
         key="playList"
         v-if="$store.state.menuVisible"
-        @change="closeSongPlayList"
+        @close="closeSongPlayList"
       />
-      <SongLyric key="lyric" v-if="songLyricVisible" :time="currentTime" />
+      <SongLyricFloat key="lyric" v-if="songLyricVisible" :time="currentTime" />
     </transition-group>
     <transition name="drawer">
       <SongDrawer
         key="drawer"
         v-if="songDrawerVisible"
-        @change="closeSongDrawer()"
+        :time="currentTime"
+        @progress="changeProgressTime"
       />
     </transition>
   </div>
@@ -115,14 +110,14 @@
 
 <script>
 import SongPlayList from '@/components/SongPlayList.vue'
-import SongLyric from '@/components/SongLyric.vue'
+import SongLyricFloat from '@/components/SongLyricFloat.vue'
 import SongDrawer from '@/components/SongDrawer.vue'
 
 export default {
   name: 'AppFooter',
   components: {
     SongPlayList,
-    SongLyric,
+    SongLyricFloat,
     SongDrawer
   },
   props: {},
@@ -264,10 +259,13 @@ export default {
         this.isSlider = false
       }, 100)
     },
-    changeProgress(e) {
+    changeProgressPercent(e) {
       this.isSlider = true
       this.$refs.audio.currentTime = (e * this.totalTime) / 100
       this.amount = e
+    },
+    changeProgressTime(time) {
+      this.$refs.audio.currentTime = time
     },
     changevolume(e) {
       this.$refs.audio.volume = e / 100
@@ -286,6 +284,7 @@ export default {
     },
     // 打开播放列表
     openPlayList() {
+      console.log(1)
       this.$store.commit('setMenuVisible', !this.$store.state.menuVisible)
     },
     closeSongPlayList() {
@@ -298,7 +297,6 @@ export default {
     closeSongDrawer() {
       this.songDrawerVisible = false
     },
-
     audioEffects() {
       const AudioContext = window.AudioContext || window.webkitAudioContext
       const audioContext = new AudioContext()
@@ -322,13 +320,12 @@ export default {
 .drawer-enter-active,
 .drawer-leave-active {
   transition: transform 0.5s; // 不能用all
-  transform-origin:  bottom;
-  transform: translateY(0);
+  transform-origin: left bottom;
+  transform: scaleX(1) scaleY(1);
 }
 .drawer-enter, .drawer-leave-to /* .fade-leave-active below version 2.1.8 */ {
   transition: transform 0.5s;
-  transform-origin: bottom;
-  transform: translateY(100%);
-
+  transform-origin: left bottom;
+  transform: scaleX(0) scaleY(0);
 }
 </style>

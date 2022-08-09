@@ -11,9 +11,6 @@ export default {
   setIsPlay(state, payload) {
     state.isPlay = payload;
   },
-  setIsShow(state, payload) {
-    state.isShow = payload;
-  },
   setQuery(state, payload) {
     state.query = payload;
   },
