@@ -110,7 +110,7 @@ function getAbsolutePath() {
 // 最后创建路由对象，设置切换方式，设置路由得base，导入路由表
 const router = new VueRouter({
   // 使用什么方式切换路由
-  mode: 'history', //  history  hash
+  mode: 'hash', //  history  hash
   // vue-router里提供了一个base的属性，代表应用的基目录
   // base: getAbsolutePath(),
   base: '/',
