@@ -1,9 +1,9 @@
 <template>
   <div
     class="app-footer audio-box"
-    :class="{ nosongs: this.playList.length == 0 }"
+    :class="{ nosongs: this.playList.length == 0 && song.lyric }"
   >
-    <div class="audio-bar" @mouseup="mouseup">
+    <div class="audio-bar">
       <!-- 左边的歌曲信息 -->
       <div class="song-info">
         <div
@@ -33,6 +33,9 @@
       <!-- 播放控制 -->
       <div class="song-control">
         <div class="switch-control">
+          <span class="button-text">
+            {{ modeList[mode].label }}
+          </span>
           <i
             class="button-control iconfont"
             @click="swtichMode"
@@ -51,7 +54,7 @@
             class="button-control iconfont icon-next"
             @click="switchSong(1)"
           ></i>
-          <i class="button-control button-lyric" @click="toggleLyric">词</i>
+          <i class="button-control button-text"  @click="toggleLyric">浮动歌词</i>
         </div>
         <div class="progress">
           <span class="time">{{ currentTime | stotime }}</span>
@@ -74,7 +77,11 @@
           :show-tooltip="false"
           @change="changevolume(volume)"
         ></el-slider>
-        <i class="button-menu iconfont icon-menu" @click="openPlayList()"></i>
+        <i
+          class="button-menu iconfont icon-menu"
+          :class="{ active: $store.state.menuVisible }"
+          @click="openPlayList()"
+        ></i>
       </div>
     </div>
     <!-- 真正的audio标签，不显示 -->
@@ -105,6 +112,7 @@
         @progress="changeProgressTime"
       />
     </transition>
+    <iframe id="my_iframe" src style="display: none"></iframe>
   </div>
 </template>
 
@@ -192,24 +200,26 @@ export default {
     switchSong(num) {
       let number = 0
       switch (this.mode) {
-        case 0:
+        case 0: // loop
           number = num
           this.setSong(number)
           break
-        case 1:
+        case 1: // single-loop
           number = 0
           this.setSong(number)
           break
-        case 2:
+        case 2: // order
           if (
-            this.$store.state.activeIndex <
+            this.$store.state.activeIndex ==
             this.$store.state.playList.length - 1
           ) {
-            number = 1
-            this.setSong(number)
+            this.toggleSong()
+            return
           }
+          number = 1
+          this.setSong(number)
           break
-        case 3:
+        case 3: // random
           number = Math.floor(Math.random() * this.$store.state.playList.length)
           if (num == -1) {
             this.current == this.current - 1
@@ -225,6 +235,7 @@ export default {
           break
       }
     },
+    // -1 0 1
     setSong(number) {
       let list = this.$store.state.playList
       let index = this.$store.state.activeIndex
@@ -239,13 +250,13 @@ export default {
     },
     toggleSong() {
       if (this.isPlay) {
+        
         this.$store.commit('setIsPlay', false)
         this.$refs.audio.pause()
       } else {
         if (this.song.audioUrl) {
           this.$store.commit('setIsPlay', true)
           this.$refs.audio.play()
-          this.audioEffects()
         }
       }
     },
@@ -253,11 +264,6 @@ export default {
       if (this.song.audioUrl && this.$store.state.lyric.length) {
         this.songLyricVisible = !this.songLyricVisible
       }
-    },
-    mouseup() {
-      setTimeout(() => {
-        this.isSlider = false
-      }, 100)
     },
     changeProgressPercent(e) {
       this.isSlider = true
@@ -284,7 +290,6 @@ export default {
     },
     // 打开播放列表
     openPlayList() {
-      console.log(1)
       this.$store.commit('setMenuVisible', !this.$store.state.menuVisible)
     },
     closeSongPlayList() {
@@ -301,6 +306,9 @@ export default {
       const AudioContext = window.AudioContext || window.webkitAudioContext
       const audioContext = new AudioContext()
       const audioElement = this.$refs.audio
+      const audioSourceNode = audioCtx.createMediaElementSource(audioElement)
+      const destinationNode = audioContext.destination
+      audioSourceNode.connect(destinationNode)
       console.log(audioContext, audioElement)
     }
   }

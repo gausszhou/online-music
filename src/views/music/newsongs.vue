@@ -12,7 +12,7 @@
       >
     </div>
     <!-- 底部的table -->
-    <el-table :lazy="true" :data="list" border stripe @row-click="getMusic">
+    <el-table :lazy="true" :data="list" @row-click="getMusic">
       <el-table-column type="index" label="序号" width="50px"></el-table-column>
       <el-table-column prop="name" label="标题"></el-table-column>
       <el-table-column label="歌手">

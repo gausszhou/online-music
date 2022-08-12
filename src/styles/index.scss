@@ -20,3 +20,12 @@
 @import "./view-songs.scss";
 @import "./view-video.scss";
 @import "./view-audio.scss";
+
+.vue-drr-box {
+  border: none !important;
+}
+
+.vue-drr-slot {
+  background: transparent !important;
+
+}

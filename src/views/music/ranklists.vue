@@ -1,6 +1,5 @@
 <template>
   <div class="rank-list">
-    <h3 class="title">全球榜</h3>
     <div class="items">
       <div
         class="item"
@@ -11,7 +10,7 @@
         <div class="item-box img-wrap">
           <img :src="item.coverImgUrl" alt />
           <span class="iconfont icon-play"></span>
-            <span class="num">{{ item.playCount | numbertocount }}</span>
+          <span class="num">{{ item.playCount | numbertocount }}</span>
         </div>
       </div>
     </div>

@@ -36,7 +36,7 @@
 
     <el-tabs v-model="activeIndex">
       <el-tab-pane label="歌曲列表" name="1">
-        <el-table :data="tracksShow" border stripe @row-click="getMusic">
+        <el-table :lazy="true" :data="tracksShow" @row-click="getMusic">
           <el-table-column type="index" label="序号" width="50px">
           </el-table-column>
           <el-table-column label="标题" show-overflow-tooltip>

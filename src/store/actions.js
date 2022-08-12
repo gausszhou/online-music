@@ -75,7 +75,6 @@ export default {
     if (audioUrl) {
       store.commit('setSong', song);
       store.commit('setIsPlay', true);
-      store.commit('setIsShow', true);
     }
   }
 

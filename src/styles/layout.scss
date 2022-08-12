@@ -1,17 +1,22 @@
 // 定义桌面
+body{
+  min-width: 1200px;
+}
 #app {
   width: 100%;
   height: 100%;
-  min-width: 1200px;
+  min-width: 960px;
   overflow: hidden;
 }
 
 .app-header {
+
   position: absolute;
   z-index: 11;
   top: 0;
   left: 0;
   height: var(--app-header-height);
+  min-width: 960px;
   width: 100%;
   padding: 0 10px;
   box-sizing: border-box;
@@ -42,25 +47,28 @@
   border-top: 1px solid #eee;
 }
 
-.app-body{
+.app-body {
   .app-nav {
     width: var(--app-sidenav-width);
+    min-width: var(--app-sidenav-width);
     border-right: 1px solid #e1e1e1;
   }
 
   .app-main {
 
     flex: 1;
+    min-width: 600px;
     width: calc(100vw - var(--app-sidenav-width));
     box-sizing: border-box;
   }
 }
 
-#app{
+#app {
 
   ::-webkit-scrollbar {
     width: .5rem;
   }
+
   ::-webkit-scrollbar-track {
     background-color: transparent;
   }
@@ -68,5 +76,5 @@
   ::-webkit-scrollbar-thumb {
     background-color: #e0e0e0;
   }
-  
+
 }

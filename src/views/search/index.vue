@@ -154,7 +154,6 @@ export default {
       }
     },
     playMusic(row) {
-      console.log(row)
       this.$store.dispatch('getMusic', row)
     },
     toSongSheetDetail(item) {

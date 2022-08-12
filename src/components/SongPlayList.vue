@@ -2,38 +2,38 @@
   <div class="playlist">
     <div class="playlist-mask" @click="close"></div>
     <div class="playlist-content">
-    <h2 class="playlist-title">当前播放</h2>
-    <div class="playlist-control">
-      <div class="total">总{{ $store.state.playList.length }}首</div>
-      <div class="clear">
-        <i></i>
-        清空全部
+      <h2 class="playlist-title">当前播放</h2>
+      <div class="playlist-control">
+        <div class="total">总{{ $store.state.playList.length }}首</div>
+        <div class="clear" @click="clearPlayList">清空全部</div>
       </div>
-    </div>
-    <ul class="playlist-box">
-      <li
-        class="song-item text-over-elli"
-        v-for="(item, index) in $store.state.playList"
-        :key="item.id"
-      >
-        <span class="name text-over-elli">{{ item.name }}</span>
-        <span class="mv-tag" v-if="item.mvid">MV</span>
-        <span class="author" v-for="(author, index) in item.author" :key="index"
-          >{{ author.name }}.</span
+      <ul class="playlist-box">
+        <li
+          class="song-item text-over-elli"
+          v-for="(item, index) in $store.state.playList"
+          :key="item.id"
         >
-        <span class="album text-over-elli">{{ item.albumname }}</span>
-        <a
-          href="javascript:;"
-          class="iconfont play-button"
-          :class="
-            index == $store.state.activeIndex
-              ? 'icon-pause-mobile'
-              : 'icon-play-mobile'
-          "
-          @click="playMusic(item, index)"
-        ></a>
-      </li>
-    </ul>
+          <span class="name text-over-elli">{{ item.name }}</span>
+          <span class="mv-tag" v-if="item.mvid">MV</span>
+          <span
+            class="author"
+            v-for="(author, index) in item.author"
+            :key="index"
+            >{{ author.name }}.</span
+          >
+          <span class="album text-over-elli">{{ item.albumname }}</span>
+          <a
+            href="javascript:;"
+            class="iconfont play-button"
+            :class="
+              index == $store.state.activeIndex && $store.state.isPlay
+                ? 'icon-pause-mobile'
+                : 'icon-play-mobile'
+            "
+            @click="playMusic(item, index)"
+          ></a>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -46,21 +46,25 @@ export default {
       this.$store.dispatch('playMusic', item)
       this.$store.commit('setIndex', index)
     },
-    close(){
-      this.$emit("close")
+    close() {
+      this.$emit('close')
+    },
+    clearPlayList() {
+      this.$store.commit('setPlayList', [])
+      this.$store.commit('setSong', {})
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.playlist-mask{
+.playlist-mask {
   position: fixed;
   z-index: 9998;
   left: 0;
   right: 0;
-  top: 0;
-  bottom: 0;
+  top: var(--app-header-height);
+  bottom: var(--app-footer-height);
 }
 .playlist-content {
   position: fixed;
@@ -72,7 +76,7 @@ export default {
   padding: 0 10px;
   background-color: #fff;
   box-sizing: border-box;
-  border-left: 1px solid #eee;
+  border-left: 1px solid #ccc;
   border-bottom: 1px solid #eee;
   .playlist-title {
     height: 32px;
