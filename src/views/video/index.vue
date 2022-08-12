@@ -2,10 +2,10 @@
   <div class="app-main-view video-container">
     <el-tabs v-model="tab" @tab-click="switchTab" class="app-main-nav">
       <el-tab-pane name="newMV">
-        <span slot="label">视频</span>
+        <span slot="label">最新MV</span>
       </el-tab-pane>
       <el-tab-pane name="allMV">
-        <span slot="label">MV</span>
+        <span slot="label">所有MV</span>
       </el-tab-pane>
     </el-tabs>
     <div class="app-main-page">

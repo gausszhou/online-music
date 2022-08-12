@@ -59,7 +59,7 @@ export default {
       this.loginDialogVisible = false
     },
     search() {
-      if (this.query) {
+      if (this.query != this.$route.query.keywords) {
         this.$store.commit('setQuery', this.query)
         this.$router.push({
           name: 'search',
@@ -67,15 +67,9 @@ export default {
             keywords: this.query
           }
         })
-      } else {
-        this.$message({
-          message: '请输入有效内容',
-          type: 'warning'
-        })
-      }
+      } 
     },
     goto(name) {
-      console.log(name)
       this.$router.replace({ name })
     },
     go(num) {
