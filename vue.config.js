@@ -1,7 +1,7 @@
 module.exports = {
   devServer: {
     https: false,
-    open: true
+    open: false
   },
   // 输出目录
   outputDir: 'dist',

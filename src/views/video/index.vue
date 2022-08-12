@@ -30,6 +30,11 @@ export default {
       }
     }
   },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      vm.tab = to.name
+    })
+  },
   methods: {
     switchTab() {
       this.goto(this.tab)
