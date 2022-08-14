@@ -2,9 +2,9 @@
 
 curl http://192.168.4.198:10010/generic-webhook-trigger/invoke?token=l1qxmXHV609nRSKtGpc2UBhFNfZ5Cwjb
 
-
 ## build
-
+npm install
+npm run build
 docker build -t netease-music-cloud .
 docker save netease-music-cloud:latest | gzip >  netease-music-cloud-cloud-latest.tar.gz
 ### send file

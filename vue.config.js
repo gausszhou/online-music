@@ -7,7 +7,7 @@ module.exports = {
   outputDir: 'dist',
   assetsDir:'static',
   // 配置相对路径
-  publicPath: process.env.NODE_ENV === "production" ? "/netease/" : "/",
+  publicPath: process.env.NODE_ENV === "production" ? "/" : "/",
   // 取消生成map文件
   productionSourceMap: false,
   // 去除文件哈希值
