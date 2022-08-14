@@ -1,10 +1,6 @@
 import local from '@/storage/local'
 
 export default {
-  setMessage(state, payload) {
-    state.message = payload
-  },
-  // 只是用来传递一下参数
   setQuery(state, payload) {
     state.query = payload
   },
@@ -23,7 +19,9 @@ export default {
   setIsPlay(state, payload) {
     state.isPlay = payload
   },
-  
+  setProgress(state,payload){
+    state.progress = payload
+  },
   setMenuVisible(state, payload) {
     state.menuVisible = payload
   },
@@ -52,5 +50,6 @@ export default {
       }
     })
     state.lyric = newArr
+    local.set("lyric",newArr)
   }
 }

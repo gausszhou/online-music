@@ -14,8 +14,8 @@
           <span class="name">{{ playlist.creator.nickname }}</span>
           <span class="time">{{ createTime }} 创建</span>
         </div>
-        <div class="play-wrap">
-          <span class="iconfont icon-circle-play"></span>
+        <div class="play-wrap" @click="playAll">
+          <span class="iconfont icon-play"></span>
           <span class="text">播放全部</span>
         </div>
         <div class="tag-wrap">
@@ -119,6 +119,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'playlist',
   data() {
@@ -192,6 +193,9 @@ export default {
           mvid: item.mv
         }
       })
+    },
+    playAll(){
+      this.$store.dispatch("playMusicAll",this.tracks)
     },
     getMusic(item) {
       this.$store.dispatch('getMusic', item)

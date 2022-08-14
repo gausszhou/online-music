@@ -199,11 +199,12 @@
 .music-container .rank-list .items {
   display: flex;
   flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .music-container .rank-list .items .item {
   width: 200px;
-  margin: 10px;
+  margin-bottom: 1rem;
   position: relative;
   overflow: hidden;
   border-radius: 5px;

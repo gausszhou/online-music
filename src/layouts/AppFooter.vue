@@ -1,88 +1,80 @@
 <template>
   <div
-    class="app-footer audio-box"
-    :class="{ nosongs: this.playList.length == 0 && song.lyric }"
+    class="app-footer audio-box audio-bar"
+    :class="{ nosongs: this.playList.length == 0 }"
   >
-    <div class="audio-bar">
-      <!-- 左边的歌曲信息 -->
-      <div class="song-info">
-        <div
-          class="img-box"
-          @click="toggleSongDrawer()"
-          :class="{ show: song.picUrl, open: songDrawerVisible }"
-        >
-          <i class="arrow iconfont icon-arrow-right-top"></i>
-          <img
-            class="img"
-            :class="{ running: isPlay && !songDrawerVisible }"
-            :src="song.picUrl"
-          />
-        </div>
-        <div class="name-box">
-          <div class="text-over-elli song-name">{{ song.name }}</div>
-          <div>
-            <span
-              class="text-over-elli song-author"
-              v-for="(item, index) in song.author"
-              :key="index"
-              >{{ item.name }}&nbsp;&nbsp;</span
-            >
-          </div>
+    <!-- 左边的歌曲信息 -->
+    <div class="song-info">
+      <div
+        class="img-box"
+        @click="toggleSongDrawer()"
+        :class="{ show: song.picUrl, open: songDrawerVisible }"
+      >
+        <i class="arrow iconfont icon-arrow-right-top"></i>
+        <img
+          class="img"
+          :class="{ running: isPlay && !songDrawerVisible }"
+          :src="song.picUrl"
+        />
+      </div>
+      <div class="name-box">
+        <div class="text-over-elli song-name">{{ song.name }}</div>
+        <div>
+          <span
+            class="text-over-elli song-author"
+            v-for="(item, index) in song.author"
+            :key="index"
+            >{{ item.name }}&nbsp;&nbsp;</span
+          >
         </div>
       </div>
-      <!-- 播放控制 -->
-      <div class="song-control">
-        <div class="switch-control">
-          <span class="button-text">
-            {{ modeList[mode].label }}
-          </span>
-          <i
-            class="button-control iconfont"
-            @click="swtichMode"
-            :class="modeList[mode].class"
-          ></i>
-          <i
-            class="button-control iconfont icon-pre"
-            @click="switchSong(-1)"
-          ></i>
-          <i
-            class="button-control iconfont button-toggle"
-            :class="isPlay ? 'icon-pause' : 'icon-play'"
-            @click="toggleSong()"
-          ></i>
-          <i
-            class="button-control iconfont icon-next"
-            @click="switchSong(1)"
-          ></i>
-          <i class="button-control button-text"  @click="toggleLyric">浮动歌词</i>
-        </div>
-        <div class="progress">
-          <span class="time">{{ currentTime | stotime }}</span>
-          <el-slider
-            class="control-progress"
-            v-model="amount"
-            :show-tooltip="false"
-            @change="changeProgressPercent"
-          ></el-slider>
-          <span class="time">{{ totalTime | stotime }}</span>
-        </div>
-      </div>
-      <!-- 音量控制和播放列表 -->
-      <div class="list-control display-flex">
-        <div class="flex_1"></div>
-        <i class="button-volume iconfont icon-volume"></i>
-        <el-slider
-          class="control-volume"
-          v-model="volume"
-          :show-tooltip="false"
-          @change="changevolume(volume)"
-        ></el-slider>
+    </div>
+    <!-- 播放控制 -->
+    <div class="song-control">
+      <div class="switch-control">
+        <span class="button-text">
+          {{ modeList[mode].label }}
+        </span>
         <i
-          class="button-menu iconfont icon-menu"
-          :class="{ active: $store.state.menuVisible }"
-          @click="openPlayList()"
+          class="button-control iconfont"
+          @click="swtichMode"
+          :class="modeList[mode].class"
         ></i>
+        <i class="button-control iconfont icon-pre" @click="switchSong(-1)"></i>
+        <i
+          class="button-control iconfont button-toggle"
+          :class="isPlay ? 'icon-pause' : 'icon-play'"
+          @click="toggleSong()"
+        ></i>
+        <i class="button-control iconfont icon-next" @click="switchSong(1)"></i>
+        <i class="button-control button-text" @click="toggleLyric">浮动歌词</i>
       </div>
+      <div class="progress">
+        <span class="time">{{ currentTime | stotime }}</span>
+        <el-slider
+          class="control-progress"
+          v-model="amount"
+          :show-tooltip="false"
+          @change="changeProgressPercent"
+        ></el-slider>
+        <span class="time">{{ totalTime | stotime }}</span>
+      </div>
+    </div>
+    <!-- 音量控制和播放列表 -->
+    <div class="list-control display-flex">
+      <div class="flex_1"></div>
+      <i class="button-volume iconfont icon-volume"></i>
+      <el-slider
+        class="control-volume"
+        v-model="volume"
+        :show-tooltip="false"
+        @change="changevolume(volume)"
+      ></el-slider>
+      <i
+        class="button-menu iconfont icon-menu"
+        :class="{ active: $store.state.menuVisible }"
+        @click="openPlayList()"
+      ></i>
     </div>
     <!-- 真正的audio标签，不显示 -->
     <audio
@@ -94,17 +86,8 @@
       @timeupdate="onAudioTimeUpdate"
       @loadeddata="loadeddata"
     ></audio>
-    <!-- 播放列表组件 -->
-    <transition-group name="fade">
-      <SongPlayList
-        class="play-list"
-        key="playList"
-        v-if="$store.state.menuVisible"
-        @close="closeSongPlayList"
-      />
-      <SongLyricFloat key="lyric" v-if="songLyricVisible" :time="currentTime" />
-    </transition-group>
-    <transition name="drawer">
+
+    <transition name="drawer-left">
       <SongDrawer
         key="drawer"
         v-if="songDrawerVisible"
@@ -112,7 +95,18 @@
         @progress="changeProgressTime"
       />
     </transition>
-    <iframe id="my_iframe" src style="display: none"></iframe>
+
+    <transition name="fade">
+      <SongLyricFloat key="lyric" v-if="songLyricVisible" :time="currentTime" />
+    </transition>
+    <transition name="drawer-right">
+      <SongPlayList
+        class="play-list"
+        key="playList"
+        v-if="$store.state.menuVisible"
+        @close="closeSongPlayList"
+      />
+    </transition>
   </div>
 </template>
 
@@ -184,6 +178,14 @@ export default {
         this.loaded = false
       },
       deep: true
+    },
+    isPlay(newV) {
+      if (!this.$refs.audio) return false
+      if (newV) {
+        this.$refs.audio.play()
+      } else {
+        this.$refs.audio.pause()
+      }
     }
   },
   mounted() {
@@ -221,11 +223,13 @@ export default {
           break
         case 3: // random
           number = Math.floor(Math.random() * this.$store.state.playList.length)
+          // prev
           if (num == -1) {
             this.current == this.current - 1
             number = this.orderList[this.current] || -1
             this.setSong(number)
           } else {
+            // next
             this.orderList.push(number)
             this.current++
             this.setSong(number)
@@ -244,19 +248,19 @@ export default {
         this.$store.commit('setIsPlay', false)
         index = (index + list.length + number) % list.length
         let next = list[index]
-        this.$store.dispatch('playMusic', next)
-        this.$store.commit('setIndex', index)
+        this.$store.dispatch('getMusic', next).then(res=>{
+          this.$store.commit('setIndex', index)
+        })
       }
     },
     toggleSong() {
       if (this.isPlay) {
-        
         this.$store.commit('setIsPlay', false)
-        this.$refs.audio.pause()
+        // this.$refs.audio.pause()
       } else {
         if (this.song.audioUrl) {
           this.$store.commit('setIsPlay', true)
-          this.$refs.audio.play()
+          // this.$refs.audio.play()
         }
       }
     },
@@ -269,6 +273,7 @@ export default {
       this.isSlider = true
       this.$refs.audio.currentTime = (e * this.totalTime) / 100
       this.amount = e
+      this.$store.commit('setProgress', e)
     },
     changeProgressTime(time) {
       this.$refs.audio.currentTime = time
@@ -281,11 +286,13 @@ export default {
       if (this.loaded) {
         this.totalTime = this.$refs.audio.duration
         this.currentTime = this.$refs.audio.currentTime
-        if (!this.isSlider)
-          this.amount = (100 * this.currentTime) / this.totalTime
+
+        this.amount = (100 * this.currentTime) / this.totalTime
         if (this.amount >= 100) {
+          this.$store.commit('setProgress', 0)
           this.switchSong(1)
         }
+        this.$store.commit('setProgress', this.amount)
       }
     },
     // 打开播放列表
@@ -321,19 +328,34 @@ export default {
 .fade-leave-active {
   transition: opacity 0.5s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+.fade-enter, 
+.fade-leave-to {
   opacity: 0;
 }
 
-.drawer-enter-active,
-.drawer-leave-active {
-  transition: transform 0.5s; // 不能用all
+.drawer-left-enter-active,
+.drawer-left-leave-active {
+  transition: transform 0.5s ease-out;
   transform-origin: left bottom;
   transform: scaleX(1) scaleY(1);
 }
-.drawer-enter, .drawer-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  transition: transform 0.5s;
+.drawer-left-enter, 
+.drawer-left-leave-to {
+  transition: transform 0.5s ease-in;
   transform-origin: left bottom;
+  transform: scaleX(0) scaleY(0);
+}
+.drawer-right-enter-active,
+.drawer-right-leave-active {
+  transition: transform 0.5s ease-in;
+  transform-origin: right bottom;
+  transform: scaleX(1) scaleY(1);
+}
+
+.drawer-right-enter, 
+.drawer-right-leave-to {
+  transition: transform 0.5s ease-out;
+  transform-origin: right bottom;
   transform: scaleX(0) scaleY(0);
 }
 </style>

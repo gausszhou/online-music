@@ -1,20 +1,29 @@
 <template>
-  <div class="playlist">
-    <div class="playlist-mask" @click="close"></div>
-    <div class="playlist-content">
-      <h2 class="playlist-title">当前播放</h2>
-      <div class="playlist-control">
-        <div class="total">总{{ $store.state.playList.length }}首</div>
-        <div class="clear" @click="clearPlayList">清空全部</div>
+  <div class="song-playlist">
+    <div class="song-playlist-mask" @click="close"></div>
+    <div class="song-playlist-content">
+      <div class="song-playlist-header">
+        <h2 class="song-playlist-title">当前播放</h2>
+        <div class="song-playlist-control">
+          <div class="total">总{{ $store.state.playList.length }}首</div>
+          <div class="clear" @click="clearPlayList">清空全部</div>
+        </div>
       </div>
-      <ul class="playlist-box">
+      <ul class="song-playlist-body">
         <li
           class="song-item text-over-elli"
           v-for="(item, index) in $store.state.playList"
           :key="item.id"
+          :class="{ active: index == $store.state.activeIndex }"
+          @dblclick="getMusic(item, index)"
         >
+          <div
+            class="song-item-progress"
+            :style="{
+              width: progress + '%'
+            }"
+          ></div>
           <span class="name text-over-elli">{{ item.name }}</span>
-          <span class="mv-tag" v-if="item.mvid">MV</span>
           <span
             class="author"
             v-for="(author, index) in item.author"
@@ -30,7 +39,7 @@
                 ? 'icon-pause-mobile'
                 : 'icon-play-mobile'
             "
-            @click="playMusic(item, index)"
+            @click="getMusic(item, index)"
           ></a>
         </li>
       </ul>
@@ -41,10 +50,21 @@
 <script>
 export default {
   name: 'playList',
+  computed: {
+    progress() {
+      return this.$store.state.progress
+    }
+  },
   methods: {
-    playMusic(item, index) {
-      this.$store.dispatch('playMusic', item)
-      this.$store.commit('setIndex', index)
+    getMusic(item, index) {
+      if (index == this.$store.state.activeIndex && this.$store.state.isPlay) {
+        this.$store.commit('setIsPlay', false)
+        return false
+      }
+      this.$store.dispatch('getMusic', item).then(res=>{
+        this.$store.commit('setIndex', index)
+
+      })
     },
     close() {
       this.$emit('close')
@@ -58,38 +78,49 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.playlist-mask {
+.song-playlist {
   position: fixed;
-  z-index: 9998;
+  z-index: 997;
   left: 0;
   right: 0;
   top: var(--app-header-height);
   bottom: var(--app-footer-height);
+  width: 100vw;
 }
-.playlist-content {
+.song-playlist-mask {
   position: fixed;
-  z-index: 9999;
+  z-index: 998;
+  top: var(--app-header-height);
+  bottom: var(--app-footer-height);
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0);
+}
+.song-playlist-content {
+  position: fixed;
+  z-index: 999;
+  left: calc(100vw - 400px);
   right: 0;
   top: var(--app-header-height);
   bottom: var(--app-footer-height);
-  width: 440px;
-  padding: 0 10px;
   background-color: #fff;
   box-sizing: border-box;
-  border-left: 1px solid #ccc;
-  border-bottom: 1px solid #eee;
-  .playlist-title {
-    height: 32px;
-    line-height: 32px;
+  border-left: 1px solid #eee;
+
+  .song-playlist-title {
     width: 210px;
+    height: 32px;
+    margin: 0;
+    padding: 0 0.5rem;
     font-size: 18px;
+    color: #ec4141;
+    line-height: 32px;
   }
-  .playlist-control {
+  .song-playlist-control {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 5px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    padding: 5px 0.5rem;
+
     .total {
       width: 180px;
     }
@@ -100,26 +131,48 @@ export default {
   }
 }
 
-.song-item {
+.song-playlist-header {
+  height: 60px;
   width: 100%;
-  height: 30px;
-  overflow: hidden;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.song-playlist-body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: calc(
+    100vh - var(--app-header-height) - var(--app-footer-height) - 80px
+  );
+}
+
+.song-item {
+  position: relative;
   display: flex;
   align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 2px 0.5rem;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  cursor: pointer;
 
   .name {
     font-size: 16px;
     width: 180px;
+    min-width: 180px;
   }
   .author {
     font-size: 14px;
+    overflow: hidden;
   }
   .album {
     font-size: 12px;
     color: #666;
     flex: 1;
-    text-align: center;
+
+    overflow: hidden;
   }
   .mv-tag {
     position: relative;
@@ -129,20 +182,35 @@ export default {
     color: red;
   }
   .play-button {
-    width: 40px;
-    font-size: 28px;
+    margin: 0 8px;
     color: #999;
+    font-size: 28px;
     line-height: 30px;
   }
+  &:last-child {
+    margin-bottom: 10px;
+  }
+  &.active,
   &:hover {
+    background-color: #ec414111;
     .play-button {
       color: #333;
       text-decoration: none;
     }
   }
-}
-.playlist-box {
-  overflow-y: auto;
-  height: calc(100vh - 230px);
+  .song-item-progress {
+    display: none;
+  }
+  &.active .song-item-progress {
+    display: block;
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    box-sizing: border-box;
+    background-color: #ec414177;
+    border-right: 2px solid #ec4141;
+  }
 }
 </style>

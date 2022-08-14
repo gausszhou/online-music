@@ -7,11 +7,11 @@
       <el-tab-pane name="songlists">
         <span slot="label">歌单</span>
       </el-tab-pane>
-      <el-tab-pane name="singer">
-        <span slot="label">歌手</span>
-      </el-tab-pane>
       <el-tab-pane name="ranklists">
         <span slot="label">排行榜</span>
+      </el-tab-pane>
+      <el-tab-pane name="singer">
+        <span slot="label">歌手</span>
       </el-tab-pane>
       <el-tab-pane name="newsongs">
         <span slot="label">最新音乐</span>

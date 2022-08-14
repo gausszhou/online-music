@@ -17,14 +17,24 @@
 - [ ] 歌曲展开页-展示用户评论（抽离单独评论组件）
 - [x] 音量控制，循环，单曲，顺序，列表播放
 - [x] 播放列表，进度条，歌曲切换
-- [ ] 播放全部，将当前列表的歌曲都加进播放列表
+- [x] 播放全部，将当前列表的歌曲都加进播放列表
 - [ ] 修改插入逻辑，点击的歌曲插入到播放列表的头部
+- [ ] 重构歌曲播放逻辑为单独的类
 
 ## Deploy
 
-```
-git clone <this-project-url> --depth=1
+
+```bash
+git clone <this-project-url> --depth=1 netease-cloud-music-vue
 cd netease-cloud-music-vue
+```
+
+```bash
+touch .env
+```
+
+```yaml
+VUE_APP_API="your netease-cloud-music-api path"
 ```
 
 ```bash

@@ -7,7 +7,7 @@
     <h3 class="search-tips">双击歌曲播放</h3>
     <el-tabs v-model="activeIndex">
       <el-tab-pane label="歌曲" name="songs">
-        <el-table :lazy="true" :data="songList" @row-dblclick="playMusic">
+        <el-table :lazy="true" :data="songList" @row-dblclick="getMusic">
           <el-table-column prop="name" label="音乐标题" show-overflow-tooltip>
             <template slot-scope="scope">
               <span>{{ scope.row.name }}</span>
@@ -153,7 +153,7 @@ export default {
         })
       }
     },
-    playMusic(row) {
+    getMusic(row) {
       this.$store.dispatch('getMusic', row)
     },
     toSongSheetDetail(item) {
