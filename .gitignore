@@ -2,7 +2,6 @@
 /dist
 /lib
 
-*.sh
 
 .env
 .env.*
