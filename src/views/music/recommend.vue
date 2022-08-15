@@ -87,7 +87,6 @@ export default {
       }
       this.$http.getPersonalized(params).then((res) => {
         this.list = res.data.result
-        console.log(this.list)
       })
     },
     getNewSong() {
@@ -96,7 +95,6 @@ export default {
       }
       this.$http.getNewSong(params).then((res) => {
         this.songs = res.data.result
-        console.log(this.songs.length)
       })
     },
     getNewMV() {

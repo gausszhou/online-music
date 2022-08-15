@@ -31,7 +31,6 @@ export default {
     submitOK() {
       let params = this.form;
       this.$http.login(params).then((res) => {
-        console.log(res);
         this.$message({
           message: '登录成功',
           type: 'success'
@@ -39,7 +38,6 @@ export default {
         this.handleClose();
         this.$router.go(0);
       }).catch((e) => {
-        console.log(e);
         this.$message({
           message: '登录失败',
           type: 'error'

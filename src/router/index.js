@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import NProgress from 'nprogress'
 
 import Music from '@/views/music/index.vue'
 import Recommend from '@/views/music/recommend.vue'
@@ -118,18 +119,17 @@ const router = new VueRouter({
 })
 
 //导入
-// import NProgress from 'nprogress'
-// import 'nprogress/nprogress.css'
-// 关闭加载小圈圈的显示
-// NProgress.configure({ showSpinner: false })
-// router.beforeEach((to, from, next) => {
-//   NProgress.start()
-//   next()
-// })
 
-// router.afterEach(() => {
-//   NProgress.done()
-// })
+// 关闭加载小圈圈的显示
+NProgress.configure({ showSpinner: false })
+router.beforeEach((to, from, next) => {
+  NProgress.start()
+  next()
+})
+
+router.afterEach(() => {
+  NProgress.done()
+})
 
 // 导出路由
 export default router

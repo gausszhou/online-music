@@ -27,9 +27,9 @@ export default {
   },
   // 歌词处理
   setLyric(state, payload) {
-    let arr = payload.split('\n')
+    let lyricArr = payload.split('\n')
     let reg = /^\[.*]/
-    let newArr = arr.map((item) => {
+    let list = lyricArr.map((item) => {
       let time =
         (item.match(reg) &&
           item.match(reg)[0] &&
@@ -45,11 +45,11 @@ export default {
       } else {
         return {
           time: 9999,
-          word: '...'
+          word: ''
         }
       }
     })
-    state.lyric = newArr
-    local.set("lyric",newArr)
+    state.lyric = list.filter(item=>item.word != "")
+    local.set("lyric",state.lyric)
   }
 }

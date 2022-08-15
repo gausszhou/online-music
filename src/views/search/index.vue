@@ -1,4 +1,5 @@
 <template>
+<div class="app-main-view">
   <div class="app-main-page search-container">
     <div class="search-title-box">
       <h2 class="search-title-keywords">{{ keywords }}</h2>
@@ -11,7 +12,7 @@
           <el-table-column prop="name" label="音乐标题" show-overflow-tooltip>
             <template slot-scope="scope">
               <span>{{ scope.row.name }}</span>
-              <sup v-if="scope.row.mvid" class="iconfont icon-mv mv-tag"
+              <sup v-if="scope.row.mvid" class="iconfont icon-mv mv-tag" @click="playMV(scope.row)"
                 >MV</sup
               >
             </template>
@@ -32,7 +33,9 @@
             </template>
           </el-table-column>
         </el-table>
+
       </el-tab-pane>
+
       <el-tab-pane label="歌单" name="lists">
         <div class="items">
           <div
@@ -79,6 +82,7 @@
       </el-tab-pane>
     </el-tabs>
   </div>
+  </div>
 </template>
 
 <script>
@@ -98,7 +102,6 @@ export default {
   watch: {
     '$store.state.query': {
       handler(newV) {
-        console.log()
         this.search()
       }
     },

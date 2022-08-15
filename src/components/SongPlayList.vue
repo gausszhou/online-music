@@ -3,11 +3,8 @@
     <div class="song-playlist-mask" @click="close"></div>
     <div class="song-playlist-content">
       <div class="song-playlist-header">
-        <h2 class="song-playlist-title">当前播放</h2>
-        <div class="song-playlist-control">
-          <div class="total">总{{ $store.state.playList.length }}首</div>
-          <div class="clear" @click="clearPlayList">清空全部</div>
-        </div>
+        <div class="total">总{{ $store.state.playList.length }}首</div>
+        <div class="clear" @click="clearPlayList">清空全部</div>
       </div>
       <ul class="song-playlist-body">
         <li
@@ -61,9 +58,8 @@ export default {
         this.$store.commit('setIsPlay', false)
         return false
       }
-      this.$store.dispatch('getMusic', item).then(res=>{
+      this.$store.dispatch('getMusic', item).then((res) => {
         this.$store.commit('setIndex', index)
-
       })
     },
     close() {
@@ -84,7 +80,7 @@ export default {
   left: 0;
   right: 0;
   top: var(--app-header-height);
-  bottom: var(--app-footer-height);
+  bottom: calc(var(--app-footer-height) + 3px);
   width: 100vw;
 }
 .song-playlist-mask {
@@ -102,48 +98,37 @@ export default {
   left: calc(100vw - 400px);
   right: 0;
   top: var(--app-header-height);
-  bottom: var(--app-footer-height);
+  bottom: calc(var(--app-footer-height) + 1px);
   background-color: #fff;
-  box-sizing: border-box;
+  // box-sizing: border-box;
+  border-top: 1px solid #eee;
   border-left: 1px solid #eee;
-
-  .song-playlist-title {
-    width: 210px;
-    height: 32px;
-    margin: 0;
-    padding: 0 0.5rem;
-    font-size: 18px;
-    color: #ec4141;
-    line-height: 32px;
-  }
-  .song-playlist-control {
-    display: flex;
-    justify-content: space-between;
-    padding: 5px 0.5rem;
-
-    .total {
-      width: 180px;
-    }
-    .clear {
-      color: #517eaf;
-      cursor: pointer;
-    }
-  }
 }
 
 .song-playlist-header {
-  height: 60px;
+  height: 40px;
   width: 100%;
+  box-sizing: border;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  .total {
+    width: 180px;
+    margin: 0.5rem;
+  }
+  .clear {
+    color: #517eaf;
+    cursor: pointer;
+    margin: 0.5rem;
+  }
 }
+
 .song-playlist-body {
   overflow-x: hidden;
   overflow-y: auto;
   height: calc(
-    100vh - var(--app-header-height) - var(--app-footer-height) - 80px
+    100vh - var(--app-header-height) - var(--app-footer-height) - 40px
   );
 }
 

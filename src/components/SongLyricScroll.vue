@@ -20,6 +20,9 @@
 </template>
 
 <script>
+
+import animation from '../lib/animation'
+
 export default {
   name: 'lyric',
   props: {
@@ -58,7 +61,9 @@ export default {
         const lyricEL = this.$refs.lyric[index]
         const HEIGHT = lyricEL.offsetHeight
         const top = HEIGHT * (index + 0.5)
-        lyricListEl.scrollTop = top
+        animation(lyricListEl.scrollTop,top,(value)=>{
+          lyricListEl.scrollTop = value
+        },"Quad.ease-in-out")
       }
     },
     onLyricScroll(e) {

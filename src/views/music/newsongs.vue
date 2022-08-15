@@ -72,7 +72,6 @@ export default {
     },
     page(newV) {
       const limit = this.limit
-      console.log(this.limit)
       this.list = this.lists.slice((newV - 1) * limit, newV * limit)
     }
   },
