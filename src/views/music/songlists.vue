@@ -16,17 +16,23 @@
       <!-- tab栏 顶部 -->
       <div class="tab-bar">
         <span
-          v-for="(item,index) in tagList"
+          v-for="(item, index) in tagList"
           :key="index"
           class="item"
           :class="{ active: tag == item }"
-          @click="tag = item "
-        >{{item}}</span>
+          @click="tag = item"
+          >{{ item }}</span
+        >
       </div>
       <!-- tab的内容区域 -->
       <div class="tab-content">
         <div class="items">
-          <div class="item" v-for="(item, index) in list" :key="index" @click="toSongSheetDetail(item)">
+          <div
+            class="item"
+            v-for="(item, index) in list"
+            :key="index"
+            @click="toSongSheetDetail(item)"
+          >
             <div class="img-wrap">
               <div class="num-wrap">
                 <span class="num">{{ item.playCount | numbertocount }}</span>
@@ -53,13 +59,28 @@
 
 <script>
 export default {
-  name: 'songSheet',
+  name: "songSheet",
   data() {
     return {
       // 标签列表
-      tagList: ['全部', '欧美', '华语', '流行', '说唱', '摇滚', '民谣', '电子', '轻音乐', '影视原声', 'ACG', '怀旧', '治愈', '旅行'],
+      tagList: [
+        "全部",
+        "欧美",
+        "华语",
+        "流行",
+        "说唱",
+        "摇滚",
+        "民谣",
+        "电子",
+        "轻音乐",
+        "影视原声",
+        "ACG",
+        "怀旧",
+        "治愈",
+        "旅行"
+      ],
       // 当前选中，默认为全部
-      tag: '全部',
+      tag: "全部",
       // 总条数
       total: 0,
       // 每页条数
@@ -69,7 +90,7 @@ export default {
       // 顶部的推荐歌单
       topList: {},
       // 歌单列表
-      list: [],
+      list: []
     };
   },
   watch: {
@@ -89,7 +110,7 @@ export default {
         limit: 1,
         cat: this.tag
       };
-      this.$http.getTopPlayListDetail(params).then(res => {
+      this.$http.getTopPlayListDetail(params).then((res) => {
         this.topList = res.data.playlists[0];
       });
     },
@@ -99,14 +120,14 @@ export default {
         offset: (this.page - 1) * this.limit,
         cat: this.tag
       };
-      this.$http.getTopPlayList(params).then(res => {
+      this.$http.getTopPlayList(params).then((res) => {
         this.total = res.data.total;
         this.list = res.data.playlists;
       });
     },
     toSongSheetDetail(item) {
       this.$router.push({
-        name: 'detailSongSheet',
+        name: "detailSongSheet",
         query: {
           id: item.id
         }
@@ -117,8 +138,7 @@ export default {
       this.getTopPlayList();
     }
   }
-}
-
+};
 </script>
 
 <style></style>

@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import animation from "../lib/animation"
-import { mapState } from "vuex"
+import animation from "../lib/animation";
+import { mapState } from "vuex";
 export default {
   name: "lyric",
   props: {
@@ -34,7 +34,7 @@ export default {
     return {
       songLyricIndex: 0,
       scrollTime: 0
-    }
+    };
   },
   computed: {
     ...mapState("song", {
@@ -51,44 +51,43 @@ export default {
     songCurrentTime(newV) {
       for (let i = 0; i < this.songLyricList.length; i++) {
         if (newV > this.songLyricList[i].time) {
-          this.songLyricIndex = i
+          this.songLyricIndex = i;
         }
       }
     },
     songLyricIndex(newV) {
-      this.scroll(newV)
+      this.scroll(newV);
     }
   },
   methods: {
     scroll(index) {
       if (this.$refs.lyric) {
-        const lyricListEl = this.$refs.lyricList
-        const HEIGHT = this.$refs.lyric[0].offsetHeight
-        const targetScrollTop = HEIGHT * (index + 0.5)
+        const lyricListEl = this.$refs.lyricList;
+        const HEIGHT = this.$refs.lyric[0].offsetHeight;
+        const targetScrollTop = HEIGHT * (index + 0.5);
         animation(
           lyricListEl.scrollTop,
           targetScrollTop,
           (value) => {
-            lyricListEl.scrollTop = value
+            lyricListEl.scrollTop = value;
           },
           "Quad.ease-in-out"
-        )
+        );
       }
     },
     onLyricScroll() {
-      const lyricListEl = this.$refs.lyricList
-      const currentScrollTop = lyricListEl.scrollTop
-      const HEIGHT = this.$refs.lyric[0].offsetHeight
-      let index = Math.round(currentScrollTop / HEIGHT)
-      if (index > 0) index -= 1
-      if (this.songLyricList) this.scrollTime = this.songLyricList[index].time
+      const lyricListEl = this.$refs.lyricList;
+      const currentScrollTop = lyricListEl.scrollTop;
+      const HEIGHT = this.$refs.lyric[0].offsetHeight;
+      let index = Math.round(currentScrollTop / HEIGHT);
+      if (index > 0) index -= 1;
+      if (this.songLyricList) this.scrollTime = this.songLyricList[index].time;
     },
     changeProgress() {
-      
-      this.$store.commit("song/setSongTargetTime",this.scrollTime)
+      this.$store.commit("song/setSongTargetTime", this.scrollTime);
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

@@ -1,4 +1,4 @@
-export const songModeList =  [
+export const songModeList = [
   {
     mode: 0, // 列表循环
     class: "icon-mode-loop",
@@ -19,4 +19,4 @@ export const songModeList =  [
     class: "icon-mode-random",
     label: "随机播放"
   }
-]
+];

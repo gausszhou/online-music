@@ -42,32 +42,32 @@ export default {
         phone: "",
         password: ""
       }
-    }
+    };
   },
   methods: {
     submitOK() {
-      let params = this.form
+      let params = this.form;
       this.$http
         .login(params)
         .then((res) => {
           this.$message({
             message: "登录成功",
             type: "success"
-          })
-          this.handleClose()
-          this.$router.go(0)
+          });
+          this.handleClose();
+          this.$router.go(0);
         })
         .catch((e) => {
           this.$message({
             message: "登录失败",
             type: "error"
-          })
-        })
+          });
+        });
     },
     handleClose() {
-      this.visible = false
-      this.$emit("change")
+      this.visible = false;
+      this.$emit("change");
     }
   }
-}
+};
 </script>

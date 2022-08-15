@@ -12,15 +12,15 @@
       :min-width="400"
       :min-height="80"
     >
-      <div class="lyric">{{ songLyricList[index].word || '......' }}</div>
+      <div class="lyric">{{ songLyricList[index].word || "......" }}</div>
     </VueDragResize>
   </div>
 </template>
 
 <script>
-import VueDragResize from '@gausszhou/vue-drag-resize'
+import VueDragResize from "@gausszhou/vue-drag-resize";
 export default {
-  name: 'lyric',
+  name: "lyric",
   components: {
     VueDragResize
   },
@@ -33,23 +33,23 @@ export default {
   data() {
     return {
       index: 0
-    }
+    };
   },
   computed: {
     songLyricList() {
-      return this.$store.state.song.songLyricList
+      return this.$store.state.song.songLyricList;
     }
   },
   watch: {
     time(newV) {
       for (let i = 0; i < this.songLyricList.length; i++) {
         if (newV > this.songLyricList[i].time) {
-          this.songLyricList = i
+          this.songLyricList = i;
         }
       }
     }
   }
-}
+};
 </script>
 
 <style scoped>

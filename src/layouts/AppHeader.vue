@@ -38,43 +38,43 @@
 </template>
 
 <script>
-import LoginDialog from '@/components/LoginDialog.vue'
+import LoginDialog from "@/components/LoginDialog.vue";
 export default {
-  name: 'AppHeader',
+  name: "AppHeader",
   components: {
     LoginDialog
   },
   data() {
     return {
-      query: '',
+      query: "",
       loginDialogVisible: false,
-      logoUrl: require('@/assets/images/logo.png')
-    }
+      logoUrl: require("@/assets/images/logo.png")
+    };
   },
   methods: {
     openLoginDialog() {
-      this.loginDialogVisible = true
+      this.loginDialogVisible = true;
     },
     loginDialogChange() {
-      this.loginDialogVisible = false
+      this.loginDialogVisible = false;
     },
     search() {
       if (this.query != this.$route.query.keywords) {
-        this.$store.commit('setQuery', this.query)
+        this.$store.commit("setQuery", this.query);
         this.$router.push({
-          name: 'search',
+          name: "search",
           query: {
             keywords: this.query
           }
-        })
-      } 
+        });
+      }
     },
     goto(name) {
-      this.$router.replace({ name })
+      this.$router.replace({ name });
     },
     go(num) {
-      this.$router.go(num)
+      this.$router.go(num);
     }
   }
-}
+};
 </script>

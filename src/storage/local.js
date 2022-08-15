@@ -1,9 +1,9 @@
 // localStorage
 
 let local = {};
-const prefix = "netease"
+const prefix = "netease";
 // const debug = process.NODE_ENV != "production";
-const debug = false
+const debug = false;
 
 local.get = (key) => {
   let json = localStorage.getItem(`${prefix}-${key}`);

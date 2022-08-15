@@ -42,13 +42,13 @@
   white-space: nowrap;
 }
 
-.text-over-elli-2{
+.text-over-elli-2 {
   overflow: hidden;
   text-overflow: -o-ellipsis-lastline;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;  
+  -webkit-line-clamp: 2;
   line-clamp: 2;
 }
 
@@ -102,7 +102,7 @@ body {
   padding: 0;
   font-weight: 400;
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
-    Microsoft YaHei, '\5FAE\8F6F\96C5\9ED1', Arial, sans-serif;
+    Microsoft YaHei, "\5FAE\8F6F\96C5\9ED1", Arial, sans-serif;
 }
 
 a {

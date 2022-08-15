@@ -1,5 +1,5 @@
 // 定义桌面
-body{
+body {
   min-width: 1200px;
 }
 #app {
@@ -65,9 +65,8 @@ body{
 }
 
 #app {
-
   ::-webkit-scrollbar {
-    width: .5rem;
+    width: 0.5rem;
   }
 
   ::-webkit-scrollbar-track {
@@ -77,5 +76,4 @@ body{
   ::-webkit-scrollbar-thumb {
     background-color: #e0e0e0;
   }
-
 }

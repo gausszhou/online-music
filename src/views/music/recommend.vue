@@ -50,7 +50,7 @@
 
 <script>
 export default {
-  name: 'recommend',
+  name: "recommend",
   data() {
     return {
       // 轮播图
@@ -63,69 +63,69 @@ export default {
       songs: [],
       // 推荐mv
       mvs: []
-    }
+    };
   },
   created() {
-    this.getData()
+    this.getData();
   },
   methods: {
     getData() {
-      this.getBanner()
-      this.getPersonalized()
-      this.getNewSong()
-      this.getNewMV()
-      this.getPrivatecontent()
+      this.getBanner();
+      this.getPersonalized();
+      this.getNewSong();
+      this.getNewMV();
+      this.getPrivatecontent();
     },
     getBanner() {
       this.$http.getBanner().then((res) => {
-        this.banners = res.data.banners
-      })
+        this.banners = res.data.banners;
+      });
     },
     getPersonalized() {
       let params = {
         limit: 10
-      }
+      };
       this.$http.getPersonalized(params).then((res) => {
-        this.list = res.data.result
-      })
+        this.list = res.data.result;
+      });
     },
     getNewSong() {
       let params = {
         limit: 12
-      }
+      };
       this.$http.getNewSong(params).then((res) => {
-        this.songs = res.data.result
-      })
+        this.songs = res.data.result;
+      });
     },
     getNewMV() {
       this.$http.getNewMV().then((res) => {
-        this.mvs = res.data.result
-      })
+        this.mvs = res.data.result;
+      });
     },
     getPrivatecontent() {
       this.$http.getPrivatecontent().then((res) => {
-        this.contents = res.data.result
-      })
+        this.contents = res.data.result;
+      });
     },
     toDetailSongSheet(item) {
       this.$router.push({
-        name: 'detailSongSheet',
+        name: "detailSongSheet",
         query: {
           id: item.id
         }
-      })
+      });
     },
     getMusic(item) {
-      this.$store.dispatch('song/getMusic', item)
+      this.$store.dispatch("song/getMusic", item);
     },
     toDetailMV(item) {
       this.$router.push({
-        name: 'detailMV',
+        name: "detailMV",
         query: {
           mvid: item.id
         }
-      })
+      });
     }
   }
-}
+};
 </script>

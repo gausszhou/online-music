@@ -1,5 +1,3 @@
-
-
 .video-container .title {
   margin-bottom: 20px;
 }
@@ -148,7 +146,7 @@
   margin-right: 10px;
 }
 
-.video-container .mv-recommend .mvs .items .item .img-wrap>.icon-play {
+.video-container .mv-recommend .mvs .items .item .img-wrap > .icon-play {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -165,11 +163,17 @@
   opacity: 0;
 }
 
-.video-container .mv-recommend .mvs .items .item .img-wrap>.icon-play::before {
+.video-container
+  .mv-recommend
+  .mvs
+  .items
+  .item
+  .img-wrap
+  > .icon-play::before {
   transform: translateX(0px);
 }
 
-.video-container .mv-recommend .mvs .items .item .img-wrap:hover>.icon-play {
+.video-container .mv-recommend .mvs .items .item .img-wrap:hover > .icon-play {
   opacity: 1;
 }
 
@@ -190,7 +194,14 @@
   padding-top: 2px;
 }
 
-.video-container .mv-recommend .mvs .items .item .img-wrap .num-wrap .icon-play {
+.video-container
+  .mv-recommend
+  .mvs
+  .items
+  .item
+  .img-wrap
+  .num-wrap
+  .icon-play {
   font-size: 12px;
   display: flex;
   align-items: center;
@@ -218,42 +229,40 @@
   color: #c5c5c5;
 }
 
-
-
-.video-container .filter-wrap>div {
+.video-container .filter-wrap > div {
   margin-bottom: 30px;
   vertical-align: baseline;
   display: flex;
   align-items: center;
 }
 
-.video-container .filter-wrap>div span {
+.video-container .filter-wrap > div span {
   font-size: 14px;
   height: 100%;
 }
 
-.video-container .filter-wrap>div span.title {
+.video-container .filter-wrap > div span.title {
   margin: 20px;
   color: gray;
   cursor: pointer;
   padding: 5px 20px;
 }
 
-.video-container .filter-wrap>div span.title.active {
+.video-container .filter-wrap > div span.title.active {
   color: #dd6d60;
   background-color: #fcf6f5;
   border-radius: 20px;
 }
 
-.video-container .filter-wrap>div span.title::before {
+.video-container .filter-wrap > div span.title::before {
   content: "", pos;
 }
 
-.video-container .filter-wrap>div ul {
+.video-container .filter-wrap > div ul {
   display: flex;
 }
 
-.video-container .filter-wrap>div ul li:not(:last-child) {
+.video-container .filter-wrap > div ul li:not(:last-child) {
   border-right: 1px solid #f2f2f1;
 }
 

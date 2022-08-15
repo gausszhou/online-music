@@ -11,12 +11,12 @@
 }
 
 .songs-container .tab-bar .item::after {
-  content: '|';
+  content: "|";
   padding: 0 1rem;
 }
 
 .songs-container .tab-bar .item:last-child::after {
-  content: '';
+  content: "";
 }
 .songs-container .tab-bar .item.active {
   color: #dd6d60;

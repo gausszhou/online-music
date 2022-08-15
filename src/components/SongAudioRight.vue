@@ -18,12 +18,12 @@
 </template>
 
 <script>
-import { mapState } from "vuex"
+import { mapState } from "vuex";
 export default {
   data() {
     return {
       volume: 50
-    }
+    };
   },
   computed: {
     ...mapState("song", {
@@ -34,17 +34,17 @@ export default {
     })
   },
   mounted() {
-    this.volume = this.songVolume
+    this.volume = this.songVolume;
   },
   methods: {
     onVolumeSliderChange(e) {
-      this.$store.commit("song/setSongVolume", e)
+      this.$store.commit("song/setSongVolume", e);
     },
     toggleSongListVisible() {
-      this.$store.commit("ui/setSongListVisible", !this.songListVisible)
+      this.$store.commit("ui/setSongListVisible", !this.songListVisible);
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped></style>

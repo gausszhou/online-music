@@ -1,10 +1,9 @@
-
 .app-header .left-box {
   display: flex;
   align-items: center;
 }
 
-.app-header .app-header-logo{
+.app-header .app-header-logo {
   cursor: pointer;
   width: var(--app-sidenav-width);
 }
@@ -44,7 +43,7 @@
   border-radius: 50%;
   transition: 0.2s;
   cursor: pointer;
-  background-color: rgba(0, 0, 0, .1);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .app-header .left-box .app-header-history .app-header-history-icon:first-child {
@@ -52,8 +51,8 @@
 }
 
 .app-header .left-box .app-header-history .app-header-history-icon:hover {
-  background-color: rgba(0, 0, 0, .3);
-  }
+  background-color: rgba(0, 0, 0, 0.3);
+}
 
 .app-header .right-box {
   display: flex;
@@ -63,7 +62,7 @@
 .app-header .app-header-search input {
   width: 300px;
   border-radius: 50px;
-  background-color: rgba(0, 0, 0, .1);
+  background-color: rgba(0, 0, 0, 0.1);
   border: none;
   color: #fff;
 }

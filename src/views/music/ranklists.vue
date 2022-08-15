@@ -19,31 +19,31 @@
 
 <script>
 export default {
-  name: 'rankList',
+  name: "rankList",
   data() {
     return {
       list: []
-    }
+    };
   },
   created() {
-    this.getTopList()
+    this.getTopList();
   },
   methods: {
     getTopList() {
       this.$http.getTopList().then((res) => {
-        this.list = res.data.list
-      })
+        this.list = res.data.list;
+      });
     },
     toSongSheetDetail(item) {
       this.$router.push({
-        name: 'detailSongSheet',
+        name: "detailSongSheet",
         query: {
           id: item.id
         }
-      })
+      });
     }
   }
-}
+};
 </script>
 
 <style></style>

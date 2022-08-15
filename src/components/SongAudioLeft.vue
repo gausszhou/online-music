@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex"
+import { mapState } from "vuex";
 export default {
   computed: {
     ...mapState("song", {
@@ -41,10 +41,10 @@ export default {
   },
   methods: {
     toggleSongDrawer() {
-      this.$store.commit("ui/setSongDrawerVisible", !this.songDrawerVisible)
+      this.$store.commit("ui/setSongDrawerVisible", !this.songDrawerVisible);
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped></style>

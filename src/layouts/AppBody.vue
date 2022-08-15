@@ -11,7 +11,7 @@
 import AppNav from "@/layouts/AppSideNav";
 
 export default {
-  name: 'AppBody',
+  name: "AppBody",
   components: {
     AppNav
   }

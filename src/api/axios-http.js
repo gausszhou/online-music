@@ -1,32 +1,38 @@
 // 引入axios
-import axios from 'axios';
+import axios from "axios";
 
 const instance = axios.create({
-  timeout:5000,
-  headers:{
-    "Content-Type":"application/json0"
+  timeout: 5000,
+  headers: {
+    "Content-Type": "application/json0"
   }
-})
+});
 
 // Add a request interceptor
-axios.interceptors.request.use(function (config) {
-  // Do something before request is sent
-  return config;
-}, function (error) {
-  // Do something with request error
-  return Promise.reject(error);
-});
+axios.interceptors.request.use(
+  function (config) {
+    // Do something before request is sent
+    return config;
+  },
+  function (error) {
+    // Do something with request error
+    return Promise.reject(error);
+  }
+);
 
 // Add a response interceptor
-axios.interceptors.response.use(function (response) {
-  // Any status code that lie within the range of 2xx cause this function to trigger
-  // Do something with response data
-  return response;
-}, function (error) {
-  // Any status codes that falls outside the range of 2xx cause this function to trigger
-  // Do something with response error
-  return Promise.reject(error);
-});
+axios.interceptors.response.use(
+  function (response) {
+    // Any status code that lie within the range of 2xx cause this function to trigger
+    // Do something with response data
+    return response;
+  },
+  function (error) {
+    // Any status codes that falls outside the range of 2xx cause this function to trigger
+    // Do something with response error
+    return Promise.reject(error);
+  }
+);
 
 // Get请求参数拼接
 export function serialize(params) {
@@ -35,9 +41,11 @@ export function serialize(params) {
   }
   let str = "?",
     keys = Object.keys(params);
-  keys.forEach(k => {
-    if (Object.prototype.toString.call(params[k]) === "[object Object]" || Object.prototype.toString.call(params[k]) ===
-      "[object Array]") {
+  keys.forEach((k) => {
+    if (
+      Object.prototype.toString.call(params[k]) === "[object Object]" ||
+      Object.prototype.toString.call(params[k]) === "[object Array]"
+    ) {
       str += k + "=" + JSON.stringify(params[k]) + "&";
     } else {
       str += k + "=" + params[k] + "&";
@@ -46,4 +54,4 @@ export function serialize(params) {
   return str.substr(0, str.length - 1);
 }
 
-export default instance
+export default instance;

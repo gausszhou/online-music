@@ -52,8 +52,8 @@
 </template>
 
 <script>
-import { mapState } from "vuex"
-import { songModeList } from "./SongData"
+import { mapState } from "vuex";
+import { songModeList } from "./SongData";
 export default {
   data() {
     return {
@@ -65,7 +65,7 @@ export default {
       percent: 0,
       // audio element
       loaded: false
-    }
+    };
   },
   computed: {
     ...mapState("song", {
@@ -85,132 +85,132 @@ export default {
   watch: {
     songIndex(newV) {
       if (newV == -1) {
-        this.$refs.audio.pause()
-        this.$store.commit("song/setSongIsPlay",false)
-        return
+        this.$refs.audio.pause();
+        this.$store.commit("song/setSongIsPlay", false);
+        return;
       }
-      const next = this.songList[newV]
-      this.$store.dispatch("song/getMusic", next)
+      const next = this.songList[newV];
+      this.$store.dispatch("song/getMusic", next);
     },
     songCurrent: {
       handler() {
-        this.loaded = false
+        this.loaded = false;
       }
     },
     songIsPlay(newV) {
-      if (!this.$refs.audio) return false
+      if (!this.$refs.audio) return false;
       // if (!this.loaded) return false
-      newV ? this.$refs.audio.play() : this.$refs.audio.pause()
+      newV ? this.$refs.audio.play() : this.$refs.audio.pause();
     },
     songTargetTime(newV) {
-      if (!this.$refs.audio) return false
+      if (!this.$refs.audio) return false;
       // if (!this.loaded) return false
-      this.$refs.audio.currentTime = newV
+      this.$refs.audio.currentTime = newV;
     },
     songTargetPercent(newV) {
-      if (!this.$refs.audio) return false
+      if (!this.$refs.audio) return false;
       // if (!this.loaded) return false
-      let targetTime = (newV * this.totalTime) / 100
-      this.$refs.audio.currentTime = targetTime
+      let targetTime = (newV * this.totalTime) / 100;
+      this.$refs.audio.currentTime = targetTime;
     },
     songVolume(newV) {
-      let v = newV / 100
-      v = Math.max(0, v)
-      v = Math.min(v, 1)
-      this.$refs.audio.volume = newV / 100
+      let v = newV / 100;
+      v = Math.max(0, v);
+      v = Math.min(v, 1);
+      this.$refs.audio.volume = newV / 100;
     }
   },
   mounted() {
-    this.$refs.audio.volume = this.songVolume / 100
+    this.$refs.audio.volume = this.songVolume / 100;
   },
   methods: {
     onAudioLoaded() {
-      console.log("audio.onloaded")
-      this.loaded = true
+      console.log("audio.onloaded");
+      this.loaded = true;
     },
     onAudioTimeUpdate() {
       // if (!this.loaded) return false
-      this.totalTime = this.$refs.audio.duration
-      this.currentTime = this.$refs.audio.currentTime
-      this.percent = (100 * this.currentTime) / this.totalTime
-      if (this.percent >= 100) this.percent = 0
-      this.$store.commit("song/setSongCurrentTime", this.currentTime)
-      this.$store.commit("song/setSongCurrentPercent", this.percent)
+      this.totalTime = this.$refs.audio.duration;
+      this.currentTime = this.$refs.audio.currentTime;
+      this.percent = (100 * this.currentTime) / this.totalTime;
+      if (this.percent >= 100) this.percent = 0;
+      this.$store.commit("song/setSongCurrentTime", this.currentTime);
+      this.$store.commit("song/setSongCurrentPercent", this.percent);
     },
     onAudioEnded() {
-      this.switchSong(1, true)
+      this.switchSong(1, true);
     },
     toggleSongMode() {
-      const mode = this.songMode
-      const length = this.songModeList.length
-      const modeNew = (mode + length + 1) % length
-      this.$store.commit("song/setSongMode", modeNew)
+      const mode = this.songMode;
+      const length = this.songModeList.length;
+      const modeNew = (mode + length + 1) % length;
+      this.$store.commit("song/setSongMode", modeNew);
     },
     prevSong() {
-      this.switchSong(-1,false)
+      this.switchSong(-1, false);
     },
     nextSong() {
-      this.switchSong(1,false)
+      this.switchSong(1, false);
     },
     // 区分手动和自动
-    switchSong(num,auto) {
-      let number = 0
+    switchSong(num, auto) {
+      let number = 0;
       switch (this.songMode) {
         case 0: // loop
-          number = num
-          this.setSong(number)
-          break
+          number = num;
+          this.setSong(number);
+          break;
         case 1: // single-loop
-          number = 0
-          this.setSong(number)
-          break
+          number = 0;
+          this.setSong(number);
+          break;
         case 2: // order
-          const lastIndex = this.songList.length - 1
+          const lastIndex = this.songList.length - 1;
           if (this.songIndex == lastIndex && auto) {
-            this.$store.commit("song/setSongIndex", -1)
-            return
+            this.$store.commit("song/setSongIndex", -1);
+            return;
           }
-          number = 1
-          this.setSong(number)
-          break
+          number = 1;
+          this.setSong(number);
+          break;
         case 3: // random
-          const length = this.$store.state.songList.length
+          const length = this.$store.state.songList.length;
           // number [0, lenght) == [0, lenght-1]
-          number = Math.floor(Math.random() * length)
-          this.setSong(number)
-          break
+          number = Math.floor(Math.random() * length);
+          this.setSong(number);
+          break;
         default:
-          break
+          break;
       }
     },
     // -1 0 1
     setSong(number) {
-      const songList = this.songList
-      const songIndex = this.songIndex
-      const length = songList.length
+      const songList = this.songList;
+      const songIndex = this.songIndex;
+      const length = songList.length;
       if (length > 1) {
-        const targetIndex = (songIndex + length + number) % length
-        this.$store.commit("song/setSongIndex", targetIndex)
+        const targetIndex = (songIndex + length + number) % length;
+        this.$store.commit("song/setSongIndex", targetIndex);
       }
     },
     toggleSongPlay() {
       if (this.songIsPlay) {
-        this.$store.commit("song/setSongIsPlay", false)
+        this.$store.commit("song/setSongIsPlay", false);
       } else {
         if (this.songCurrent.audioUrl) {
-          this.$store.commit("song/setSongIsPlay", true)
+          this.$store.commit("song/setSongIsPlay", true);
         }
       }
     },
     toggleLyricFloat() {
-      this.$store.commit("ui/setSongLyricVisible", !this.songLyricVisible)
+      this.$store.commit("ui/setSongLyricVisible", !this.songLyricVisible);
     },
     onAudioSliderChange(percent) {
-      let songTargetTime = (percent * this.totalTime) / 100
-      this.$store.commit("song/setSongTargetTime", songTargetTime)
+      let songTargetTime = (percent * this.totalTime) / 100;
+      this.$store.commit("song/setSongTargetTime", songTargetTime);
     }
   }
-}
+};
 </script>
 
 <style></style>

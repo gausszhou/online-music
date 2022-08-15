@@ -27,35 +27,35 @@
 
 <script>
 export default {
-  name: 'music',
+  name: "music",
   components: {},
   data() {
     return {
-      tab: 'recommend'
-    }
+      tab: "recommend"
+    };
   },
   watch: {
-    '$route.name': {
+    "$route.name": {
       handler(newV) {
-        this.tab = newV
+        this.tab = newV;
       }
     }
   },
   beforeRouteEnter(to, from, next) {
     next((vm) => {
-      vm.tab = to.name
-    })
+      vm.tab = to.name;
+    });
   },
   methods: {
     switchTab() {
-      this.goto(this.tab)
+      this.goto(this.tab);
     },
     goto(name) {
-      if (this.$route.name == name) return
-      this.$router.replace({ name })
+      if (this.$route.name == name) return;
+      this.$router.replace({ name });
     }
   }
-}
+};
 </script>
 
 <style scoped></style>

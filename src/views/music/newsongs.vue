@@ -17,7 +17,7 @@
       <el-table-column prop="name" label="标题"></el-table-column>
       <el-table-column label="歌手">
         <template slot-scope="scope">
-          <span>{{ scope.row.album.artists['0'].name }}</span>
+          <span>{{ scope.row.album.artists["0"].name }}</span>
         </template>
       </el-table-column>
       <el-table-column label="专辑">
@@ -45,38 +45,38 @@
 
 <script>
 export default {
-  name: 'latestMusic',
+  name: "latestMusic",
   data() {
     return {
       // 分类标签列表
       tagList: [
-        { tag: 0, label: '全部' },
-        { tag: 7, label: '华语' },
-        { tag: 96, label: '欧美' },
-        { tag: 8, label: '日本' },
-        { tag: 16, label: '韩国' }
+        { tag: 0, label: "全部" },
+        { tag: 7, label: "华语" },
+        { tag: 96, label: "欧美" },
+        { tag: 8, label: "日本" },
+        { tag: 16, label: "韩国" }
       ],
       // 当前分类标签
-      tag: '0',
+      tag: "0",
       // 歌曲列表
       list: [],
       lists: [],
       total: 100,
       page: 1,
       limit: 20
-    }
+    };
   },
   watch: {
     tag() {
-      this.getTopSong()
+      this.getTopSong();
     },
     page(newV) {
-      const limit = this.limit
-      this.list = this.lists.slice((newV - 1) * limit, newV * limit)
+      const limit = this.limit;
+      this.list = this.lists.slice((newV - 1) * limit, newV * limit);
     }
   },
   created() {
-    this.getTopSong()
+    this.getTopSong();
   },
   methods: {
     // 获取列表数据
@@ -84,20 +84,23 @@ export default {
       // 获取 最新音乐数据
       let params = {
         type: this.tag
-      }
+      };
       this.$http.getTopSong(params).then((res) => {
-        this.lists = res.data.data
-        const limit = this.limit
-        this.list = this.lists.slice((this.page - 1) * limit, this.page * limit)
-      })
+        this.lists = res.data.data;
+        const limit = this.limit;
+        this.list = this.lists.slice(
+          (this.page - 1) * limit,
+          this.page * limit
+        );
+      });
     },
     // 播放歌曲
     getMusic(item) {
-      this.$store.dispatch('song/getMusic', item)
+      this.$store.dispatch("song/getMusic", item);
     },
     handleCurrentChange(page) {
-      this.page = page
+      this.page = page;
     }
   }
-}
+};
 </script>

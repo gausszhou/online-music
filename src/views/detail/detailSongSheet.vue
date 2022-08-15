@@ -119,52 +119,51 @@
 </template>
 
 <script>
-
 export default {
-  name: 'playlist',
+  name: "playlist",
   data() {
     return {
-      activeIndex: '1',
+      activeIndex: "1",
       songstotal: 0,
       songslimit: 20,
       songspage: 1,
       commentsTotal: 0,
       commentsLimit: 10,
       commentsPage: 1,
-      id: '',
+      id: "",
       playlist: {
         creator: {},
-        createTime: '000'
+        createTime: "000"
       },
       tracks: [],
       comments: []
-    }
+    };
   },
   computed: {
     tracksShow() {
       return this.tracks.slice(
         (this.songspage - 1) * this.songslimit,
         this.songspage * this.songslimit
-      )
+      );
     },
     createTime() {
-      return new Date(this.playlist.createTime).toISOString().slice(0, 10)
+      return new Date(this.playlist.createTime).toISOString().slice(0, 10);
     }
   },
   created() {
-    this.getPlayListDetail()
-    this.getCommentPlayList()
+    this.getPlayListDetail();
+    this.getCommentPlayList();
   },
   methods: {
     getPlayListDetail() {
       let params = {
         id: this.$route.query.id
-      }
+      };
       this.$http.getPlayListDetail(params).then((res) => {
-        this.playlist = res.data.playlist
-        this.tracks = this.playlist.tracks
-        this.songstotal = this.tracks.length
-      })
+        this.playlist = res.data.playlist;
+        this.tracks = this.playlist.tracks;
+        this.songstotal = this.tracks.length;
+      });
     },
     getCommentPlayList() {
       let params = {
@@ -172,36 +171,36 @@ export default {
         type: 0,
         limit: this.commentsLimit,
         offset: (this.commentsPage - 1) * this.commentsLimit
-      }
+      };
       this.$http.getCommentPlayList(params).then((res) => {
-        this.comments = res.data.comments
-        this.commentsTotal = res.data.total
-      })
+        this.comments = res.data.comments;
+        this.commentsTotal = res.data.total;
+      });
     },
     handleSongsPagesChange(val) {
-      this.songspage = val
-      this.getPlayListDetail()
+      this.songspage = val;
+      this.getPlayListDetail();
     },
     handleCommentsPagesChange(val) {
-      this.commentsPage = val
-      this.getCommentPlayList()
+      this.commentsPage = val;
+      this.getCommentPlayList();
     },
     playMV(item) {
       this.$router.push({
-        name: 'detailMV',
+        name: "detailMV",
         query: {
           mvid: item.mv
         }
-      })
+      });
     },
-    addToSongList(){
-      this.$store.commit("song/addListToSongList",this.tracks)
+    addToSongList() {
+      this.$store.commit("song/addListToSongList", this.tracks);
     },
     getMusic(item) {
-      this.$store.dispatch('song/getMusic', item)
+      this.$store.dispatch("song/getMusic", item);
     }
   }
-}
+};
 </script>
 
 <style></style>

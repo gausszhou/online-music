@@ -5,8 +5,13 @@
         <!-- 分类切换 地区 -->
         <span class="section-type">地区:</span>
         <ul class="tabs-wrap">
-          <li class="tab" v-for="(item,index) in areaList" :key="index">
-            <span class="title" :class="{ active: area == item }" @click="area = item">{{item || '全部'}}</span>
+          <li class="tab" v-for="(item, index) in areaList" :key="index">
+            <span
+              class="title"
+              :class="{ active: area == item }"
+              @click="area = item"
+              >{{ item || "全部" }}</span
+            >
           </li>
         </ul>
       </div>
@@ -14,7 +19,12 @@
     <!-- MV容器 -->
     <div class="mvs">
       <div class="items">
-        <div class="item" v-for="(item, index) in list" :key="index" @click="playMV(item)">
+        <div
+          class="item"
+          v-for="(item, index) in list"
+          :key="index"
+          @click="playMV(item)"
+        >
           <div class="img-wrap">
             <img :src="item.cover" alt />
             <div class="num-wrap">
@@ -43,16 +53,15 @@
 </template>
 
 <script>
-
 export default {
-  name: 'latestMV',
+  name: "latestMV",
   data() {
     return {
-      areaList: ['', '内地', '港台', '欧美', '日本', '韩国'],
+      areaList: ["", "内地", "港台", "欧美", "日本", "韩国"],
       total: 100,
       page: 1,
       limit: 8,
-      area: '',
+      area: "",
       list: []
     };
   },
@@ -60,7 +69,7 @@ export default {
   watch: {
     area() {
       this.handleTagChange();
-    },
+    }
   },
   created() {
     // 获取数据
@@ -71,10 +80,10 @@ export default {
     getData() {
       let params = {
         area: this.area,
-        limit: this.limit,
+        limit: this.limit
         // offset: (this.page - 1) * this.limit
       };
-      this.$http.getMVFirst(params).then(res => {
+      this.$http.getMVFirst(params).then((res) => {
         this.list = res.data.data;
         if (res.data.count) {
           this.total = res.data.count;
@@ -93,14 +102,14 @@ export default {
     },
     playMV(item) {
       this.$router.push({
-        name: 'detailMV',
+        name: "detailMV",
         query: {
           mvid: item.id
         }
       });
     }
   }
-}
+};
 </script>
 
 <style></style>

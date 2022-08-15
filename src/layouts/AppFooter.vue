@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="app-footer"
- 
-  >
+  <div class="app-footer">
     <SongAudioLeft></SongAudioLeft>
     <SongAudio></SongAudio>
     <SongAudioRight></SongAudioRight>
@@ -19,14 +16,14 @@
 </template>
 
 <script>
-import { mapState } from "vuex"
+import { mapState } from "vuex";
 
-import SongAudio from "@/components/SongAudio.vue"
-import SongAudioLeft from "@/components/SongAudioLeft.vue"
-import SongAudioRight from "@/components/SongAudioRight.vue"
-import SongList from "@/components/SongList.vue"
-import SongLyricFloat from "@/components/SongLyricFloat.vue"
-import SongDrawer from "@/components/SongDrawer.vue"
+import SongAudio from "@/components/SongAudio.vue";
+import SongAudioLeft from "@/components/SongAudioLeft.vue";
+import SongAudioRight from "@/components/SongAudioRight.vue";
+import SongList from "@/components/SongList.vue";
+import SongLyricFloat from "@/components/SongLyricFloat.vue";
+import SongDrawer from "@/components/SongDrawer.vue";
 
 export default {
   name: "AppFooter",
@@ -45,7 +42,7 @@ export default {
       songLyricVisible: (state) => state.songLyricVisible
     })
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

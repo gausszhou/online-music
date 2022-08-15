@@ -2,22 +2,21 @@
   <div id="app">
     <AppHeader />
     <AppBody />
-    <AppFooter/>
+    <AppFooter />
   </div>
 </template>
 
 <script>
-
-import AppHeader from '@/layouts/AppHeader'
-import AppBody from '@/layouts/AppBody'
-import AppFooter from '@/layouts/AppFooter'
+import AppHeader from "@/layouts/AppHeader";
+import AppBody from "@/layouts/AppBody";
+import AppFooter from "@/layouts/AppFooter";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     AppHeader,
     AppBody,
     AppFooter
   }
-}
+};
 </script>

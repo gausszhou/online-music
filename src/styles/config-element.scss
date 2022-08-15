@@ -1,4 +1,4 @@
-// 对element的样式做一些修改 
+// 对element的样式做一些修改
 
 .el-dialog__footer {
   display: flex;
@@ -22,9 +22,8 @@
 
     .el-slider__button-wrapper {
       top: -16px;
-      
     }
-    .el-slider__button{
+    .el-slider__button {
       background-color: #ff4e4e;
       border-color: #ff4e4e;
     }
@@ -59,7 +58,6 @@
   }
 }
 
-
 .el-table {
   border-bottom: none;
   border-collapse: collapse;
@@ -69,7 +67,7 @@
   line-height: 1.5;
 }
 
-.el-table th>.cell {
+.el-table th > .cell {
   font-weight: normal;
   color: black;
 }
@@ -112,7 +110,7 @@
   width: 200px;
 }
 
-.el-table .song-wrap>span {
+.el-table .song-wrap > span {
   margin-top: 20px;
   display: inline-block;
   color: #bebebe;

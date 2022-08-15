@@ -33,9 +33,7 @@
             href="javascript:;"
             class="iconfont play-button"
             :class="
-              index == songIndex
-                ? 'icon-pause-mobile'
-                : 'icon-play-mobile'
+              index == songIndex ? 'icon-pause-mobile' : 'icon-play-mobile'
             "
             @click="getMusic(item, index)"
           ></a>
@@ -46,7 +44,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex"
+import { mapState } from "vuex";
 export default {
   name: "playList",
   computed: {
@@ -60,23 +58,23 @@ export default {
   methods: {
     getMusic(item, index) {
       if (index == this.songIndex && this.songIsPlay) {
-        this.$store.commit("song/setSongIsPlay", false)
-        return false
+        this.$store.commit("song/setSongIsPlay", false);
+        return false;
       }
-      this.$store.commit("song/setSongIndex", index)
+      this.$store.commit("song/setSongIndex", index);
       // this.$store.dispatch("song/getMusic", item).then(() => {
-        
+
       // })
     },
     close() {
-      this.$store.commit("ui/setSongListVisible", false)
+      this.$store.commit("ui/setSongListVisible", false);
     },
     clearPlayList() {
-      this.$store.commit("song/setSongList", [])
-      this.$store.commit("song/setSongCurrent", {})
+      this.$store.commit("song/setSongList", []);
+      this.$store.commit("song/setSongCurrent", {});
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
