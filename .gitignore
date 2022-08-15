@@ -3,6 +3,7 @@
 /lib
 
 
+*.sh
 .env
 .env.*
 
