@@ -3,21 +3,22 @@
     <div class="song-playlist-mask" @click="close"></div>
     <div class="song-playlist-content">
       <div class="song-playlist-header">
-        <div class="total">总{{ $store.state.playList.length }}首</div>
+        <div class="total">总{{ songList.length }}首</div>
         <div class="clear" @click="clearPlayList">清空全部</div>
       </div>
       <ul class="song-playlist-body">
         <li
           class="song-item text-over-elli"
-          v-for="(item, index) in $store.state.playList"
+          v-for="(item, index) in songList"
           :key="item.id"
-          :class="{ active: index == $store.state.activeIndex }"
+          :class="{ active: index == songIndex }"
           @dblclick="getMusic(item, index)"
         >
           <div
+            v-if="index == songIndex"
             class="song-item-progress"
             :style="{
-              width: progress + '%'
+              width: songCurrentPercent + '%'
             }"
           ></div>
           <span class="name text-over-elli">{{ item.name }}</span>
@@ -32,7 +33,7 @@
             href="javascript:;"
             class="iconfont play-button"
             :class="
-              index == $store.state.activeIndex && $store.state.isPlay
+              index == songIndex
                 ? 'icon-pause-mobile'
                 : 'icon-play-mobile'
             "
@@ -45,29 +46,34 @@
 </template>
 
 <script>
+import { mapState } from "vuex"
 export default {
-  name: 'playList',
+  name: "playList",
   computed: {
-    progress() {
-      return this.$store.state.progress
-    }
+    ...mapState("song", {
+      songList: (state) => state.songList,
+      songIndex: (state) => state.songIndex,
+      songIsPlay: (state) => state.songIsPlay,
+      songCurrentPercent: (state) => state.songCurrentPercent
+    })
   },
   methods: {
     getMusic(item, index) {
-      if (index == this.$store.state.activeIndex && this.$store.state.isPlay) {
-        this.$store.commit('setIsPlay', false)
+      if (index == this.songIndex && this.songIsPlay) {
+        this.$store.commit("song/setSongIsPlay", false)
         return false
       }
-      this.$store.dispatch('getMusic', item).then((res) => {
-        this.$store.commit('setIndex', index)
-      })
+      this.$store.commit("song/setSongIndex", index)
+      // this.$store.dispatch("song/getMusic", item).then(() => {
+        
+      // })
     },
     close() {
-      this.$emit('close')
+      this.$store.commit("ui/setSongListVisible", false)
     },
     clearPlayList() {
-      this.$store.commit('setPlayList', [])
-      this.$store.commit('setSong', {})
+      this.$store.commit("song/setSongList", [])
+      this.$store.commit("song/setSongCurrent", {})
     }
   }
 }

@@ -93,7 +93,7 @@ export default {
     },
     // 播放歌曲
     getMusic(item) {
-      this.$store.dispatch('getMusic', item)
+      this.$store.dispatch('song/getMusic', item)
     },
     handleCurrentChange(page) {
       this.page = page

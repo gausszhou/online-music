@@ -4,9 +4,9 @@
       <li
         ref="lyric"
         class="lyric-scroll-item text-over-elli"
-        v-for="(item, index) in lyric"
+        v-for="(item, index) in songLyricList"
         :key="index"
-        :class="{ active: index == activeIndex }"
+        :class="{ active: index == songLyricIndex }"
       >
         {{ item.word }}
       </li>
@@ -20,11 +20,10 @@
 </template>
 
 <script>
-
-import animation from '../lib/animation'
-
+import animation from "../lib/animation"
+import { mapState } from "vuex"
 export default {
-  name: 'lyric',
+  name: "lyric",
   props: {
     time: {
       type: [Number, String],
@@ -33,24 +32,30 @@ export default {
   },
   data() {
     return {
-      activeIndex: 0,
+      songLyricIndex: 0,
       scrollTime: 0
     }
   },
   computed: {
-    lyric() {
-      return this.$store.state.lyric
-    }
+    ...mapState("song", {
+      songList: (state) => state.songList,
+      songCurrent: (state) => state.songCurrent,
+      songIsPlay: (state) => state.songIsPlay,
+      songMode: (state) => state.songMode,
+      songVolume: (state) => state.songVolume,
+      songCurrentTime: (state) => state.songCurrentTime,
+      songLyricList: (state) => state.songLyricList
+    })
   },
   watch: {
-    time(newV) {
-      for (let i = 0; i < this.lyric.length; i++) {
-        if (newV > this.lyric[i].time) {
-          this.activeIndex = i
+    songCurrentTime(newV) {
+      for (let i = 0; i < this.songLyricList.length; i++) {
+        if (newV > this.songLyricList[i].time) {
+          this.songLyricIndex = i
         }
       }
     },
-    activeIndex(newV) {
+    songLyricIndex(newV) {
       this.scroll(newV)
     }
   },
@@ -58,25 +63,29 @@ export default {
     scroll(index) {
       if (this.$refs.lyric) {
         const lyricListEl = this.$refs.lyricList
-        const lyricEL = this.$refs.lyric[index]
-        const HEIGHT = lyricEL.offsetHeight
-        const top = HEIGHT * (index + 0.5)
-        animation(lyricListEl.scrollTop,top,(value)=>{
-          lyricListEl.scrollTop = value
-        },"Quad.ease-in-out")
+        const HEIGHT = this.$refs.lyric[0].offsetHeight
+        const targetScrollTop = HEIGHT * (index + 0.5)
+        animation(
+          lyricListEl.scrollTop,
+          targetScrollTop,
+          (value) => {
+            lyricListEl.scrollTop = value
+          },
+          "Quad.ease-in-out"
+        )
       }
     },
-    onLyricScroll(e) {
+    onLyricScroll() {
       const lyricListEl = this.$refs.lyricList
-      const target = lyricListEl.scrollTop
-      const lyricEL = this.$refs.lyric[0]
-      const HEIGHT = lyricEL.offsetHeight
-      let index = Math.round(target / HEIGHT)
+      const currentScrollTop = lyricListEl.scrollTop
+      const HEIGHT = this.$refs.lyric[0].offsetHeight
+      let index = Math.round(currentScrollTop / HEIGHT)
       if (index > 0) index -= 1
-      if (this.lyric) this.scrollTime = this.lyric[index].time
+      if (this.songLyricList) this.scrollTime = this.songLyricList[index].time
     },
     changeProgress() {
-      this.$emit('progress', this.scrollTime)
+      
+      this.$store.commit("song/setSongTargetTime",this.scrollTime)
     }
   }
 }

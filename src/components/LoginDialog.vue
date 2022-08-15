@@ -1,11 +1,28 @@
 <template>
-  <el-dialog title="登录网易云" :visible.sync="visible" width="450px" @close="handleClose" append-to-body>
-    <el-form :model="form" ref="form" label-width="80px" :inline="false" size="normal">
+  <el-dialog
+    title="登录网易云"
+    :visible.sync="visible"
+    width="450px"
+    @close="handleClose"
+    append-to-body
+  >
+    <el-form
+      :model="form"
+      ref="form"
+      label-width="80px"
+      :inline="false"
+      size="normal"
+    >
       <el-form-item label="手机号">
         <el-input type="text" v-model="form.phone" autocomplete></el-input>
       </el-form-item>
       <el-form-item label="密码">
-        <el-input type="password" autocomplete v-model="form.password" @keyup.native.enter="submitOK"></el-input>
+        <el-input
+          type="password"
+          autocomplete
+          v-model="form.password"
+          @keyup.native.enter="submitOK"
+        ></el-input>
       </el-form-item>
     </el-form>
     <span slot="footer">
@@ -17,40 +34,40 @@
 
 <script>
 export default {
-  name: 'loginDialog',
+  name: "loginDialog",
   data() {
     return {
       visible: true,
       form: {
-        phone: '',
-        password: '',
+        phone: "",
+        password: ""
       }
-    };
+    }
   },
   methods: {
     submitOK() {
-      let params = this.form;
-      this.$http.login(params).then((res) => {
-        this.$message({
-          message: '登录成功',
-          type: 'success'
-        });
-        this.handleClose();
-        this.$router.go(0);
-      }).catch((e) => {
-        this.$message({
-          message: '登录失败',
-          type: 'error'
-        });
-      });
+      let params = this.form
+      this.$http
+        .login(params)
+        .then((res) => {
+          this.$message({
+            message: "登录成功",
+            type: "success"
+          })
+          this.handleClose()
+          this.$router.go(0)
+        })
+        .catch((e) => {
+          this.$message({
+            message: "登录失败",
+            type: "error"
+          })
+        })
     },
     handleClose() {
-      this.visible = false;
-      this.$emit('change');
+      this.visible = false
+      this.$emit("change")
     }
   }
 }
 </script>
-
-<style>
-</style>

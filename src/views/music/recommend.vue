@@ -116,7 +116,7 @@ export default {
       })
     },
     getMusic(item) {
-      this.$store.dispatch('getMusic', item)
+      this.$store.dispatch('song/getMusic', item)
     },
     toDetailMV(item) {
       this.$router.push({

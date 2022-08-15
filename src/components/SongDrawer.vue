@@ -1,10 +1,13 @@
 <template>
   <div class="song-drawer">
     <!-- 歌曲信息容器 -->
-    <div class="song-player" :class="{ playing: $store.state.isPlay }">
+    <div class="song-player" :class="{ playing: songIsPlay }">
       <img :src="bar" class="player-bar" />
       <img :src="disc" class="player-disc rotate" />
-      <img :src="$store.state.song.picUrl" class="player-cover rotate" />
+      <img
+        :src="songCurrent.picUrl"
+        class="player-cover rotate"
+      />
     </div>
     <!-- 歌词容器 -->
     <div class="song-lyric">
@@ -14,9 +17,10 @@
 </template>
 
 <script>
-import SongLyricScroll from './SongLyricScroll.vue'
+import { mapState } from "vuex"
+import SongLyricScroll from "./SongLyricScroll.vue"
 export default {
-  name: 'songDrawer',
+  name: "songDrawer",
   props: {
     time: {
       type: [Number, String],
@@ -28,18 +32,23 @@ export default {
   },
   data() {
     return {
-      bar: require('@/assets/images/player_bar.png'),
-      disc: require('@/assets/images/player_disc.png')
+      bar: require("@/assets/images/player_bar.png"),
+      disc: require("@/assets/images/player_disc.png")
     }
+  },
+  computed: {
+    ...mapState("song", {
+      songCurrent: (state) => state.songCurrent,
+      songIsPlay: (state) => state.songIsPlay
+    })
   },
   methods: {
     changeProgress(e) {
-      this.$emit('progress', e)
+      this.$emit("progress", e)
     }
   }
 }
 </script>
-
 <style lang="scss" scoped>
 .song-drawer {
   position: fixed;

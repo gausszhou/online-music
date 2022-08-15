@@ -14,7 +14,7 @@
           <span class="name">{{ playlist.creator.nickname }}</span>
           <span class="time">{{ createTime }} 创建</span>
         </div>
-        <div class="play-wrap" @click="playAll">
+        <div class="play-wrap" @click="addToSongList">
           <span class="iconfont icon-play"></span>
           <span class="text">播放全部</span>
         </div>
@@ -194,11 +194,11 @@ export default {
         }
       })
     },
-    playAll(){
-      this.$store.dispatch("playMusicAll",this.tracks)
+    addToSongList(){
+      this.$store.commit("song/addListToSongList",this.tracks)
     },
     getMusic(item) {
-      this.$store.dispatch('getMusic', item)
+      this.$store.dispatch('song/getMusic', item)
     }
   }
 }

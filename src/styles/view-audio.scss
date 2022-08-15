@@ -1,10 +1,6 @@
-.audio-box {
-  &.nosongs * {
-    color: #a6a6a6 !important;
-  }
-}
 
-.audio-bar {
+
+.app-footer {
   z-index: 20;
   display: flex;
   align-items: center;
@@ -17,6 +13,12 @@
 
   .list-control {
     flex: 1;
+  }
+}
+
+.song-control {
+  &.nosongs * {
+    color: #a6a6a6 !important;
   }
 }
 

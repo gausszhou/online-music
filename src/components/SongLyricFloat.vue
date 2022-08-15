@@ -12,7 +12,7 @@
       :min-width="400"
       :min-height="80"
     >
-      <div class="lyric">{{ $store.state.lyric[index].word || '......' }}</div>
+      <div class="lyric">{{ songLyricList[index].word || '......' }}</div>
     </VueDragResize>
   </div>
 </template>
@@ -36,15 +36,15 @@ export default {
     }
   },
   computed: {
-    lyric() {
-      return this.$store.state.lyric
+    songLyricList() {
+      return this.$store.state.song.songLyricList
     }
   },
   watch: {
     time(newV) {
-      for (let i = 0; i < this.lyric.length; i++) {
-        if (newV > this.lyric[i].time) {
-          this.index = i
+      for (let i = 0; i < this.songLyricList.length; i++) {
+        if (newV > this.songLyricList[i].time) {
+          this.songLyricList = i
         }
       }
     }

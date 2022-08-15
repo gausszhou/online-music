@@ -18,17 +18,6 @@ export default {
     AppHeader,
     AppBody,
     AppFooter
-  },
-  watch: {
-    // 报错消息
-    '$store.state.message': {
-      handler(newV) {
-        this.$message({
-          message: newV,
-          type: 'error'
-        })
-      }
-    }
   }
 }
 </script>

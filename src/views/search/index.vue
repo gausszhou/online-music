@@ -157,7 +157,7 @@ export default {
       }
     },
     getMusic(row) {
-      this.$store.dispatch('getMusic', row)
+      this.$store.dispatch('song/getMusic', row)
     },
     toSongSheetDetail(item) {
       this.$router.push({
