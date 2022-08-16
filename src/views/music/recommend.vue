@@ -20,7 +20,7 @@
           </div>
           <div class="song-wrap">
             <div class="song-name">{{ item.name }}</div>
-            <div class="singer">{{ item.song.artists[0].name }}</div>
+            <div class="singer">{{ item.song.artists[0].name || "" }}</div>
           </div>
         </div>
       </div>
@@ -49,18 +49,29 @@
 </template>
 
 <script>
+import { rect1_1 } from "../../skeleton/image";
+
 export default {
   name: "recommend",
   data() {
     return {
       // 轮播图
-      banners: [],
+      // banners: [],
       // 推荐歌单
-      list: [],
+      list: new Array(12).fill({
+        name: "",
+        picUrl: rect1_1
+      }),
       // 独家放送
       contents: [],
       // 最新音乐
-      songs: [],
+      songs: new Array(12).fill({
+        name: "",
+        picUrl: rect1_1,
+        song: {
+          artists: [""]
+        }
+      }),
       // 推荐mv
       mvs: []
     };
@@ -70,15 +81,17 @@ export default {
   },
   methods: {
     getData() {
-      // this.getBanner();
-      this.getPersonalized();
       this.getNewSong();
-      // this.getNewMV();
-      // this.getPrivatecontent();
+      this.getPersonalized();
     },
-    getBanner() {
-      this.$http.getBanner().then((res) => {
-        this.banners = res.data.banners;
+
+    getNewSong() {
+      let params = {
+        limit: 12
+      };
+      this.$http.getNewSong(params).then((res) => {
+        this.songs = res.data.result;
+        console.log(this.songs);
       });
     },
     getPersonalized() {
@@ -87,24 +100,6 @@ export default {
       };
       this.$http.getPersonalized(params).then((res) => {
         this.list = res.data.result;
-      });
-    },
-    getNewSong() {
-      let params = {
-        limit: 12
-      };
-      this.$http.getNewSong(params).then((res) => {
-        this.songs = res.data.result;
-      });
-    },
-    getNewMV() {
-      this.$http.getNewMV().then((res) => {
-        this.mvs = res.data.result;
-      });
-    },
-    getPrivatecontent() {
-      this.$http.getPrivatecontent().then((res) => {
-        this.contents = res.data.result;
       });
     },
     toDetailSongSheet(item) {

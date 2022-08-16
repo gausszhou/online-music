@@ -21,7 +21,7 @@
       <el-table-column prop="name" label="标题"></el-table-column>
       <el-table-column label="歌手">
         <template slot-scope="scope">
-          <span>{{ scope.row.album.artists["0"].name }}</span>
+          <span>{{ scope.row.album.artists[0].name }}</span>
         </template>
       </el-table-column>
       <el-table-column label="专辑">
@@ -64,7 +64,13 @@ export default {
       tag: "0",
       // 歌曲列表
       list: [],
-      lists: [],
+      lists: new Array(100).fill({
+        album: {
+          name: "",
+          duration: 0,
+          artists: [{ name: "" }]
+        }
+      }),
       total: 100,
       page: 1,
       limit: 20
@@ -81,6 +87,9 @@ export default {
   },
   created() {
     this.getTopSong();
+    const limit = this.limit;
+    const page = this.page
+    this.list = this.lists.slice((page - 1) * limit, page * limit);
   },
   methods: {
     getTopSong() {

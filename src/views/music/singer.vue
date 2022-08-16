@@ -74,6 +74,8 @@
 </template>
 
 <script>
+import { rect1_1 } from '../../skeleton/image';
+
 export default {
   name: "singer",
   data() {
@@ -128,7 +130,10 @@ export default {
       area: -1,
       type: -1,
       initial: -1,
-      list: []
+      list: new Array(20).fill({
+        name:"",
+        img1v1Url:rect1_1
+      })
     };
   },
   // 侦听器

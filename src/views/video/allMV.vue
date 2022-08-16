@@ -79,6 +79,7 @@
 </template>
 
 <script>
+import { rect16_9 } from "../../skeleton/image";
 export default {
   name: "allMV",
   data() {
@@ -92,7 +93,12 @@ export default {
       area: "全部",
       type: "全部",
       order: "上升最快",
-      list: []
+      list:  new Array(8).fill({
+        name: "",
+        cover: rect16_9,
+        playCount: 99999,
+        artistName: ""
+      })
     };
   },
   // 侦听器

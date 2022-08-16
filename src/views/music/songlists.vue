@@ -58,6 +58,8 @@
 </template>
 
 <script>
+import { rect1_1 } from "../../skeleton/image";
+
 export default {
   name: "songSheet",
   data() {
@@ -88,9 +90,16 @@ export default {
       // 页码
       page: 1,
       // 顶部的推荐歌单
-      topList: {},
+      topList: {
+        name: "",
+        coverImgUrl: rect1_1
+      },
       // 歌单列表
-      list: []
+      list: new Array(20).fill({
+        name: "",
+        coverImgUrl: rect1_1,
+        playCount: 999999
+      })
     };
   },
   watch: {

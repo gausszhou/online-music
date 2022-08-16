@@ -5,6 +5,10 @@
         <h2 class="search-title-keywords">{{ keywords }}</h2>
         <span class="search-title-count">找到 {{ count }} 个结果</span>
       </div>
+      <div class="play-wrap" @click="addToSongList">
+        <span class="iconfont icon-play"></span>
+        <span class="text">播放全部</span>
+      </div>
       <el-tabs v-model="activeIndex">
         <el-tab-pane label="歌曲" name="songs">
           <el-table :lazy="true" :data="songList" @row-dblclick="getMusic">
@@ -85,6 +89,8 @@
 </template>
 
 <script>
+import { rect16_9, rect1_1 } from '../../skeleton/image';
+
 export default {
   name: "search",
   data() {
@@ -92,10 +98,25 @@ export default {
       activeIndex: "songs",
       keywords: "",
       type: 1,
-      songList: [],
-      playList: [],
-      mvList: [],
-      count: ""
+      songList: new Array(20).fill({
+        album: {
+          name: "",
+          duration: 0,
+          artists: [{ name: "" }]
+        }
+      }),
+      playList:  new Array(20).fill({
+        name: "",
+        coverImgUrl: rect1_1,
+        playCount: 999999
+      }),
+      mvList: new Array(8).fill({
+        name: "",
+        cover: rect16_9,
+        playCount: 99999,
+        artistName: ""
+      }),
+      count: 666
     };
   },
   watch: {
@@ -155,6 +176,9 @@ export default {
         });
       }
     },
+    addToSongList() {
+      this.$store.commit("song/addListToSongList", this.songList);
+    },
     getMusic(row) {
       this.$store.dispatch("song/getMusic", row);
     },
@@ -166,6 +190,7 @@ export default {
         }
       });
     },
+
     playMV(item) {
       this.$router.push({
         name: "detailMV",

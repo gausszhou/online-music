@@ -53,6 +53,8 @@
 </template>
 
 <script>
+import { rect16_9 } from "../../skeleton/image";
+
 export default {
   name: "latestMV",
   data() {
@@ -62,7 +64,12 @@ export default {
       page: 1,
       limit: 8,
       area: "",
-      list: []
+      list: new Array(8).fill({
+        name: "",
+        cover: rect16_9,
+        playCount: 99999,
+        artistName: ""
+      })
     };
   },
   // 侦听器

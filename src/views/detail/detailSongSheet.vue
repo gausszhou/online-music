@@ -135,7 +135,13 @@ export default {
         creator: {},
         createTime: "000"
       },
-      tracks: [],
+      tracks: new Array(20).fill({
+        album: {
+          name: "",
+          duration: 0,
+          artists: [{ name: "" }]
+        }
+      }),
       comments: []
     };
   },

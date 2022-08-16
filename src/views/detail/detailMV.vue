@@ -95,6 +95,8 @@
 </template>
 
 <script>
+import { rect16_9 } from '../../skeleton/image';
+
 export default {
   name: "mv",
   data() {
@@ -107,7 +109,12 @@ export default {
       limit: 20,
       detail: {},
       mvUrl: "",
-      simiMV: [],
+      simiMV: new Array(8).fill({
+        name: "",
+        cover: rect16_9,
+        playCount: 99999,
+        artistName: ""
+      }),
       comments: []
     };
   },
