@@ -2,9 +2,6 @@
   <div class="app-header">
     <div class="left-box">
       <h1 class="app-header-logo app-header-title" @click="goto('recommend')">Music | Gauss Zhou</h1>
-      <!-- <div class="app-header-logo"> -->
-        <!-- <img :src="logoUrl"  alt /> -->
-      <!-- </div> -->
       <div class="app-header-history">
         <span
           class="app-header-history-icon iconfont icon-arrow-left"
@@ -48,8 +45,7 @@ export default {
   data() {
     return {
       query: "",
-      loginDialogVisible: false,
-      logoUrl: require("@/assets/images/logo.png")
+      loginDialogVisible: false
     };
   },
   methods: {

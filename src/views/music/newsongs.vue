@@ -1,15 +1,18 @@
 <template>
   <div class="songs-container">
     <!-- 上面的标签 -->
-    <div class="tab-bar">
-      <span
-        class="item"
-        v-for="(item, index) in tagList"
-        :key="index"
-        @click="tag = item.tag"
-        :class="{ active: tag == item.tag }"
-        >{{ item.label }}</span
-      >
+    <div class="seciton-wrap">
+      <span class="section-type">类型:</span>
+      <ul class="tab-bar tabs-wrap">
+        <li class="item tab" v-for="(item, index) in tagList" :key="index">
+          <span
+            class="title"
+            :class="{ active: tag == item.tag }"
+            @click="tag = item.tag"
+            >{{ item.label }}</span
+          >
+        </li>
+      </ul>
     </div>
     <!-- 底部的table -->
     <el-table :lazy="true" :data="list" @row-click="getMusic">
@@ -79,9 +82,7 @@ export default {
     this.getTopSong();
   },
   methods: {
-    // 获取列表数据
     getTopSong() {
-      // 获取 最新音乐数据
       let params = {
         type: this.tag
       };

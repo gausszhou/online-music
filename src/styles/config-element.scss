@@ -83,19 +83,19 @@
 }
 
 .el-table tbody {
-  border-bottom: none;
+  border-bottom: none !important;
 }
 
 .el-table td {
-  border-bottom: none;
+  border-bottom: none !important;
 }
 
 .el-table td:first-child {
-  padding-left: 10px;
+  padding-left: 10px !important;
 }
 
 .el-table th {
-  font-weight: normal;
+  font-weight: normal !important;
 }
 
 .el-table th:first-child {

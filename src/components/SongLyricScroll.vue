@@ -142,10 +142,10 @@ export default {
 }
 
 .lyric-scroll {
-  min-width: 400px;
+  min-width: 300px;
   max-width: 500px;
   min-height: 300px;
-  max-height: 400px;
+  max-height: 500px;
   overflow: hidden;
   overflow-y: scroll;
 }

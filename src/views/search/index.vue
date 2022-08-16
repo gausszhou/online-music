@@ -5,19 +5,17 @@
         <h2 class="search-title-keywords">{{ keywords }}</h2>
         <span class="search-title-count">找到 {{ count }} 个结果</span>
       </div>
-      <h3 class="search-tips">双击歌曲播放</h3>
       <el-tabs v-model="activeIndex">
         <el-tab-pane label="歌曲" name="songs">
           <el-table :lazy="true" :data="songList" @row-dblclick="getMusic">
+            <el-table-column
+              type="index"
+              label="序号"
+              width="50px"
+            ></el-table-column>
             <el-table-column prop="name" label="音乐标题" show-overflow-tooltip>
               <template slot-scope="scope">
                 <span>{{ scope.row.name }}</span>
-                <sup
-                  v-if="scope.row.mvid"
-                  class="iconfont icon-mv mv-tag"
-                  @click="playMV(scope.row)"
-                  >MV</sup
-                >
               </template>
             </el-table-column>
             <el-table-column
@@ -48,7 +46,6 @@
             >
               <div class="img-wrap">
                 <div class="num-wrap">
-                  播放量:
                   <span class="num">{{ item.playCount | numbertocount }}</span>
                 </div>
                 <img :src="item.coverImgUrl" alt />

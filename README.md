@@ -21,10 +21,10 @@
 - [x] 修改插入逻辑，点击的歌曲插入到播放列表的头部
 - [x] 歌曲资源加载进度条
 - [x] 优化歌曲交互速度
+- [ ] 底部接口加载进度条
 - [ ] 移动端适配
 
 ## Deploy
-
 
 ```bash
 git clone <this-project-url> --depth=1 netease-cloud-music-vue

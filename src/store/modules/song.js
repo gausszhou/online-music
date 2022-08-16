@@ -1,8 +1,7 @@
 import http from "@/api/http";
 import local from "@/storage/local";
-import { musicPolyfill } from "@/utils/tools";
+import { musicPolyfill, processLyric } from "@/utils/tools";
 import NProgress from "nprogress";
-import { processLyric } from "../../utils/tools";
 NProgress.configure({ showSpinner: false });
 
 const proxy = "http://api.gausszhou.top/_proxy/";
@@ -103,7 +102,7 @@ const song = {
       const { musicId } = song;
       // update render
       store.commit("setSong", song);
-      NProgress.start();
+      // NProgress.start();
       console.log("[ajax ] 歌曲信息请求中");
       const resSong = await http.getSongUrl({ id: musicId });
       if (resSong.data.data && resSong.data.data[0].url) {
@@ -112,7 +111,7 @@ const song = {
         song.audioUrlOrigin = audioUrl;
         song.audioUrlProxy = proxy + audioUrl;
       }
-      NProgress.done();
+      // NProgress.done();
       console.log("[ajax ] 歌曲资源请求完成");
       // update render
       store.commit("setSong", song);
