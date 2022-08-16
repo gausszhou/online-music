@@ -24,12 +24,6 @@ import animation from "../lib/animation";
 import { mapState } from "vuex";
 export default {
   name: "lyric",
-  props: {
-    time: {
-      type: [Number, String],
-      default: () => 0
-    }
-  },
   data() {
     return {
       songLyricIndex: 0,
@@ -144,8 +138,7 @@ export default {
 .lyric-scroll {
   min-width: 300px;
   max-width: 500px;
-  min-height: 300px;
-  max-height: 500px;
+  height: 500px;
   overflow: hidden;
   overflow-y: scroll;
 }
@@ -157,10 +150,10 @@ export default {
   color: #666;
 }
 .lyric-scroll-item:first-child {
-  margin-top: 200px;
+  margin-top: 250px;
 }
 .lyric-scroll-item:last-child {
-  margin-bottom: 200px;
+  margin-bottom: 250px;
 }
 .lyric-scroll-item.active {
   color: #409eff;
