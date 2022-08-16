@@ -14,11 +14,11 @@
   }
 }
 
-.song-control {
-  &.nosongs * {
-    color: #a6a6a6 !important;
-  }
-}
+// .song-control {
+//   &.nosongs * {
+//     color: #a6a6a6 !important;
+//   }
+// }
 
 // 信息
 .song-info {
@@ -103,15 +103,18 @@
     display: flex;
     justify-content: center;
 
-    .button-control {
+    .control-button {
       margin: 0 6px;
       padding: 6px;
       font-size: 20px;
       cursor: pointer;
-    }
-    .button-text {
+    }   
+    .control-button-text {
       font-size: 14px;
       padding: 9px;
+    }
+    .disable {
+      color: #ccc ;
     }
   }
 

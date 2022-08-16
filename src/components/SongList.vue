@@ -44,16 +44,16 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 export default {
   name: "playList",
   computed: {
     ...mapState("song", {
       songList: (state) => state.songList,
       songIndex: (state) => state.songIndex,
-      songIsPlay: (state) => state.songIsPlay,
-      songCurrentPercent: (state) => state.songCurrentPercent
-    })
+      songIsPlay: (state) => state.songIsPlay
+    }),
+    ...mapGetters("song", ["songCurrentPercent"])
   },
   methods: {
     getMusic(item, index) {
@@ -62,16 +62,19 @@ export default {
         return false;
       }
       this.$store.commit("song/setSongIndex", index);
-      // this.$store.dispatch("song/getMusic", item).then(() => {
-
-      // })
     },
     close() {
       this.$store.commit("ui/setSongListVisible", false);
     },
     clearPlayList() {
+      this.$store.commit("song/setSongIndex", -1);
+      this.$store.commit("song/setSongCurrentTime", 0);
+
       this.$store.commit("song/setSongList", []);
-      this.$store.commit("song/setSongCurrent", {});
+      this.$store.commit("song/setSong", {});
+      setTimeout(() => {
+        this.$store.commit("song/setSongTotalTime", 0);
+      });
     }
   }
 };

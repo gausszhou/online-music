@@ -13,25 +13,32 @@ const song = {
       // 播放列表
       songList: local.get("songList") || [],
       // 当前播放歌曲的 index
-      songIndex: local.get("songIndex") || -1,
+      songIndex: local.get("songIndex") || 0,
       // 歌曲对象
-      songCurrent: local.get("songCurrent") || {},
+      song: local.get("song") || {},
       // 歌词数组
       songLyricList: local.get("songLyricList") || [],
       // 播放音量，修改此值，同步修改Audio元素的音量 需在组件内监听此值
       songVolume: local.get("songVolume") || 50,
       // 播放模式
       songMode: local.get("songMode") || 0,
-      // 表示播放状态 不存储 修改此值用于控制播放
+      // 歌曲播放状态 不存储 修改此值用于控制播放
       songIsPlay: false,
-      // 播放时间，此值跟随 Audio 的进度
-      songCurrentTime: 0,
-      // 播放百分比，此值跟随 Audio 的进度
-      songCurrentPercent: 0,
+      // 歌曲总时间
+      songTotalTime: Infinity,
       // 修改此值，不存储 同步修改 Audio 的播放时间 需在组件内监听此值
       songTargetTime: 0,
-      songTargetProgress: 0
+      // 播放时间，此值跟随 Audio 的进度
+      songCurrentTime: 0
     };
+  },
+  getters: {
+    // 播放百分比，此值跟随 Audio 的进度
+    songCurrentPercent(state) {
+      let percent = 100 * (state.songCurrentTime / state.songTotalTime);
+      if (percent >= 100) percent = 0;
+      return percent;
+    }
   },
   mutations: {
     setSongList(state, payload) {
@@ -40,11 +47,15 @@ const song = {
     },
     setSongIndex(state, payload) {
       state.songIndex = payload;
-      local.get("songIndex", payload);
+      local.set("songIndex", payload);
     },
-    setSongCurrent(state, payload) {
-      state.songCurrent = payload;
-      local.set("songCurrent", payload);
+    setSong(state, payload) {
+      state.song = payload;
+      local.set("song", payload);
+    },
+    setSongMode(state, payload) {
+      state.songMode = payload;
+      local.set("songMode", payload);
     },
     setSongIsPlay(state, payload) {
       state.songIsPlay = payload;
@@ -52,22 +63,15 @@ const song = {
     setSongCurrentTime(state, payload) {
       state.songCurrentTime = payload;
     },
-    setSongCurrentPercent(state, payload) {
-      state.songCurrentPercent = payload;
+    setSongTotalTime(state, payload) {
+      state.songTotalTime = payload;
     },
     setSongTargetTime(state, payload) {
       state.songTargetTime = payload;
     },
-    setSongTargetPercent(state, payload) {
-      state.songTargetPercent = payload;
-    },
     setSongVolume(state, payload) {
       state.songVolume = payload;
       local.set("songVolume", payload);
-    },
-    setSongMode(state, payload) {
-      state.songMode = payload;
-      local.set("songMode", payload);
     },
     // 歌词处理
     setSongLyricList(state, payload) {
@@ -158,7 +162,7 @@ const song = {
         if (item.musicId == song.musicId) {
           flag = false;
           store.commit("setSongIndex", index);
-          store.commit("setSongCurrentPercent", 0);
+          store.commit("setSongCurrentTime", 0);
         }
       });
 
@@ -166,11 +170,11 @@ const song = {
       if (flag) {
         list.unshift(song);
         store.commit("setSongIndex", 0);
-        store.commit("setSongCurrentPercent", 0);
+        store.commit("setSongCurrentTime", 0);
       }
 
       if (audioUrl) {
-        store.commit("setSongCurrent", song);
+        store.commit("setSong", song);
         store.commit("setSongIsPlay", true);
       }
 

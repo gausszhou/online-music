@@ -39,7 +39,7 @@ export default {
   computed: {
     ...mapState("song", {
       songList: (state) => state.songList,
-      songCurrent: (state) => state.songCurrent,
+      song: (state) => state.song,
       songIsPlay: (state) => state.songIsPlay,
       songMode: (state) => state.songMode,
       songVolume: (state) => state.songVolume,

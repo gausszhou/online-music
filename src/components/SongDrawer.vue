@@ -4,7 +4,7 @@
     <div class="song-player" :class="{ playing: songIsPlay }">
       <img :src="bar" class="player-bar" />
       <img :src="disc" class="player-disc rotate" />
-      <img :src="songCurrent.picUrl" class="player-cover rotate" />
+      <img :src="song.picUrl" class="player-cover rotate" />
     </div>
     <!-- 歌词容器 -->
     <div class="song-lyric">
@@ -35,7 +35,7 @@ export default {
   },
   computed: {
     ...mapState("song", {
-      songCurrent: (state) => state.songCurrent,
+      song: (state) => state.song,
       songIsPlay: (state) => state.songIsPlay
     })
   },

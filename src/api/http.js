@@ -9,6 +9,12 @@ const http = {
     axios.get(baseUrl + "/login/cellphone" + serialize(params)),
   /* 通用方法 */
   // 获取歌曲地址 /song/url id
+  /**
+   * 
+   * @param {Object} params
+   * @param {Number} params.id 
+   * @returns 
+   */
   getSongUrl: (params) => axios.get(baseUrl + "/song/url" + serialize(params)),
   // 获取歌曲详情 /song/detail?ids=347230,347231
   getSongDetail: (params) =>
