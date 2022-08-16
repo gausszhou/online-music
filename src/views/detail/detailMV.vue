@@ -1,5 +1,5 @@
 <template>
-  <div class="video-container display-flex">
+  <div class="video-container video-detail-container">
     <div class="mv-wrap">
       <h3 class="title">MV详情</h3>
       <!-- mv -->
