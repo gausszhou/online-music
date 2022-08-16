@@ -229,42 +229,6 @@
   color: #c5c5c5;
 }
 
-.video-container .filter-wrap > div {
-  margin-bottom: 30px;
-  vertical-align: baseline;
-  display: flex;
-  align-items: center;
-}
-
-.video-container .filter-wrap > div span {
-  font-size: 14px;
-  height: 100%;
-}
-
-.video-container .filter-wrap > div span.title {
-  margin: 20px;
-  color: gray;
-  cursor: pointer;
-  padding: 5px 20px;
-}
-
-.video-container .filter-wrap > div span.title.active {
-  color: #dd6d60;
-  background-color: #fcf6f5;
-  border-radius: 20px;
-}
-
-.video-container .filter-wrap > div span.title::before {
-  content: "", pos;
-}
-
-.video-container .filter-wrap > div ul {
-  display: flex;
-}
-
-.video-container .filter-wrap > div ul li:not(:last-child) {
-  border-right: 1px solid #f2f2f1;
-}
 
 .video-container .mvs .items {
   display: flex;

@@ -1,18 +1,19 @@
 <template>
   <div class="songs-container">
-    <!-- 上面的标签 -->
-    <div class="seciton-wrap">
-      <span class="section-type">类型:</span>
-      <ul class="tab-bar tabs-wrap">
-        <li class="item tab" v-for="(item, index) in tagList" :key="index">
-          <span
-            class="title"
-            :class="{ active: tag == item.tag }"
-            @click="tag = item.tag"
-            >{{ item.label }}</span
-          >
-        </li>
-      </ul>
+    <div class="filter-wrap">
+      <div class="seciton-wrap">
+        <span class="section-type">类型:</span>
+        <ul class="tabs-wrap">
+          <li class="item tab" v-for="(item, index) in tagList" :key="index">
+            <span
+              class="title"
+              :class="{ active: tag == item.tag }"
+              @click="tag = item.tag"
+              >{{ item.label }}</span
+            >
+          </li>
+        </ul>
+      </div>
     </div>
     <!-- 底部的table -->
     <el-table :lazy="true" :data="list" @row-click="getMusic">

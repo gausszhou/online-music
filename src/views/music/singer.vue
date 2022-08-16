@@ -1,10 +1,10 @@
 <template>
   <div class="singer-container">
     <div class="filter-wrap">
+      <!-- 分类切换 语种 -->
       <div class="seciton-wrap">
-        <!-- 分类切换 语种 -->
         <ul class="tabs-wrap">
-          <span class="section-type">语种:</span>
+          <span>语种:</span>
           <li class="tab" v-for="(item, index) in areaList" :key="index">
             <span
               class="title"
@@ -18,7 +18,7 @@
       <!-- 分类切换 类型 -->
       <div class="type-wrap">
         <ul class="tabs-wrap">
-          <span class="type-type">分类:</span>
+          <span>分类:</span>
           <li class="tab" v-for="(item, index) in typeList" :key="index">
             <span
               class="title"

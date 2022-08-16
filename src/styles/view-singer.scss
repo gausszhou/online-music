@@ -2,47 +2,48 @@
   padding-top: 20px;
 }
 
-.singer-container .filter-wrap > div {
+ .filter-wrap > div {
   margin-bottom: 10px;
   vertical-align: baseline;
   display: flex;
   align-items: center;
 }
 
-.singer-container .filter-wrap > div .tabs-wrap > span {
+.filter-wrap > div .tabs-wrap > span {
   font-size: 16px;
   height: 100%;
   margin: 5px 10px;
 }
 
-.singer-container .filter-wrap > div li {
+.filter-wrap > div li {
   font-size: 14px;
   height: 100%;
   margin: 5px 10px;
 }
 
-.singer-container .filter-wrap > div span.title {
+.filter-wrap > div span.title {
   color: gray;
   cursor: pointer;
-  padding: 5px 20px;
+  padding: 5px 10px;
+  margin-right: 10px;
 }
 
-.singer-container .filter-wrap > div span.title.active {
+ .filter-wrap > div span.title.active {
   color: #dd6d60;
   background-color: #fcf6f5;
   border-radius: 20px;
 }
 
-.singer-container .filter-wrap > div span.title::before {
+ .filter-wrap > div span.title::before {
   content: "";
 }
 
-.singer-container .filter-wrap > div ul {
+ .filter-wrap > div ul {
   display: flex;
   flex-wrap: wrap;
 }
 
-.singer-container .filter-wrap > div ul li:not(:last-child) {
+ .filter-wrap > div ul li:not(:last-child) {
   border-right: 1px solid #f2f2f1;
 }
 
