@@ -1,7 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import NProgress from "nprogress";
-
+// 关闭加载小圈圈的显示
+NProgress.configure({ showSpinner: false });
 import Music from "@/views/music/index.vue";
 import Recommend from "@/views/music/recommend.vue";
 import Video from "@/views/video/index.vue";
@@ -120,8 +121,7 @@ const router = new VueRouter({
 
 //导入
 
-// 关闭加载小圈圈的显示
-NProgress.configure({ showSpinner: false });
+
 router.beforeEach((to, from, next) => {
   NProgress.start();
   next();

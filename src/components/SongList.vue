@@ -28,7 +28,7 @@
             :key="index"
             >{{ author.name }}.</span
           >
-          <span class="album text-over-elli">{{ item.albumname }}</span>
+          <span class="album text-over-elli">{{ item.albumName }}</span>
           <a
             href="javascript:;"
             class="iconfont play-button"
@@ -61,7 +61,7 @@ export default {
         this.$store.commit("song/setSongIsPlay", false);
         return false;
       }
-      this.$store.commit("song/setSongIndex", index);
+      this.$store.dispatch("song/getMusic", item);
     },
     close() {
       this.$store.commit("ui/setSongListVisible", false);

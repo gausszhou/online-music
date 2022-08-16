@@ -18,7 +18,7 @@
       ></i>
       <i
         class="control-button iconfont icon-pre"
-        :class="{ disable: songMode == 1 || !song.audioUrl }"
+        :class="{ disable: songMode == 1 || !songList.length }"
         @click="prevSong()"
       ></i>
       <i
@@ -32,19 +32,20 @@
       ></i>
       <i
         class="control-button iconfont icon-next"
-        :class="{ disable: songMode == 1 || !song.audioUrl }"
+        :class="{ disable: songMode == 1 || !songList.length }"
         @click="nextSong()"
       ></i>
       <i
         class="control-button control-button-text"
-        :class="{ disable: !song.audioUrl }"
+        :class="{ disable: !songList.length }"
         @click="toggleLyricFloat()"
         >浮动歌词
       </i>
     </div>
-    <div class="progress">
+    <div class="song-progress">
       <span class="time">{{ songCurrentTime | stotime }}</span>
       <el-slider
+        ref="progress"
         class="control-progress"
         v-model="percent"
         :min="0"
@@ -61,7 +62,8 @@
       ref="audio"
       :src="song.audioUrl"
       @timeupdate="onAudioTimeUpdate"
-      @loadeddata="onAudioLoaded"
+      @canplay="onAudioCanplay"
+      @progress="onAudioProgress"
       @ended="onAudioEnded"
     ></audio>
   </div>
@@ -76,7 +78,9 @@ export default {
       // mode
       songModeList: songModeList,
       // audio element
-      loaded: false,
+      canplay: false,
+      loadedProgress: 0,
+      // play progress percent
       percent: 0,
       //
       actions: []
@@ -102,7 +106,8 @@ export default {
   watch: {
     song: {
       handler() {
-        this.loaded = false;
+        console.log("[audio] 切换了歌曲");
+        this.canplay = false;
       }
     },
     songIndex(newV) {
@@ -111,23 +116,19 @@ export default {
         this.$store.commit("song/setSongIsPlay", false);
         return;
       }
-      const next = this.songList[newV];
-      this.$store.dispatch("song/getMusic", next);
+      this.$store.commit("song/setSongIsPlay", true);
     },
     songIsPlay(newV) {
-      if (!this.$refs.audio) return false;
-      if (!this.loaded) {
-        this.actions.push({ play: newV });
-        return false;
+      console.log("songIsPlay");
+      if (this.$refs.audio) {
+        console.log("[audio] 调用播放", newV);
+        newV ? this.$refs.audio.play() : this.$refs.audio.pause();
+      } else {
+        this.actions.push({ type: "play", value: newV });
       }
-      newV ? this.$refs.audio.play() : this.$refs.audio.pause();
     },
     songTargetTime(newV) {
       if (!this.$refs.audio) return false;
-      if (!this.loaded) {
-        this.actions.push({ time: newV });
-        return false;
-      }
       this.$refs.audio.currentTime = newV;
     },
     songCurrentPercent(newV) {
@@ -142,18 +143,61 @@ export default {
   },
   mounted() {
     this.$refs.audio.volume = this.songVolume / 100;
+    this.drawCallProgress();
   },
   methods: {
-    onAudioLoaded() {
-      console.log("audio.onloaded");
-      this.loaded = true;
+    onAudioCanplay() {
+      console.log("[audio] 歌曲可以播放");
+      this.canplay = true;
       const totalTime = this.$refs.audio.duration;
       this.$store.commit("song/setSongTotalTime", totalTime);
+      this.excuateAction();
+    },
+    excuateAction() {
+      let actions = this.actions;
+      while (actions.length) {
+        const action = actions.pop();
+        console.log("[audio]", JSON.stringify(action));
+        switch (action.type) {
+          case "play":
+            console.log("[audio] 调用播放", newV);
+            action.value ? this.$refs.audio.play() : this.$refs.audio.pause();
+            break;
+
+          default:
+            break;
+        }
+        actions = actions.filter((item) => item.type != action.type);
+      }
     },
     onAudioTimeUpdate() {
+      // console.log("[audio] 播放时间更新");
       const currentTime = this.$refs.audio.currentTime;
-      if (this.songIsPlay)
+      this.canplay = true;
+      if (this.songIsPlay) {
         this.$store.commit("song/setSongCurrentTime", currentTime);
+      }
+      if (this.canplay) {
+        this.caclLoadProgress(this.$refs.audio);
+      }
+    },
+    onAudioProgress(e) {
+      console.log("[audio] 资源加载更新");
+      this.caclLoadProgress(e.target);
+    },
+    caclLoadProgress(audio) {
+      const buffered = audio.buffered;
+      if (buffered.length) {
+        this.loadedProgress =
+          100 * (audio.buffered.end(0) / this.songTotalTime);
+        this.drawCallProgress();
+      }
+    },
+    drawCallProgress() {
+      this.$refs.progress.$el.style.setProperty(
+        "--progress",
+        this.loadedProgress + "%"
+      );
     },
     onAudioEnded() {
       this.nextSongAuto();
@@ -189,8 +233,6 @@ export default {
             });
           } else {
             setTimeout(() => {
-              console.log(1);
-              // this.$store.commit("song/setSongTargetTime", 1);
               this.onAudioSliderChange(0);
             });
           }
@@ -221,11 +263,10 @@ export default {
       const length = songList.length;
       if (length > 1) {
         const targetIndex = (songIndex + length + number) % length;
-        this.$store.commit("song/setSongIsPlay", false);
         this.$store.commit("song/setSongCurrentTime", 0);
-        setTimeout(() => {
-          this.$store.commit("song/setSongIndex", targetIndex);
-        });
+        this.$store.commit("song/setSongIndex", targetIndex);
+        const next = this.songList[targetIndex];
+        this.$store.dispatch("song/getMusic", next);
       }
     },
     toggleSongPlay() {
@@ -237,7 +278,7 @@ export default {
       this.$store.commit("ui/setSongLyricVisible", !this.songLyricVisible);
     },
     onAudioSliderChange(percent) {
-      let songTargetTime = (percent * this.songTotalTime) / 100;
+      let songTargetTime = Math.floor((percent / 100) * this.songTotalTime);
       this.$store.commit("song/setSongTargetTime", songTargetTime);
     }
   }

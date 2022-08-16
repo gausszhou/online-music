@@ -2,6 +2,7 @@ import http from "@/api/http";
 import local from "@/storage/local";
 import { musicPolyfill } from "@/utils/tools";
 import NProgress from "nprogress";
+import { processLyric } from "../../utils/tools";
 NProgress.configure({ showSpinner: false });
 
 const proxy = "http://api.gausszhou.top/_proxy/";
@@ -57,6 +58,10 @@ const song = {
       state.songMode = payload;
       local.set("songMode", payload);
     },
+    setSongVolume(state, payload) {
+      state.songVolume = payload;
+      local.set("songVolume", payload);
+    },
     setSongIsPlay(state, payload) {
       state.songIsPlay = payload;
     },
@@ -69,37 +74,11 @@ const song = {
     setSongTargetTime(state, payload) {
       state.songTargetTime = payload;
     },
-    setSongVolume(state, payload) {
-      state.songVolume = payload;
-      local.set("songVolume", payload);
-    },
+
     // 歌词处理
     setSongLyricList(state, payload) {
-      let arr = payload.split("\n");
-      let reg = /^\[.*]/;
-      let list = arr.map((item) => {
-        let time =
-          (item.match(reg) &&
-            item.match(reg)[0] &&
-            item.match(reg)[0].slice(1, -1)) ||
-          null;
-        if (time) {
-          let timeArr = time.split(":");
-          time = parseInt(timeArr[0]) * 60 + parseInt(timeArr[1]); // 转化为秒钟
-          return {
-            time,
-            word: item.split(reg)[1]
-          };
-        } else {
-          return {
-            time: 9999,
-            word: ""
-          };
-        }
-      });
-      const lyricList = list.filter((item) => item.word != "");
-      state.songLyricList = lyricList;
-      local.set("songLyricList", lyricList);
+      state.songLyricList = payload;
+      local.set("songLyricList", payload);
     },
     addListToSongList(state, tracks) {
       if (tracks.constructor != Array) return;
@@ -120,44 +99,59 @@ const song = {
   },
   actions: {
     async getMusic(store, payload) {
-      NProgress.start();
       let song = musicPolyfill(payload);
-      let { name, albumname, picUrl, audioUrl, audioUrls, author, musicId } =
-        song;
-      // pause
-      store.commit("setSongIsPlay", false);
-
+      const { musicId } = song;
+      // update render
+      store.commit("setSong", song);
+      NProgress.start();
+      console.log("[ajax ] 歌曲信息请求中");
       const resSong = await http.getSongUrl({ id: musicId });
       if (resSong.data.data && resSong.data.data[0].url) {
-        audioUrl = resSong.data.data[0].url;
-        let audioUrlProxy = proxy + audioUrl;
-        audioUrls = [audioUrl, audioUrlProxy];
+        const audioUrl = resSong.data.data[0].url;
+        song.audioUrl = audioUrl;
+        song.audioUrlOrigin = audioUrl;
+        song.audioUrlProxy = proxy + audioUrl;
       }
+      NProgress.done();
+      console.log("[ajax ] 歌曲资源请求完成");
+      // update render
+      store.commit("setSong", song);
+      // send play message
+      setTimeout(() => {
+        store.commit("setSongIsPlay", false);
+        setTimeout(() => {
+          store.commit("setSongIsPlay", true);
+        }, 0);
+      }, 0);
 
-      // getLyric
-      const resLyric = await http.getLyric({ id: musicId });
-      let lyric = resLyric.data.lrc.lyric;
-      store.commit("setSongLyricList", lyric);
-
-      // getSongDetail 如果没有传递图片地址，则根据 musicId 主动获取
-      if (!(picUrl && albumname)) {
+      // getSongDetail
+      if (!(song.picUrl && song.albumName)) {
         const resDetail = await http.getSongDetail({ ids: musicId });
         if (resDetail.data.songs && resDetail.data.songs[0]) {
-          albumname = resDetail.data.songs[0].al.name;
-          picUrl = resDetail.data.songs[0].al.picUrl;
-          author = resDetail.data.songs[0].ar;
+          song.albumName = resDetail.data.songs[0].al.name;
+          song.picUrl = resDetail.data.songs[0].al.picUrl;
+          song.author = resDetail.data.songs[0].ar;
         }
       }
-      song = { name, albumname, picUrl, audioUrl, audioUrls, author, musicId };
+      store.commit("setSong", song);
+
+      // getLyric
+      if (!song.lyricList.length) {
+        const resLyric = await http.getLyric({ id: musicId });
+        const lyricText = resLyric.data.lrc.lyric;
+        song.lyricList = processLyric(lyricText);
+      }
+      store.commit("setSong", song);
+      store.commit("setSongLyricList", song.lyricList);
+
       let list = [];
       try {
         list = JSON.parse(JSON.stringify(store.state.songList));
       } catch (error) {
         console.log(error);
       }
-
-      let flag = true;
       // 去重检查 找到时更新 index
+      let flag = true;
       list.forEach((item, index) => {
         if (item.musicId == song.musicId) {
           flag = false;
@@ -173,13 +167,7 @@ const song = {
         store.commit("setSongCurrentTime", 0);
       }
 
-      if (audioUrl) {
-        store.commit("setSong", song);
-        store.commit("setSongIsPlay", true);
-      }
-
       store.commit("setSongList", list);
-      NProgress.done();
     }
   }
 };

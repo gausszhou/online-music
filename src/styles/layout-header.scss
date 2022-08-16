@@ -3,9 +3,22 @@
   align-items: center;
 }
 
-.app-header .app-header-logo {
+.app-header-title {
+  margin: 0;
+  padding: 0;
+  // color: #2c3e50;
+  color: #fff;
+  font-weight: 500;
+  font-size: 1.3rem;
+  font-family: BlinkMacSystemFont, Segoe UI;
+  padding-left: 1.5rem;
   cursor: pointer;
   width: var(--app-sidenav-width);
+}
+
+.app-header .left-box .app-header-history {
+  display: flex;
+  align-items: center;
 }
 
 .app-header .left-box .app-header-history {
@@ -17,21 +30,7 @@
   color: #c3473a;
 }
 
-.app-header .left-box .app-header-history .app-header-history-icon {
-  margin-right: 10px;
-  font-size: 12px;
-  width: 20px;
-  height: 20px;
-  display: inline-block;
-  text-align: center;
-  line-height: 20px;
-  color: #000;
-}
 
-.app-header .left-box .app-header-history {
-  display: flex;
-  align-items: center;
-}
 
 .app-header .left-box .app-header-history .app-header-history-icon {
   width: 24px;
@@ -39,11 +38,11 @@
   font-size: 14px;
   line-height: 24px;
   text-align: center;
-  color: #f1f1f1;
+  color: #fff;
   border-radius: 50%;
   transition: 0.2s;
   cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .app-header .left-box .app-header-history .app-header-history-icon:first-child {
@@ -51,7 +50,7 @@
 }
 
 .app-header .left-box .app-header-history .app-header-history-icon:hover {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .app-header .right-box {
@@ -59,10 +58,22 @@
   align-items: center;
 }
 
-.app-header .app-header-search input {
-  width: 300px;
-  border-radius: 50px;
-  background-color: rgba(0, 0, 0, 0.1);
-  border: none;
-  color: #fff;
+.app-header .app-header-search {
+  .el-input__prefix {
+    color: #eee;
+  }
+
+  input {
+    width: 300px;
+    border-radius: 50px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: none;
+    color: #fff;
+
+    &::placeholder {
+      color: #eee;
+    }
+
+  }
+
 }

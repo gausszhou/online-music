@@ -1,9 +1,10 @@
 <template>
   <div class="app-header">
     <div class="left-box">
-      <div class="app-header-logo">
-        <img :src="logoUrl" @click="goto('recommend')" alt />
-      </div>
+      <h1 class="app-header-logo app-header-title" @click="goto('recommend')">Music | Gauss Zhou</h1>
+      <!-- <div class="app-header-logo"> -->
+        <!-- <img :src="logoUrl"  alt /> -->
+      <!-- </div> -->
       <div class="app-header-history">
         <span
           class="app-header-history-icon iconfont icon-arrow-left"

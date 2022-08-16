@@ -1,11 +1,11 @@
 <template>
   <div class="music-recommend">
     <!-- 轮播图 -->
-    <el-carousel :interval="4000" type="card">
+    <!-- <el-carousel :interval="4000" type="card">
       <el-carousel-item v-for="(item, index) in banners" :key="index">
         <img :src="item.imageUrl" alt />
       </el-carousel-item>
-    </el-carousel>
+    </el-carousel> -->
     <!-- 最新音乐 -->
     <div class="recommend-news">
       <h3 class="title">最新音乐</h3>
@@ -70,11 +70,11 @@ export default {
   },
   methods: {
     getData() {
-      this.getBanner();
+      // this.getBanner();
       this.getPersonalized();
       this.getNewSong();
-      this.getNewMV();
-      this.getPrivatecontent();
+      // this.getNewMV();
+      // this.getPrivatecontent();
     },
     getBanner() {
       this.$http.getBanner().then((res) => {
