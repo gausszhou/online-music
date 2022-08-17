@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import animation from "../lib/animation";
+import animation from "@gausszhou/animation";
 import { mapState } from "vuex";
 export default {
   name: "lyric",
