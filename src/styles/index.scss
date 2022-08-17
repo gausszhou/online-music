@@ -29,6 +29,16 @@
   border: none !important;
 }
 
+
 .vue-drr-slot {
   background: transparent !important;
+}
+
+
+#nprogress .bar {
+  background: #ff4e4e !important;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px #f7a7a7, 0 0 5px #f7a7a7;
 }

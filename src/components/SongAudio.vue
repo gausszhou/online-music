@@ -70,6 +70,8 @@
 </template>
 
 <script>
+import NProgress from "nprogress";
+NProgress.configure({ showSpinner: false, parent: "#footer"});
 import { mapGetters, mapState } from "vuex";
 import { songModeList } from "./SongData";
 export default {
@@ -152,6 +154,7 @@ export default {
       const totalTime = this.$refs.audio.duration;
       this.$store.commit("song/setSongTotalTime", totalTime);
       this.excuateAction();
+      NProgress.done()
     },
     excuateAction() {
       let actions = this.actions;

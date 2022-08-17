@@ -16,10 +16,6 @@ import "@/styles/index.scss";
 import "@/assets/fonts/iconfont.css";
 
 // 引入http接口
-import nprogress from "@/lib/nprogress";
-Vue.use(nprogress)
-
-// 引入http接口
 import http from "@/api/http";
 Vue.prototype.$http = http;
 
@@ -38,6 +34,7 @@ new Vue({
   el: "#app",
   router,
   store,
+  ...App,
   render: (h) => h(App),
   components: {
     App

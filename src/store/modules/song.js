@@ -1,9 +1,9 @@
 import http from "@/api/http";
 import local from "@/storage/local";
 import { musicPolyfill, processLyric } from "@/utils/tools";
-import NProgress from "nprogress";
-NProgress.configure({ showSpinner: false });
 
+import NProgress from "nprogress";
+NProgress.configure({ showSpinner: false, parent: "#footer"});
 const proxy = "http://api.gausszhou.top/_proxy/";
 
 const song = {
@@ -25,7 +25,7 @@ const song = {
       // 歌曲播放状态 不存储 修改此值用于控制播放
       songIsPlay: false,
       // 歌曲总时间
-      songTotalTime: Infinity,
+      songTotalTime: 0,
       // 修改此值，不存储 同步修改 Audio 的播放时间 需在组件内监听此值
       songTargetTime: 0,
       // 播放时间，此值跟随 Audio 的进度
@@ -102,7 +102,7 @@ const song = {
       const { musicId } = song;
       // update render
       store.commit("setSong", song);
-      // NProgress.start();
+      NProgress.start();
       console.log("[ajax ] 歌曲信息请求中");
       const resSong = await http.getSongUrl({ id: musicId });
       if (resSong.data.data && resSong.data.data[0].url) {
@@ -111,7 +111,7 @@ const song = {
         song.audioUrlOrigin = audioUrl;
         song.audioUrlProxy = proxy + audioUrl;
       }
-      // NProgress.done();
+      NProgress.done();
       console.log("[ajax ] 歌曲资源请求完成");
       // update render
       store.commit("setSong", song);

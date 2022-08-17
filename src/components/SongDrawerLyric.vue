@@ -87,14 +87,13 @@ export default {
 <style lang="scss" scoped>
 .lyric-container {
   position: relative;
-}
-
-.lyric-container:hover {
+  height: 100%;
+  &:hover {
   .lyric-pointer {
     opacity: 1;
   }
 }
-
+}
 .lyric-pointer {
   opacity: 0;
   position: absolute;

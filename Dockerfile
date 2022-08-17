@@ -2,9 +2,9 @@
 # WORKDIR /app
 
 # COPY package.json /app/
-# COPY package-lock.json /app/
-# RUN  npm i nrm -g && nrm use taobao && npm i
-# RUN  npm run build
+# COPY yarn.lock /app/
+# RUN  npm i nrm -g && nrm use taobao && npm i yarn -g  && yarn
+# RUN  yarn build
 
 # FROM nginx:1.22.0-alpine
 # WORKDIR /app

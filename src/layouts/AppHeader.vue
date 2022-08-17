@@ -1,5 +1,5 @@
 <template>
-  <div class="app-header">
+  <div class="app-header" id="header">
     <div class="left-box">
       <h1 class="app-header-logo app-header-title" @click="goto('recommend')">Music | Gauss Zhou</h1>
       <div class="app-header-history">

@@ -1,11 +1,12 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+
 import NProgress from "nprogress";
-// 关闭加载小圈圈的显示
-NProgress.configure({ showSpinner: false });
 import Music from "@/views/music/index.vue";
 import Recommend from "@/views/music/recommend.vue";
 import Video from "@/views/video/index.vue";
+//导入
+
 // 注册路由插件 VueRouter 使其全局可用
 Vue.use(VueRouter);
 
@@ -119,17 +120,14 @@ const router = new VueRouter({
   routes
 });
 
-//导入
+// router.beforeEach((to, from, next) => {
+//   NProgress.start();
+//   next();
+// });
 
-
-router.beforeEach((to, from, next) => {
-  NProgress.start();
-  next();
-});
-
-router.afterEach(() => {
-  NProgress.done();
-});
+// router.afterEach(() => {
+//   NProgress.done();
+// });
 
 // 导出路由
 export default router;

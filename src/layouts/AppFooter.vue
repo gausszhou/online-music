@@ -1,5 +1,5 @@
 <template>
-  <div class="app-footer">
+  <div class="app-footer" id="footer">
     <SongAudioLeft></SongAudioLeft>
     <SongAudio></SongAudio>
     <SongAudioRight></SongAudioRight>
@@ -8,9 +8,6 @@
     </transition>
     <transition name="fade">
       <SongLyricFloat key="lyric" v-if="songLyricVisible" />
-    </transition>
-    <transition name="drawer-right">
-      
     </transition>
   </div>
 </template>
