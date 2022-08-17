@@ -11,8 +11,7 @@
 # COPY --from=build /app/dist /app
 # COPY --from=build /app/nginx.conf /etc/nginx/nginx.conf
 
-
-# FROM nginx:1.22.0-alpine
-# WORKDIR /app
-# COPY ./dist /app
-# COPY ./nginx.conf /etc/nginx/nginx.conf
+FROM nginx:1.22.0-alpine
+WORKDIR /app
+COPY ./dist /app
+COPY ./nginx.conf /etc/nginx/nginx.conf
