@@ -1,4 +1,4 @@
-# FROM node:12.22.1 as build
+# FROM node:14.20.0 as build
 # WORKDIR /app
 
 # COPY package.json /app/
@@ -12,7 +12,7 @@
 # COPY --from=build /app/nginx.conf /etc/nginx/nginx.conf
 
 
-FROM nginx:1.22.0-alpine
-WORKDIR /app
-COPY ./dist /app
-COPY ./nginx.conf /etc/nginx/nginx.conf
+# FROM nginx:1.22.0-alpine
+# WORKDIR /app
+# COPY ./dist /app
+# COPY ./nginx.conf /etc/nginx/nginx.conf
