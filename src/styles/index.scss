@@ -6,12 +6,17 @@
 @import "./config-element.scss";
 // 引入 CSS 变量
 @import "./config-variable.scss";
+// 
+@import "./config-animation.scss";
 
+// 布局
 @import "./layout.scss";
 @import "./layout-header.scss";
 @import "./layout-nav.scss";
 @import "./layout-main.scss";
 
+// 每个页面的样式控制
+@import "./view-common.scss";
 @import "./view-music.scss";
 @import "./view-search.scss";
 @import "./view-singer.scss";

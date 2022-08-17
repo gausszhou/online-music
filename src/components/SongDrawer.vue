@@ -4,25 +4,28 @@
     <div class="song-disc">
       <SongDisc></SongDisc>
     </div>
-        <!-- 歌词容器 -->
+    <!-- 歌词容器 -->
     <div class="song-lyric">
-      <SongLyricScroll  />
+      <SongLyricScroll />
+    </div>
+    <div class="song-list">
+      <SongList />
     </div>
   </div>
 </template>
 
 <script>
-
 import SongDisc from "./SongDrawerDisc.vue";
 import SongLyricScroll from "./SongDrawerLyric.vue";
+import SongList from "./SongDrawerList.vue";
+
 export default {
   name: "songDrawer",
   components: {
     SongDisc,
-    SongLyricScroll
-  },
-
-
+    SongLyricScroll,
+    SongList
+  }
 };
 </script>
 <style lang="scss" scoped>
@@ -36,20 +39,24 @@ export default {
 
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
   background-color: #fff;
 }
 
-.song-disc{
-    margin-top: 5rem;
+.song-disc {
   width: 450px;
-  height: 500px;
   display: flex;
   align-items: center;
   position: relative;
 }
-.song-lyric {
-  margin-top: 5rem;
-  width: 450px;
-}
 
+.song-lyric {
+  width: 450px;
+  height: 520px;
+}
+.song-list {
+  width: 400px;
+}
 </style>

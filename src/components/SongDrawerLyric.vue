@@ -149,15 +149,17 @@ export default {
   line-height: 2;
   color: #666;
 }
-.lyric-scroll-item:first-child {
-  margin-top: 250px;
-}
-.lyric-scroll-item:last-child {
-  margin-bottom: 250px;
-}
-.lyric-scroll-item.active {
-  color: #409eff;
-  font-weight: 700;
-  font-size: 18px;
+.lyric-scroll-item {
+  &:first-child {
+    margin-top: 260px;
+  }
+  &:last-child {
+    margin-bottom: 260px;
+  }
+  &.active {
+    color: #409eff;
+    font-weight: 700;
+    font-size: 18px;
+  }
 }
 </style>

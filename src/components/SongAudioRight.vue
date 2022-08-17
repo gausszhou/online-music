@@ -9,11 +9,6 @@
       :show-tooltip="false"
       @change="onVolumeSliderChange(volume)"
     ></el-slider>
-    <i
-      class="button-menu iconfont icon-menu"
-      :class="{ active: songListVisible }"
-      @click="toggleSongListVisible()"
-    ></i>
   </div>
 </template>
 
