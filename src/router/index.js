@@ -1,18 +1,12 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-
-import NProgress from "nprogress";
 import Music from "@/views/music/index.vue";
 import Recommend from "@/views/music/recommend.vue";
 import Video from "@/views/video/index.vue";
-//导入
 
-// 注册路由插件 VueRouter 使其全局可用
 Vue.use(VueRouter);
 
-//  定义路由表
 const routes = [
-  // 首页重定向
   {
     path: "*",
     redirect: { name: "recommend" }
@@ -110,24 +104,14 @@ function getAbsolutePath() {
   let path = location.pathname;
   return path.substring(0, path.lastIndexOf("/") + 1);
 }
-// 最后创建路由对象，设置切换方式，设置路由得base，导入路由表
-const router = new VueRouter({
-  // 使用什么方式切换路由
+
+const router = new VueRouter({  
   mode: "history", //  history  hash
   // vue-router里提供了一个base的属性，代表应用的基目录
-  base: getAbsolutePath(),
-  // base: "/project/online-music/",
+  base: "/online-music/",
   routes
 });
 
-// router.beforeEach((to, from, next) => {
-//   NProgress.start();
-//   next();
-// });
-
-// router.afterEach(() => {
-//   NProgress.done();
-// });
 
 // 导出路由
 export default router;

@@ -1,6 +1,6 @@
 ## Online Music
 
-预览地址: [传送门](http://music.gausszhou.top/)  
+预览地址: [传送门](https://www.gausszhou.top/online-music/)  
  
 ## TodoList
 
