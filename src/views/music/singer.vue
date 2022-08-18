@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import { rect1_1 } from '../../skeleton/image';
+import { rect1_1 } from "../../skeleton/image";
 
 export default {
   name: "singer",
@@ -131,8 +131,8 @@ export default {
       type: -1,
       initial: -1,
       list: new Array(20).fill({
-        name:"",
-        img1v1Url:rect1_1
+        name: "",
+        img1v1Url: rect1_1
       })
     };
   },

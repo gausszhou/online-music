@@ -7,7 +7,7 @@ const http = {
   // 登录
   login: (params) =>
     axios.get(baseUrl + "/login/cellphone" + serialize(params)),
-  
+
   /* 通用方法 */
   // 获取歌曲地址 /song/url id
   getSongUrl: (params) => axios.get(baseUrl + "/song/url" + serialize(params)),

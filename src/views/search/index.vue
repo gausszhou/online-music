@@ -89,7 +89,7 @@
 </template>
 
 <script>
-import { rect16_9, rect1_1 } from '../../skeleton/image';
+import { rect16_9, rect1_1 } from "../../skeleton/image";
 
 export default {
   name: "search",
@@ -105,7 +105,7 @@ export default {
           artists: [{ name: "" }]
         }
       }),
-      playList:  new Array(20).fill({
+      playList: new Array(20).fill({
         name: "",
         coverImgUrl: rect1_1,
         playCount: 999999

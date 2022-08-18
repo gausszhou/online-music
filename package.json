@@ -1,9 +1,9 @@
 {
-  "name": "netease-cloud-music-vue",
+  "name": "oneline-music",
   "description": "",
   "author": "gausszhou",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "main": "main.js",
   "scripts": {
     "serve": "vue-cli-service serve",

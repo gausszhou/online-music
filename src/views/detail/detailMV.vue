@@ -95,7 +95,7 @@
 </template>
 
 <script>
-import { rect16_9 } from '../../skeleton/image';
+import { rect16_9 } from "../../skeleton/image";
 
 export default {
   name: "mv",

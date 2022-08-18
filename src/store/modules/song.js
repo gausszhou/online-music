@@ -3,7 +3,7 @@ import local from "@/storage/local";
 import { musicPolyfill, processLyric } from "@/utils/tools";
 
 import NProgress from "nprogress";
-NProgress.configure({ showSpinner: false, parent: "#footer"});
+NProgress.configure({ showSpinner: false, parent: "#footer" });
 const proxy = "http://api.gausszhou.top/_proxy/";
 
 const song = {

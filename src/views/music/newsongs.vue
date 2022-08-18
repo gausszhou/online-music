@@ -88,7 +88,7 @@ export default {
   created() {
     this.getTopSong();
     const limit = this.limit;
-    const page = this.page
+    const page = this.page;
     this.list = this.lists.slice((page - 1) * limit, page * limit);
   },
   methods: {

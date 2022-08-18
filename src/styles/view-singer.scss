@@ -2,7 +2,7 @@
   padding-top: 20px;
 }
 
- .filter-wrap > div {
+.filter-wrap > div {
   margin-bottom: 10px;
   vertical-align: baseline;
   display: flex;
@@ -28,22 +28,22 @@
   margin-right: 10px;
 }
 
- .filter-wrap > div span.title.active {
+.filter-wrap > div span.title.active {
   color: #dd6d60;
   background-color: #fcf6f5;
   border-radius: 20px;
 }
 
- .filter-wrap > div span.title::before {
+.filter-wrap > div span.title::before {
   content: "";
 }
 
- .filter-wrap > div ul {
+.filter-wrap > div ul {
   display: flex;
   flex-wrap: wrap;
 }
 
- .filter-wrap > div ul li:not(:last-child) {
+.filter-wrap > div ul li:not(:last-child) {
   border-right: 1px solid #f2f2f1;
 }
 

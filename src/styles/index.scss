@@ -6,7 +6,7 @@
 @import "./config-element.scss";
 // 引入 CSS 变量
 @import "./config-variable.scss";
-// 
+//
 @import "./config-animation.scss";
 
 // 布局
@@ -29,11 +29,9 @@
   border: none !important;
 }
 
-
 .vue-drr-slot {
   background: transparent !important;
 }
-
 
 #nprogress .bar {
   background: #ff4e4e !important;

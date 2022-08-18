@@ -33,9 +33,8 @@ export default {
   computed: {
     ...mapState("ui", {
       songDrawerVisible: (state) => state.songDrawerVisible,
-      songLyricVisible: (state) => state.songLyricVisible,
+      songLyricVisible: (state) => state.songLyricVisible
     })
   }
 };
 </script>
-

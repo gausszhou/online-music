@@ -89,10 +89,10 @@ export default {
   position: relative;
   height: 100%;
   &:hover {
-  .lyric-pointer {
-    opacity: 1;
+    .lyric-pointer {
+      opacity: 1;
+    }
   }
-}
 }
 .lyric-pointer {
   opacity: 0;

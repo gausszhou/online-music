@@ -4,12 +4,16 @@ export function musicPolyfill(payload) {
   let musicId = payload.musicId || payload.id;
   let name = payload.name || "";
   let author = (payload.author && [payload.author]) || payload.ar;
-  let albumName = payload.albumName || payload.albumname || (payload.al && payload.al.name) || "";
+  let albumName =
+    payload.albumName ||
+    payload.albumname ||
+    (payload.al && payload.al.name) ||
+    "";
   let picUrl = payload.picUrl || "";
   let audioUrl = "";
   let audioUrlOrigin = "";
   let audioUrlProxy = "";
-  let lyricList = payload.lyricList || []
+  let lyricList = payload.lyricList || [];
   let song = {
     musicId,
     name,
@@ -23,7 +27,7 @@ export function musicPolyfill(payload) {
   };
   return song;
 }
-export function processLyric(payload){
+export function processLyric(payload) {
   let arr = payload.split("\n");
   let reg = /^\[.*]/;
   let list = arr.map((item) => {
@@ -47,6 +51,6 @@ export function processLyric(payload){
     }
   });
   const lyricList = list.filter((item) => item.word != "");
-  return lyricList
+  return lyricList;
 }
 export default tools;

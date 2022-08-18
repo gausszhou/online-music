@@ -18,15 +18,15 @@
 </template>
 
 <script>
-import { rect1_1 } from '../../skeleton/image';
+import { rect1_1 } from "../../skeleton/image";
 
 export default {
   name: "rankList",
   data() {
     return {
       list: new Array(20).fill({
-        name:"",
-        coverImgUrl:rect1_1
+        name: "",
+        coverImgUrl: rect1_1
       })
     };
   },

@@ -116,9 +116,8 @@
 
     .control-button-text {
       font-size: 14px;
-      padding: 9px;  
+      padding: 9px;
     }
-    
   }
 
   .button-toggle {
@@ -141,7 +140,13 @@
 
 .control-progress {
   .el-slider__runway {
-    background: linear-gradient(90deg, #ec414177 0%, #ec414177 var(--progress),#e4e7ed var(--progress), #e4e7ed 100%);
+    background: linear-gradient(
+      90deg,
+      #ec414177 0%,
+      #ec414177 var(--progress),
+      #e4e7ed var(--progress),
+      #e4e7ed 100%
+    );
   }
 }
 

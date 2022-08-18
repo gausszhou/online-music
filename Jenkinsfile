@@ -5,6 +5,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
+                yarn
+                yarn build
                 docker build -t netease-music-cloud .
                 docker save netease-music-cloud:latest | gzip >  netease-music-cloud-latest.tar.gz
             }
