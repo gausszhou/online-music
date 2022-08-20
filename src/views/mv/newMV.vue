@@ -23,7 +23,7 @@
           class="item aspect-16-9"
           v-for="(item, index) in list"
           :key="index"
-          @click.native="playMV(item)"
+          @click.native="toDetailMV(item)"
           :src="item.cover"
           :count="item.playCount"
           :title="item.artistName + item.name &&  `《${item.name.trim()}》`"
@@ -101,7 +101,7 @@ export default {
       this.page = 1;
       this.getData();
     },
-    playMV(item) {
+    toDetailMV(item) {
       this.$router.push({
         name: "detailMV",
         query: {

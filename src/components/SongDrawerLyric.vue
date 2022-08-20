@@ -1,6 +1,6 @@
 <template>
   <div class="lyric-container">
-    <ul ref="lyricList" class="lyric-scroll" @scroll="onLyricScroll">
+    <ul class="lyric-scroll"  ref="lyricList" @scroll="onLyricScroll">
       <li
         ref="lyric"
         class="lyric-scroll-item text-over-elli"
@@ -11,11 +11,14 @@
         {{ item.word }}
       </li>
     </ul>
-    <div ref="pointer" class="lyric-pointer" v-if="songLyricList.length > 2">
+
+    <div class="lyric-pointer" ref="pointer" v-if="songLyricList.length > 2">
       <div class="pointer-time">{{ scrollTime | stotime }}</div>
       <div class="pointer-bar"></div>
       <div class="pointer-arrow" @click="changeProgress"></div>
     </div>
+    <div class="lyric-mask mask-header"></div>
+    <div class="lyric-mask mask-footer"></div>
   </div>
 </template>
 
@@ -147,18 +150,35 @@ export default {
   text-align: center;
   line-height: 2;
   color: #666;
+  font-size: 16px;
 }
 .lyric-scroll-item {
   &:first-child {
-    margin-top: 250px;
+    margin-top: 255px;
   }
   &:last-child {
-    margin-bottom: 200px;
+    margin-bottom: 225px;
   }
   &.active {
     color: #409eff;
     font-weight: 700;
-    font-size: 18px;
+    font-size: 20px;
+  }
+}
+.lyric-mask {
+  position: absolute;
+  left: 0;
+  height: 4rem;
+  width: 100%;
+
+  &.mask-header {
+    top: 0;
+    background: linear-gradient(to bottom, #ffffff, #ffffff11);
+  }
+
+  &.mask-footer {
+    background: linear-gradient(to top, #ffffff, #ffffff11);
+    bottom: 0;
   }
 }
 </style>

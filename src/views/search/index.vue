@@ -72,7 +72,7 @@
               :src="item.cover"
               :count="item.playCount"
               :title="item.artistName + item.name && `《${item.name.trim()}》`"
-              @click.native="playMV(item)"
+              @click.native="toDetailMV(item)"
             />
           </div>
         </el-tab-pane>
@@ -215,7 +215,7 @@ export default {
         }
       });
     },
-    playMV(item) {
+    toDetailMV(item) {
       this.$router.push({
         name: "detailMV",
         query: {

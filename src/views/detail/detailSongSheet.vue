@@ -171,14 +171,6 @@ export default {
       this.commentsPage = val;
       this.getCommentPlayList();
     },
-    playMV(item) {
-      this.$router.push({
-        name: "detailMV",
-        query: {
-          mvid: item.mv
-        }
-      });
-    },
     addToSongList() {
       this.$store.commit("song/addListToSongList", this.tracks);
     },

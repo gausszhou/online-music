@@ -98,7 +98,17 @@ const http = {
 
   // /comment/music?id=186016&limit=1
   getCommentByMusic: (params) =>
-    axios.get(baseUrl + "/comment/music" + serialize(params))
+    axios.get(baseUrl + "/comment/music" + serialize(params)),
+  // /artist/desc?id=6452
+  getArtistDesc: (params) =>
+    axios.get(baseUrl + "/artist/desc" + serialize(params)),
+  getArtistTopSong: (params) =>
+    axios.get(baseUrl + "/artist/top/song" + serialize(params)),
+  // /artist/mv?id=6452
+  getArtistMV: (params) =>
+    axios.get(baseUrl + "/artist/mv" + serialize(params)),
+  getArtistDetail: (params) =>
+    axios.get(baseUrl + "/artist/detail" + serialize(params))
 };
 
 export default http;

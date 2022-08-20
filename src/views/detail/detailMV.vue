@@ -49,7 +49,7 @@
             class="item aspect-16-9"
             v-for="(item, index) in simiMV"
             :key="index"
-            @click="playMV(item)"
+            @click.native="toDetailMV(item)"
             :src="item.cover"
             :count="item.playCount"
             :title="item.artistName + item.name && `《${item.name.trim()}》`"
@@ -134,7 +134,7 @@ export default {
         this.total = res.data.total;
       });
     },
-    playMV(item) {
+    toDetailMV(item) {
       this.$route.query.mvid = item.id;
       this.getData();
     },

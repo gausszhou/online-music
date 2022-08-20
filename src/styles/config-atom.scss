@@ -47,6 +47,15 @@
   -webkit-line-clamp: 2;
   line-clamp: 2;
 }
+.text-over-elli-6 {
+  overflow: hidden;
+  text-overflow: -o-ellipsis-lastline;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 6;
+  line-clamp: 6;
+}
 
 // margin && padding
 

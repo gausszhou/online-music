@@ -1,13 +1,13 @@
 <template>
   <div class="song-drawer">
-    <div class="song-drawer-container"  :class="{ 'has-menu': songListVisible }">
+    <div class="song-drawer-container" :class="{ 'has-menu': songListVisible }">
       <div class="song-drawer-body">
         <!-- 歌曲信息容器 -->
         <div class="song-disc">
           <SongDisc />
         </div>
         <!-- 歌词容器 -->
-        <div class="song-lyric">
+        <div class="song-lyric">  
           <SongLyricScroll />
         </div>
       </div>
@@ -44,9 +44,6 @@ export default {
       page: 1
     };
   },
-  created() {
-    this.getCommentByMusic();
-  },
   computed: {
     ...mapState("song", {
       song: (state) => state.song
@@ -55,6 +52,15 @@ export default {
       songListVisible: (state) => state.songListVisible
     })
   },
+  watch: {
+    "song.musicId"() {
+      this.getCommentByMusic();
+    }
+  },
+  created() {
+    this.getCommentByMusic();
+  },
+
   methods: {
     getCommentByMusic() {
       let params = {
@@ -84,7 +90,7 @@ export default {
 
 .song-drawer-container {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 1rem auto;
   &.has-menu {
     margin-right: 400px;
   }
@@ -113,5 +119,4 @@ export default {
   height: 520px;
   transition: all 0.3s;
 }
-
 </style>

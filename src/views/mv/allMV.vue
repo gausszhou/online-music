@@ -1,5 +1,5 @@
 <template>
-  <div class="all-mv-container">
+  <div class="mv-container">
     <div class="filter-wrap">
       <div class="seciton-wrap">
         <!-- 分类切换 地区 -->
@@ -49,7 +49,7 @@
           class="item aspect-16-9"
           v-for="(item, index) in list"
           :key="index"
-          @click.native="playMV(item)"
+          @click.native="toDetailMV(item)"
           :src="item.cover"
           :count="item.playCount"
           :title="item.name &&  item.artistName + `《${item.name.trim()}》`"
@@ -139,7 +139,7 @@ export default {
       this.page = 1;
       this.getData();
     },
-    playMV(item) {
+    toDetailMV(item) {
       this.$router.push({
         name: "detailMV",
         query: {
