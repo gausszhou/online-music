@@ -11,7 +11,7 @@
         {{ item.word }}
       </li>
     </ul>
-    <div ref="pointer" class="lyric-pointer">
+    <div ref="pointer" class="lyric-pointer" v-if="songLyricList.length > 2">
       <div class="pointer-time">{{ scrollTime | stotime }}</div>
       <div class="pointer-bar"></div>
       <div class="pointer-arrow" @click="changeProgress"></div>
@@ -150,10 +150,10 @@ export default {
 }
 .lyric-scroll-item {
   &:first-child {
-    margin-top: 260px;
+    margin-top: 250px;
   }
   &:last-child {
-    margin-bottom: 260px;
+    margin-bottom: 200px;
   }
   &.active {
     color: #409eff;

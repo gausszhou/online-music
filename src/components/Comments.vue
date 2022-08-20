@@ -1,8 +1,8 @@
 <template>
   <div class="comment-wrap">
-    <p class="title">
+    <p class="comment-title">
       {{title}}
-      <span class="number">({{ commentsTotal }})</span>
+      <span class="comment-number">({{ commentsTotal }})</span>
     </p>
     <div class="comments-wrap">
       <div class="item" v-for="(item, index) in comments" :key="index">
@@ -12,11 +12,11 @@
         <div class="content-wrap">
           <div class="content">
             <span class="name">{{ item.user.nickname }}</span>
-            <span class="comment">{{ item.content }}</span>
+            <span class="comment">: {{ item.content }}</span>
           </div>
           <div class="re-content" v-if="item.beReplied.length">
             <span class="name">@{{ item.beReplied[0].user.nickname }}</span>
-            <span class="comment">{{ item.beReplied[0].content }}</span>
+            <span class="comment">: {{ item.beReplied[0].content }}</span>
           </div>
           <div class="date">{{ item.time | timestamp }}</div>
         </div>

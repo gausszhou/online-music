@@ -66,7 +66,7 @@ export default {
 
 /* 播放杆 转回去 */
 .song-player.playing .player-bar {
-  transform: rotate(0);
+  transform: rotate(12deg);
 }
 /* 旋转的动画 */
 @keyframes Rotate {

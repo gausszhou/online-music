@@ -1,10 +1,10 @@
 .comment-wrap {
   margin-bottom: 70px;
 
-  .title {
-    font-size: 25px;
+  .comment-title {
+    font-size: 20px;
 
-    .number {
+    .comment-number {
       color: black;
       font-size: 20px;
     }
@@ -22,6 +22,7 @@
         height: 50px;
         border-radius: 50%;
       }
+
     }
 
     &:not(:last-child) {
@@ -37,7 +38,6 @@
 
     .content-wrap {
       padding-bottom: 20px;
-
       flex: 1;
 
       .name {
