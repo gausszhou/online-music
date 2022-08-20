@@ -55,21 +55,21 @@ export default {
   },
   methods: {
     scroll(index) {
-      if (this.$refs.lyric) {
-        const lyricListEl = this.$refs.lyricList;
-        const HEIGHT = this.$refs.lyric[0].offsetHeight;
-        const targetScrollTop = HEIGHT * (index + 0.5);
-        animation(
-          lyricListEl.scrollTop,
-          targetScrollTop,
-          (value) => {
-            lyricListEl.scrollTop = value;
-          },
-          "Quad.ease-in-out"
-        );
-      }
+      if (!this.$refs.lyric || !this.$refs.lyric[0]) return;
+      const lyricListEl = this.$refs.lyricList;
+      const HEIGHT = this.$refs.lyric[0].offsetHeight;
+      const targetScrollTop = HEIGHT * (index + 0.5);
+      animation(
+        lyricListEl.scrollTop,
+        targetScrollTop,
+        (value) => {
+          lyricListEl.scrollTop = value;
+        },
+        "Quad.ease-in-out"
+      );
     },
     onLyricScroll() {
+      if (!this.$refs.lyric || !this.$refs.lyric[0]) return;
       const lyricListEl = this.$refs.lyricList;
       const currentScrollTop = lyricListEl.scrollTop;
       const HEIGHT = this.$refs.lyric[0].offsetHeight;

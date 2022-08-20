@@ -1,8 +1,6 @@
 // 引入axios
 import axios from "axios";
-import NProgress from "nprogress";
-NProgress.configure({ showSpinner: false });
-NProgress.configure({ parent: "#header" });
+
 
 const instance = axios.create({
   timeout: 10 * 1000,

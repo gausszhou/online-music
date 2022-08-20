@@ -91,7 +91,6 @@ export default {
       };
       this.$http.getNewSong(params).then((res) => {
         this.songs = res.data.result;
-        console.log(this.songs);
       });
     },
     getPersonalized() {

@@ -1,9 +1,11 @@
 import http from "@/api/http";
 import local from "@/storage/local";
-import { musicPolyfill, processLyric } from "@/utils/tools";
+import player from "@/lib/player";
 
 import NProgress from "nprogress";
+import { musicPolyfill, processLyric } from "@/utils/tools";
 NProgress.configure({ showSpinner: false, parent: "#footer" });
+
 const proxy = "http://api.gausszhou.top/_proxy/";
 
 const song = {
@@ -24,21 +26,22 @@ const song = {
       songMode: local.get("songMode") || 0,
       // 歌曲播放状态 不存储 修改此值用于控制播放
       songIsPlay: false,
+      songTargetTime: 0,
+      // 播放时间，此值跟随 Audio 的进度
+      // audio 
+      songAudio:{
+          currentTime:0,
+          totalTime:0,
+          currentPercent:0,
+          loadedPercent:0
+      },
       // 歌曲总时间
       songTotalTime: 0,
       // 修改此值，不存储 同步修改 Audio 的播放时间 需在组件内监听此值
-      songTargetTime: 0,
-      // 播放时间，此值跟随 Audio 的进度
-      songCurrentTime: 0
+      songCurrentTime: 0,
+      songCurrentPercent: 0,
+      songLoadedPercent: 0
     };
-  },
-  getters: {
-    // 播放百分比，此值跟随 Audio 的进度
-    songCurrentPercent(state) {
-      let percent = 100 * (state.songCurrentTime / state.songTotalTime);
-      if (percent >= 100) percent = 0;
-      return percent;
-    }
   },
   mutations: {
     setSongList(state, payload) {
@@ -51,6 +54,7 @@ const song = {
     },
     setSong(state, payload) {
       state.song = payload;
+      player.setAudioSrc(payload.audioUrl);
       local.set("song", payload);
     },
     setSongMode(state, payload) {
@@ -59,21 +63,33 @@ const song = {
     },
     setSongVolume(state, payload) {
       state.songVolume = payload;
+      player.setVolume(payload);
       local.set("songVolume", payload);
     },
     setSongIsPlay(state, payload) {
       state.songIsPlay = payload;
+      if (payload) {
+        player.play();
+      } else {
+        player.pause();
+      }
     },
+    setSongTargetTime(state, payload) {
+      player.setTargetTime(payload);
+    },
+    // on audio event
     setSongCurrentTime(state, payload) {
       state.songCurrentTime = payload;
     },
     setSongTotalTime(state, payload) {
       state.songTotalTime = payload;
     },
-    setSongTargetTime(state, payload) {
-      state.songTargetTime = payload;
+    setSongCurrentPercent(state, payload) {
+      state.songCurrentPercent = payload;
     },
-
+    setSongLoadedPercent(state, payload) {
+      state.songLoadedPercent = payload;
+    },
     // 歌词处理
     setSongLyricList(state, payload) {
       state.songLyricList = payload;
@@ -102,8 +118,10 @@ const song = {
       const { musicId } = song;
       // update render
       store.commit("setSong", song);
+      store.commit("setSongLyricList", []);
+      // getAudioSrc
       NProgress.start();
-      console.log("[ajax ] 歌曲信息请求中");
+      console.log("[ajax ] 歌曲信息请求中1");
       const resSong = await http.getSongUrl({ id: musicId });
       if (resSong.data.data && resSong.data.data[0].url) {
         const audioUrl = resSong.data.data[0].url;
@@ -111,10 +129,12 @@ const song = {
         song.audioUrlOrigin = audioUrl;
         song.audioUrlProxy = proxy + audioUrl;
       }
-      NProgress.done();
-      console.log("[ajax ] 歌曲资源请求完成");
+
       // update render
       store.commit("setSong", song);
+      NProgress.done();
+      console.log("[ajax ] 歌曲信息请求完成1");
+
       // send play message
       setTimeout(() => {
         store.commit("setSongIsPlay", false);
@@ -124,6 +144,7 @@ const song = {
       }, 0);
 
       // getSongDetail
+      NProgress.start();
       if (!(song.picUrl && song.albumName)) {
         const resDetail = await http.getSongDetail({ ids: musicId });
         if (resDetail.data.songs && resDetail.data.songs[0]) {
@@ -134,7 +155,11 @@ const song = {
       }
       store.commit("setSong", song);
 
+
       // getLyric
+      NProgress.start();
+      console.log("[ajax ] 歌词请求中");
+
       if (!song.lyricList.length) {
         const resLyric = await http.getLyric({ id: musicId });
         const lyricText = resLyric.data.lrc.lyric;
@@ -142,6 +167,8 @@ const song = {
       }
       store.commit("setSong", song);
       store.commit("setSongLyricList", song.lyricList);
+      NProgress.done();
+      console.log("[ajax ] 歌词请求完成");
 
       let list = [];
       try {
@@ -170,5 +197,12 @@ const song = {
     }
   }
 };
+
+
+const url = song.state().song.audioUrl
+// const songVolume = song.state().songVolume
+player.setAudioSrc(url)
+// player.setVolume(songVolume)
+
 
 export default song;

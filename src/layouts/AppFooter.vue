@@ -9,6 +9,9 @@
     <transition name="fade">
       <SongLyricFloat key="lyric" v-if="songLyricVisible" />
     </transition>
+    <transition name="">
+      <SongPlayList key="list" v-if="songListVisible" />
+    </transition>
   </div>
 </template>
 
@@ -18,8 +21,10 @@ import { mapState } from "vuex";
 import SongAudio from "@/components/SongAudio.vue";
 import SongAudioLeft from "@/components/SongAudioLeft.vue";
 import SongAudioRight from "@/components/SongAudioRight.vue";
-import SongLyricFloat from "@/components/SongLyricFloat.vue";
 import SongDrawer from "@/components/SongDrawer.vue";
+import SongLyricFloat from "@/components/SongLyricFloat.vue";
+import SongPlayList from "@/components/SongPlayList.vue";
+
 
 export default {
   name: "AppFooter",
@@ -28,12 +33,14 @@ export default {
     SongAudioLeft,
     SongAudioRight,
     SongDrawer,
-    SongLyricFloat
+    SongLyricFloat,
+    SongPlayList
   },
   computed: {
     ...mapState("ui", {
       songDrawerVisible: (state) => state.songDrawerVisible,
-      songLyricVisible: (state) => state.songLyricVisible
+      songLyricVisible: (state) => state.songLyricVisible,
+      songListVisible: (state) => state.songListVisible
     })
   }
 };

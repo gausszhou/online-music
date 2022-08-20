@@ -4,11 +4,18 @@
     <div class="flex-1"></div>
     <i class="button-volume iconfont icon-volume"></i>
     <el-slider
-      class="control-volume"
+      class="slider-volume"
       v-model="volume"
+      :min="0"
+      :max="1"
       :show-tooltip="false"
       @change="onVolumeSliderChange(volume)"
     ></el-slider>
+    <i
+      class="button-menu iconfont icon-menu"
+      @click="toggleSongListVisible"
+      :class="{ active: songListVisible }"
+    ></i>
   </div>
 </template>
 
@@ -17,7 +24,7 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      volume: 50
+      volume: 0.5
     };
   },
   computed: {

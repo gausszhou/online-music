@@ -44,9 +44,10 @@ export default {
     ...mapState("song", {
       songList: (state) => state.songList,
       songIndex: (state) => state.songIndex,
-      songIsPlay: (state) => state.songIsPlay
+      songIsPlay: (state) => state.songIsPlay,
+      songCurrentPercent: (state) => state.songCurrentPercent
+      
     }),
-    ...mapGetters("song", ["songCurrentPercent"])
   },
   methods: {
     getMusic(item, index) {
@@ -75,9 +76,16 @@ export default {
 
 <style lang="scss" scoped>
 .song-playlist {
+  position: fixed;
+  z-index: 999;
+  right: 0;
+  bottom: calc(var(--app-footer-height) + 2px);
+  top: calc(var(--app-header-height) + 4px);
+  width: 400px;
   background-color: #fff;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
+  // border-top: 1px solid #eee;
+  // border-left: 1px solid #eee;
+  box-shadow: -1px 0 4px 1px #eee, 0 -1px 4px 1px #eee;
 }
 
 .song-playlist-header {
@@ -87,13 +95,13 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .song-playlist-body {
   overflow-x: hidden;
   overflow-y: auto;
-  height: calc(520px - 40px);
+  height: calc(100% - 40px);
 }
 
 .song-playlist-header {
@@ -118,7 +126,6 @@ export default {
     width: 100%;
     padding: 2px 0.5rem;
     overflow: hidden;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     cursor: pointer;
   }
 }

@@ -34,34 +34,34 @@ export default {
 .player-disc {
   position: absolute;
   left: 73px;
-  top: 160px;
+  top: 120px;
   z-index: 19;
 }
 
 .player-cover {
   position: absolute;
   left: 125px;
-  top: 212px;
+  top: 172px;
   width: 150px;
   height: 150px;
   border-radius: 75px;
   z-index: 18;
 }
 
-/* 是否正在播放 */
-.song-player.playing .player-disc,
-.song-player.playing .player-cover {
-  animation-play-state: running;
-}
-
 .player-bar {
   position: absolute;
   left: 200px;
-  top: 90px;
+  top: 40px;
   z-index: 22;
   transform: rotate(-25deg);
   transform-origin: 12px 12px;
   transition: 0.5s ease-in-out;
+}
+
+/* 是否正在播放 */
+.song-player.playing .player-disc,
+.song-player.playing .player-cover {
+  animation-play-state: running;
 }
 
 /* 播放杆 转回去 */
