@@ -105,7 +105,6 @@ const routes = [
 
 const router = new VueRouter({  
   mode: "history", //  history  hash
-  // vue-router里提供了一个base的属性，代表应用的基目录
   base: "/online-music/",
   routes
 });

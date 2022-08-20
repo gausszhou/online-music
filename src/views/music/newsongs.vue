@@ -16,7 +16,12 @@
       </div>
     </div>
     <!-- 底部的table -->
-    <el-table :lazy="true" :data="list" v-loading="loading" @row-click="getMusic">
+    <el-table
+      :lazy="true"
+      :data="list"
+      v-loading="loading"
+      @row-click="getMusic"
+    >
       <el-table-column type="index" label="序号" width="50px"></el-table-column>
       <el-table-column prop="name" label="标题"></el-table-column>
       <el-table-column label="歌手">
@@ -75,7 +80,7 @@ export default {
       total: 100,
       page: 1,
       limit: 10,
-      loading:true
+      loading: true
     };
   },
   watch: {
@@ -98,7 +103,7 @@ export default {
       let params = {
         type: this.tag
       };
-      this.loading = true
+      this.loading = true;
       this.$http.getTopSong(params).then((res) => {
         this.lists = res.data.data;
         const limit = this.limit;
@@ -106,11 +111,12 @@ export default {
           (this.page - 1) * limit,
           this.page * limit
         );
-        this.loading = false
+        this.loading = false;
       });
     },
-    // 播放歌曲
+
     getMusic(item) {
+      if (item.id) return false;
       this.$store.dispatch("song/getMusic", item);
     },
     handleCurrentChange(page) {

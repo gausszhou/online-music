@@ -1,5 +1,5 @@
 <template>
-  <div class="app-main-view ">
+  <div class="app-main-view">
     <div class="app-main-page search-container">
       <div class="search-header display-flex">
         <div class="search-title-box">
@@ -203,11 +203,12 @@ export default {
     addToSongList() {
       this.$store.commit("song/addListToSongList", this.songList);
     },
-    getMusic(row) {
-      this.$store.dispatch("song/getMusic", row);
+    getMusic(item) {
+      if (item.id) return false;
+      this.$store.dispatch("song/getMusic", item);
     },
     toDetailSongSheet(item) {
-      if(!item.id) return ;
+      if (!item.id) return;
       this.$router.push({
         name: "detailSongSheet",
         query: {

@@ -1,6 +1,6 @@
 <template>
   <div class="app-footer" id="footer">
-    <SongAudioLeft></SongAudioLeft>
+    <SongAudioLeft ></SongAudioLeft>
     <SongAudio></SongAudio>
     <SongAudioRight></SongAudioRight>
     <transition name="drawer-left">

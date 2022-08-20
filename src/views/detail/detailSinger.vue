@@ -148,6 +148,7 @@ export default {
       this.$store.commit("song/addListToSongList", this.tracks);
     },
     getMusic(item) {
+            if(item.id) return false
       this.$store.dispatch("song/getMusic", item);
     }
   }

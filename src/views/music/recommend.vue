@@ -98,7 +98,7 @@ export default {
       });
     },
     toDetailSongSheet(item) {
-      if(!item.id) return ;
+      if (!item.id) return;
       this.$router.push({
         name: "detailSongSheet",
         query: {
@@ -107,6 +107,7 @@ export default {
       });
     },
     getMusic(item) {
+      if (item.id) return false;
       this.$store.dispatch("song/getMusic", item);
     }
   }
