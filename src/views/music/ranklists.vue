@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import { rect1_1 } from "../../skeleton/image";
-import CallToAction from "../../components/CallToAction.vue";
+import { ImagePlaceholder } from "@/skeleton/image";
+import CallToAction from "@/components/CallToAction.vue";
 export default {
   name: "rankList",
   components: {
@@ -25,7 +25,8 @@ export default {
     return {
       list: new Array(20).fill({
         name: "",
-        coverImgUrl: rect1_1
+        playCount:999999,
+        coverImgUrl: ImagePlaceholder
       })
     };
   },
@@ -39,6 +40,7 @@ export default {
       });
     },
     toDetailSongSheet(item) {
+      if(!item.id) return ;
       this.$router.push({
         name: "detailSongSheet",
         query: {

@@ -71,33 +71,11 @@
         ></el-pagination>
       </el-tab-pane>
       <el-tab-pane :label="'评论(' + commentsTotal + ')'" name="2">
-        <!-- 最新评论 -->
-        <div class="comment-wrap">
-          <p class="title">
-            最新评论
-            <span class="number">({{ commentsTotal }})</span>
-          </p>
-          <div class="comments-wrap">
-            <div class="item" v-for="(item, index) in comments" :key="index">
-              <div class="icon-wrap">
-                <img :src="item.user.avatarUrl" alt />
-              </div>
-              <div class="content-wrap">
-                <div class="content">
-                  <span class="name">{{ item.user.nickname }}</span>
-                  <span class="comment">&nbsp;&nbsp;{{ item.content }}</span>
-                </div>
-                <div class="re-content" v-if="item.beReplied.length">
-                  <span class="name"
-                    >@{{ item.beReplied[0].user.nickname }}</span
-                  >
-                  <span class="comment">{{ item.beReplied[0].content }}</span>
-                </div>
-                <div class="date">{{ item.time | timestamp }}</div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Comments
+          title="最新评论"
+          :commentsTotal="commentsTotal"
+          :comments="comments"
+        />
         <!-- 分页器 -->
         <el-pagination
           @current-change="handleCommentsPagesChange"
@@ -113,8 +91,14 @@
 </template>
 
 <script>
+import { ImagePlaceholder } from "@/skeleton/image";
+import Comments from "@/components/Comments";
+
 export default {
   name: "playlist",
+  components: {
+    Comments
+  },
   data() {
     return {
       activeIndex: "1",
@@ -126,7 +110,10 @@ export default {
       commentsPage: 1,
       id: "",
       playlist: {
-        creator: {},
+        creator: {
+          avatarUrl: ImagePlaceholder
+        },
+        coverImgUrl: ImagePlaceholder,
         createTime: "000"
       },
       tracks: new Array(20).fill({

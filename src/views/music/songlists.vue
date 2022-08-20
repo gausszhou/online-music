@@ -52,8 +52,8 @@
 </template>
 
 <script>
-import { rect1_1 } from "../../skeleton/image";
-import CallToAction from "../../components/CallToAction.vue";
+import { ImagePlaceholder } from "@/skeleton/image";
+import CallToAction from "@/components/CallToAction.vue";
 export default {
   name: "songSheet",
   components: {
@@ -89,12 +89,12 @@ export default {
       // 顶部的推荐歌单
       topList: {
         name: "",
-        coverImgUrl: rect1_1
+        coverImgUrl: ImagePlaceholder
       },
       // 歌单列表
       list: new Array(20).fill({
         name: "",
-        coverImgUrl: rect1_1,
+        coverImgUrl: ImagePlaceholder,
         playCount: 999999
       })
     };
@@ -132,6 +132,7 @@ export default {
       });
     },
     toDetailSongSheet(item) {
+      if(!item.id) return ;
       this.$router.push({
         name: "detailSongSheet",
         query: {

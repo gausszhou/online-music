@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { rect1_1 } from "@/skeleton/image";
+import { ImagePlaceholder } from "@/skeleton/image";
 import CallToAction from "@/components/CallToAction.vue";
 
 export default {
@@ -57,14 +57,14 @@ export default {
       // 推荐歌单
       list: new Array(12).fill({
         name: "",
-        picUrl: rect1_1
+        picUrl: ImagePlaceholder
       }),
       // 独家放送
       contents: [],
       // 最新音乐
       songs: new Array(14).fill({
         name: "",
-        picUrl: rect1_1,
+        picUrl: ImagePlaceholder,
         song: {
           artists: [""]
         }
@@ -98,6 +98,7 @@ export default {
       });
     },
     toDetailSongSheet(item) {
+      if(!item.id) return ;
       this.$router.push({
         name: "detailSongSheet",
         query: {

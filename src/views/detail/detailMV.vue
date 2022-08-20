@@ -29,30 +29,7 @@
         </div>
       </div>
       <!-- 最新评论 -->
-      <div class="comment-wrap">
-        <p class="title">
-          最新评论
-          <span class="number">({{ total }})</span>
-        </p>
-        <div class="comments-wrap">
-          <div class="item" v-for="(item, index) in comments" :key="index">
-            <div class="icon-wrap">
-              <img :src="item.user.avatarUrl" alt />
-            </div>
-            <div class="content-wrap">
-              <div class="content">
-                <span class="name">{{ item.user.nickname }}</span>
-                <span class="comment">&nbsp;&nbsp;{{ item.content }}</span>
-              </div>
-              <div class="re-content" v-if="item.beReplied.length">
-                <span class="name">@{{ item.beReplied[0].user.nickname }}</span>
-                <span class="comment">{{ item.beReplied[0].content }}</span>
-              </div>
-              <div class="date">{{ item.time | timestamp }}</div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Comments title="最新评论" :commentsTotal="total" :comments="comments" />
       <!-- 分页器 -->
       <el-pagination
         @current-change="handleCurrentChange"
@@ -68,26 +45,6 @@
       <h3 class="title">相关推荐</h3>
       <div class="mvs">
         <div class="items">
-          <!-- <div
-            class="item"
-            v-for="(item, index) in simiMV"
-            :key="index"
-            @click="playMV(item)"
-          >
-            <div class="img-wrap">
-              <img :src="item.cover" alt />
-              <span class="iconfont icon-play"></span>
-              <div class="num-wrap">
-                <div class="iconfont icon-play"></div>
-                <div class="num">{{ item.playCount | numbertocount }}</div>
-              </div>
-              <span class="time">{{ item.duration }}</span>
-            </div>
-            <div class="info-wrap">
-              <div class="name">{{ item.name }}</div>
-              <div class="singer">{{ item.artistName }}</div>
-            </div>
-          </div> -->
           <CallToAction
             class="item aspect-16-9"
             v-for="(item, index) in simiMV"
@@ -95,7 +52,7 @@
             @click="playMV(item)"
             :src="item.cover"
             :count="item.playCount"
-            :title="item.artistName + `《${item.name.trim()}》`"
+            :title="item.artistName + item.name && `《${item.name.trim()}》`"
           ></CallToAction>
         </div>
       </div>
@@ -104,13 +61,15 @@
 </template>
 
 <script>
-import { rect16_9 } from "@/skeleton/image";
+import { ImagePlaceholder } from "@/skeleton/image";
 import CallToAction from "@/components/CallToAction";
+import Comments from "@/components/Comments";
 
 export default {
   name: "mv",
   components: {
-    CallToAction
+    CallToAction,
+    Comments
   },
   data() {
     return {
@@ -124,7 +83,7 @@ export default {
       mvUrl: "",
       simiMV: new Array(8).fill({
         name: "",
-        cover: rect16_9,
+        cover: ImagePlaceholder,
         playCount: 99999,
         artistName: ""
       }),

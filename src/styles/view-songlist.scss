@@ -46,6 +46,7 @@
   height: 30px;
   border-radius: 50%;
   margin-right: 10px;
+
 }
 
 .songlist-container .top-wrap .info-wrap .author-wrap .name {
@@ -59,7 +60,7 @@
   color: #888482;
 }
 
-.play-wrap {
+.songlist-container .play-wrap {
   width: 120px;
   height: 35px;
   border-radius: 50px;
@@ -67,8 +68,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
   cursor: pointer;
+  margin-bottom: 1rem;
 }
 
 .play-wrap span {

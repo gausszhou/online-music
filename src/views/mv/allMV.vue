@@ -49,10 +49,10 @@
           class="item aspect-16-9"
           v-for="(item, index) in list"
           :key="index"
-          @click="playMV(item)"
+          @click.native="playMV(item)"
           :src="item.cover"
           :count="item.playCount"
-          :title="item.artistName + `《${item.name.trim()}》`"
+          :title="item.name &&  item.artistName + `《${item.name.trim()}》`"
         ></CallToAction>
       </div>
       <!-- 分页器 -->
@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import { rect16_9 } from "@/skeleton/image";
+import { ImagePlaceholder } from "@/skeleton/image";
 import CallToAction from "@/components/CallToAction.vue";
 export default {
   name: "allMV",
@@ -90,7 +90,7 @@ export default {
       order: "上升最快",
       list: new Array(8).fill({
         name: "",
-        cover: rect16_9,
+        cover: ImagePlaceholder,
         playCount: 99999,
         artistName: ""
       })

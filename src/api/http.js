@@ -80,6 +80,7 @@ const http = {
 
   // 获取相似MV /simi/mv mvid
   getSimiMV: (params) => axios.get(baseUrl + "/simi/mv" + serialize(params)),
+  
   // 获取MV评论  /comment/mv
   getCommentMV: (params) =>
     axios.get(baseUrl + "/comment/mv" + serialize(params)),

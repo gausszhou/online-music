@@ -1,5 +1,10 @@
 <template>
   <div class="app-main-view">
+    <el-tabs v-model="tab" class="app-main-nav">
+      <el-tab-pane name="singer">
+        <span slot="label">发现歌手</span>
+      </el-tab-pane>
+    </el-tabs>
     <div class="app-main-page search-container">
       <div class="singer-container">
         <div class="filter-wrap">
@@ -73,8 +78,8 @@
 </template>
 
 <script>
-import { rect1_1 } from "../../skeleton/image";
-import CallToAction from "../../components/CallToAction.vue";
+import { ImagePlaceholder } from "@/skeleton/image";
+import CallToAction from "@/components/CallToAction.vue";
 export default {
   name: "singer",
   components: {
@@ -82,6 +87,7 @@ export default {
   },
   data() {
     return {
+      tab:"singer", 
       areaList: [
         { value: -1, label: "全部" },
         { value: 7, label: "华语" },
@@ -134,7 +140,7 @@ export default {
       initial: -1,
       list: new Array(20).fill({
         name: "",
-        img1v1Url: rect1_1
+        img1v1Url: ImagePlaceholder
       })
     };
   },
@@ -178,6 +184,7 @@ export default {
       this.getData();
     },
     toDetailSinger(item) {
+      if(!item.id) return ;
       this.$router.push({
         name: "detailSinger",
         query: {

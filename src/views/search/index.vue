@@ -1,17 +1,28 @@
 <template>
-  <div class="app-main-view">
+  <div class="app-main-view ">
     <div class="app-main-page search-container">
-      <div class="search-title-box">
-        <h2 class="search-title-keywords">{{ keywords }}</h2>
-        <span class="search-title-count">找到 {{ count }} 个结果</span>
-      </div>
-      <div class="play-wrap" @click="addToSongList">
-        <span class="iconfont icon-play"></span>
-        <span class="text">播放全部</span>
+      <div class="search-header display-flex">
+        <div class="search-title-box">
+          <h2 class="search-title-keywords">{{ keywords }}</h2>
+          <span class="search-title-count">找到 {{ count }} 个结果</span>
+        </div>
+        <div
+          class="play-wrap"
+          @click="addToSongList"
+          v-if="activeIndex == 'songs'"
+        >
+          <span class="iconfont icon-play"></span>
+          <span class="text">播放全部</span>
+        </div>
       </div>
       <el-tabs v-model="activeIndex">
         <el-tab-pane label="歌曲" name="songs">
-          <el-table :lazy="true" :data="songList" @row-dblclick="getMusic">
+          <el-table
+            :lazy="true"
+            :data="songList"
+            v-loading="loading"
+            @row-dblclick="getMusic"
+          >
             <el-table-column
               type="index"
               label="序号"
@@ -39,7 +50,6 @@
             </el-table-column>
           </el-table>
         </el-tab-pane>
-
         <el-tab-pane label="歌单" name="lists">
           <div class="items">
             <CallToAction
@@ -55,25 +65,35 @@
         </el-tab-pane>
         <el-tab-pane label="MV" name="mvs">
           <div class="items mv">
-             <CallToAction
+            <CallToAction
               class="item aspect-16-9"
               v-for="(item, index) in mvList"
               :key="index"
               :src="item.cover"
               :count="item.playCount"
-              :title="item.artistName + `《${item.name.trim()}》`"
+              :title="item.artistName + item.name && `《${item.name.trim()}》`"
               @click.native="playMV(item)"
             />
           </div>
         </el-tab-pane>
       </el-tabs>
+      <el-pagination
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange"
+        background
+        layout="prev, pager, next, sizes"
+        :total="total"
+        :current-page="page"
+        :page-size="limit"
+        :page-sizes="[10, 20, 30]"
+      ></el-pagination>
     </div>
   </div>
 </template>
 
 <script>
-import { rect16_9, rect1_1 } from "../../skeleton/image";
-import CallToAction from "../../components/CallToAction.vue";
+import { ImagePlaceholder } from "@/skeleton/image";
+import CallToAction from "@/components/CallToAction.vue";
 export default {
   name: "search",
   components: {
@@ -81,28 +101,33 @@ export default {
   },
   data() {
     return {
+      count: 999,
+      total: 999,
+      page: 1,
+      limit: 10,
       activeIndex: "songs",
       keywords: "",
       type: 1,
       songList: new Array(20).fill({
+        name: "",
         album: {
-          name: "",
-          duration: 0,
-          artists: [{ name: "" }]
-        }
+          name: ""
+        },
+        artists: [{ name: "" }],
+        duration: 0
       }),
       playList: new Array(20).fill({
         name: "",
-        coverImgUrl: rect1_1,
+        coverImgUrl: ImagePlaceholder,
         playCount: 999999
       }),
       mvList: new Array(8).fill({
         name: "",
-        cover: rect1_1,
+        cover: ImagePlaceholder,
         playCount: 99999,
         artistName: ""
       }),
-      count: 666
+      loading: true
     };
   },
   watch: {
@@ -136,11 +161,14 @@ export default {
   methods: {
     search() {
       this.keywords = this.$route.query.keywords;
+      this.loading = true;
       let type = this.type;
       if (this.keywords) {
         let params = {
           keywords: this.keywords,
-          type
+          type,
+          limit: this.limit,
+          offset: this.limit * (this.page - 1)
         };
         this.$http.getSearch(params).then((res) => {
           switch (type) {
@@ -159,8 +187,18 @@ export default {
             default:
               break;
           }
+          this.total = this.count;
+          this.loading = false;
         });
       }
+    },
+    handleCurrentChange(val) {
+      this.page = val;
+      this.search();
+    },
+    handleSizeChange(val) {
+      this.limit = val;
+      this.search();
     },
     addToSongList() {
       this.$store.commit("song/addListToSongList", this.songList);
@@ -169,6 +207,7 @@ export default {
       this.$store.dispatch("song/getMusic", row);
     },
     toDetailSongSheet(item) {
+      if(!item.id) return ;
       this.$router.push({
         name: "detailSongSheet",
         query: {
@@ -176,7 +215,6 @@ export default {
         }
       });
     },
-
     playMV(item) {
       this.$router.push({
         name: "detailMV",

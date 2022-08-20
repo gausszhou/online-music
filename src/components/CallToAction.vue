@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { rect1_1 } from "../skeleton/image";
+import { ImagePlaceholder } from "../skeleton/image";
 
 export default {
   name: "CallToAction",
@@ -26,7 +26,7 @@ export default {
     },
     src: {
       type: String,
-      default: rect1_1
+      default: ImagePlaceholder
     },
 
     title: {

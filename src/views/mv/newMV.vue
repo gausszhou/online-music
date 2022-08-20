@@ -23,10 +23,10 @@
           class="item aspect-16-9"
           v-for="(item, index) in list"
           :key="index"
-          @click="playMV(item)"
+          @click.native="playMV(item)"
           :src="item.cover"
           :count="item.playCount"
-          :title="item.artistName + `《${item.name.trim()}》`"
+          :title="item.artistName + item.name &&  `《${item.name.trim()}》`"
         ></CallToAction>
       </div>
       <!-- 分页器 -->
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { rect16_9 } from "../../skeleton/image";
+import { ImagePlaceholder } from "@/skeleton/image";
 import CallToAction from "@/components/CallToAction"
 export default {
   name: "latestMV",
@@ -60,7 +60,7 @@ export default {
       area: "",
       list: new Array(8).fill({
         name: "",
-        cover: rect16_9,
+        cover: ImagePlaceholder,
         playCount: 99999,
         artistName: ""
       })
