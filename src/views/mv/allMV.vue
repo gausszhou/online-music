@@ -140,6 +140,7 @@ export default {
       this.getData();
     },
     toDetailMV(item) {
+      if(!item.id) return false;
       this.$router.push({
         name: "detailMV",
         query: {

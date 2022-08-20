@@ -100,7 +100,7 @@ export default {
     this.getArtistDetail();
     this.getArtistTopSong();
     this.getArtistMV();
-    this.activeIndex = this.$route.query.tab;
+    this.activeIndex = this.$route.query.tab || "1";
   },
   methods: {
     onTabClick() {
