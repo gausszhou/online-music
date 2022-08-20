@@ -93,14 +93,15 @@
   flex-direction: column;
   justify-content: space-around;
   height: 100%;
-  padding: 10px;
   font-size: 16px;
+  padding: 10px;
 }
 
 .music-container .recommend-news .news-list .item .song-wrap .singer {
   font-size: 14px;
   color: gray;
 }
+
 
 // 推荐
 
@@ -110,94 +111,11 @@
   flex-wrap: wrap;
   gap: 1rem;
 }
-
-.music-container .recommend-songlist .items .item {
-  // flex: 0 0 20%;
-  height: 200px;
+.music-container .recommend-songlist .item {
   width: 160px;
-  box-sizing: border-box;
-  margin: 0.5rem 0;
-}
-
-.music-container .recommend-songlist .items .item-box {
-  width: 160px;
-  position: relative;
-  overflow: hidden;
-  border-radius: 5px;
-}
-
-.music-container .recommend .items .item .item-box img {
-  width: 160px;
-  height: 160px;
-}
-
-.music-container .recommend-songlist .items .item .desc-wrap {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  font-size: 16px;
-  line-height: 1.2;
-  color: white;
-  background: rgba(0, 0, 0, 0.5);
-  max-height: 50px;
-  padding: 5px;
-}
-
-.music-container .recommend-songlist .items .item .desc {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-clamp: 2;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-}
-
-.music-container .recommend-songlist .items .item .desc-wrap span {
-  font-size: 14px;
-  line-height: 1.2;
-}
-
-.music-container .recommend-songlist .items .item:hover .desc-wrap {
-  top: 0;
-}
-
-.music-container .recommend-songlist .items .item .img-wrap .icon-play {
-  opacity: 0;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 40px;
-  height: 40px;
-  color: #dd6d60;
-  font-size: 20px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.8);
-}
-
-.music-container .recommend-songlist .items .item .img-wrap .icon-play::before {
-  transform: translateX(0px);
-}
-
-.music-container .recommend-songlist .items .item .img-wrap:hover .icon-play {
-  opacity: 1;
-}
-
-.music-container .recommend-songlist .items .item .name {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  font-size: 14px;
 }
 
 // 排行榜
-
 .music-container .rank-list .items {
   display: flex;
   flex-wrap: wrap;
@@ -205,40 +123,9 @@
 }
 
 .music-container .rank-list .items .item {
-  width: 200px;
+  width: 160px;
   margin-bottom: 1rem;
   position: relative;
   overflow: hidden;
   border-radius: 5px;
-}
-
-.music-container .rank-list .items .item .img-wrap {
-  position: relative;
-  width: 200px;
-  height: 200px;
-}
-.music-container .rank-list .items .item .img-wrap img {
-  width: 200px;
-  height: 200px;
-}
-
-.music-container .rank-list .items .item .img-wrap .icon-play {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 40px;
-  height: 40px;
-  color: #dd6d60;
-  font-size: 20px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.8);
-  opacity: 0;
-}
-
-.music-container .rank-list .items .item .img-wrap:hover .icon-play {
-  opacity: 1;
 }

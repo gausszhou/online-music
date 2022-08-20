@@ -11,9 +11,11 @@ Vue.use(ElementUI);
 // 引入全局样式
 import "element-ui/lib/theme-chalk/index.css";
 import "element-ui/lib/theme-chalk/display.css";
+import 'remixicon/fonts/remixicon.css'
 import "nprogress/nprogress.css";
-import "@/styles/index.scss";
 import "@/assets/fonts/iconfont.css";
+import "@/styles/index.scss";
+
 
 // 引入http接口
 import http from "@/api/http";

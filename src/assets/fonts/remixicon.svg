@@ -1,0 +1,10 @@
+<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<svg xmlns="http://www.w3.org/2000/svg">
+<defs>
+    <font id="remixicon" horiz-adv-x="1200">
+    <font-face font-family="remixicon"
+        units-per-em="1200" ascent="1200"
+        descent="0" />
+    <missing-glyph horiz-adv-x="0" /><glyph glyph-name="headphone-line"
+            unicode="&#xEE05;"
+            horiz-adv-x="1200" d="M600 1000A400 400 0 0 1 200 600H350A100 100 0 0 0 450 500V250A100 100 0 0 0 350 150H200A100 100 0 0 0 100 250V600C100 876.15 323.85 1100 600 1100S1100 876.15 1100 600V250A100 100 0 0 0 1000 150H850A100 100 0 0 0 750 250V500A100 100 0 0 0 850 600H1000A400 400 0 0 1 600 1000zM200 500V250H350V500H200zM850 500V250H1000V500H850z" /></font></defs></svg>

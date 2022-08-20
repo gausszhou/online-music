@@ -77,3 +77,156 @@ body {
     background-color: #e0e0e0;
   }
 }
+
+.app-header .left-box {
+  display: flex;
+  align-items: center;
+}
+
+.app-header-title {
+  margin: 0;
+  padding: 0;
+  // color: #2c3e50;
+  color: #fff;
+  font-weight: 500;
+  font-size: 1.3rem;
+  font-family: BlinkMacSystemFont, Segoe UI;
+  padding-left: 1.5rem;
+  cursor: pointer;
+  width: var(--app-sidenav-width);
+}
+
+.app-header .left-box .app-header-history {
+  display: flex;
+  align-items: center;
+}
+
+.app-header .left-box .app-header-history {
+  padding-left: 25px;
+  margin-right: 10px;
+}
+
+.app-header .left-box .app-header-history a {
+  color: #c3473a;
+}
+
+.app-header .left-box .app-header-history .app-header-history-icon {
+  width: 24px;
+  height: 24px;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: center;
+  color: #fff;
+  border-radius: 50%;
+  transition: 0.2s;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.app-header .left-box .app-header-history .app-header-history-icon:first-child {
+  margin-right: 10px;
+}
+
+.app-header .left-box .app-header-history .app-header-history-icon:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.app-header .right-box {
+  display: flex;
+  align-items: center;
+}
+
+.app-header .app-header-search {
+  .el-input__prefix {
+    color: #eee;
+  }
+
+  input {
+    width: 300px;
+    border-radius: 50px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: none;
+    color: #fff;
+
+    &::placeholder {
+      color: #eee;
+    }
+  }
+}
+
+
+.app-nav {
+  background-color: #fff;
+  width: 200px;
+}
+
+.app-nav .app-nav-item {
+  height: 40px;
+  margin: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.app-nav .app-nav-item:hover {
+  background-color: #f7f7f7;
+}
+
+.app-nav .app-nav-item-link {
+  color: black;
+  padding-left: 30px;
+  font-size: 16px;
+  line-height: 40px;
+  width: 100%;
+}
+
+.app-nav .app-nav-item-link.active {
+  background-color: #f7f7f7;
+  font-weight: 700;
+}
+
+.app-main-view {
+  box-sizing: border-box;
+  padding-left: 1rem;
+  height: 100%;
+  .app-main-nav {
+    z-index: 11;
+    top: 0;
+    height: var(--app-tabnav-height);
+    width: 100%;
+    background-color: #fff;
+  }
+}
+
+.app-main-page {
+  box-sizing: border-box;
+
+  padding-right: 1rem;
+  padding-top: 1rem;
+  height: calc(100% - var(--app-tabnav-height));
+  overflow-y: scroll;
+}
+
+// 导航
+.el-tabs__item {
+  font-size: 16px;
+}
+
+.el-tabs__item:hover {
+  color: #000;
+}
+
+.el-tabs__item.is-active {
+  color: #333;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.el-tabs__active-bar {
+  background-color: #c3473a;
+}
+
+.el-tabs__nav-wrap::after {
+  display: none;
+}
+

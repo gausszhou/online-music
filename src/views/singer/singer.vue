@@ -1,87 +1,85 @@
 <template>
   <div class="app-main-view">
     <div class="app-main-page search-container">
-  <div class="singer-container">
-    <div class="filter-wrap">
-      <!-- 分类切换 语种 -->
-      <div class="seciton-wrap">
-        <ul class="tabs-wrap">
-          <span>语种:</span>
-          <li class="tab" v-for="(item, index) in areaList" :key="index">
-            <span
-              class="title"
-              :class="{ active: area == item.value }"
-              @click="area = item.value"
-              >{{ item.label }}</span
-            >
-          </li>
-        </ul>
-      </div>
-      <!-- 分类切换 类型 -->
-      <div class="type-wrap">
-        <ul class="tabs-wrap">
-          <span>分类:</span>
-          <li class="tab" v-for="(item, index) in typeList" :key="index">
-            <span
-              class="title"
-              :class="{ active: type == item.value }"
-              @click="type = item.value"
-              >{{ item.label }}</span
-            >
-          </li>
-        </ul>
-      </div>
-      <div class="init-wrap">
-        <ul class="tabs-wrap">
-          <span class="init-type">筛选:</span>
-          <li class="tab" v-for="(item, index) in initialList" :key="index">
-            <span
-              class="title"
-              :class="{ active: initial == item.value }"
-              @click="initial = item.value"
-              >{{ item.label }}</span
-            >
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="singers">
-      <div class="items">
-        <div
-          class="item"
-          v-for="(item, index) in list"
-          :key="index"
-          @click="toSingerDetail(item)"
-        >
-          <div class="img-wrap">
-            <img :src="item.img1v1Url" alt />
+      <div class="singer-container">
+        <div class="filter-wrap">
+          <!-- 分类切换 语种 -->
+          <div class="seciton-wrap">
+            <ul class="tabs-wrap">
+              <span>语种:</span>
+              <li class="tab" v-for="(item, index) in areaList" :key="index">
+                <span
+                  class="title"
+                  :class="{ active: area == item.value }"
+                  @click="area = item.value"
+                  >{{ item.label }}</span
+                >
+              </li>
+            </ul>
           </div>
-          <div class="info-wrap">
-            <div class="name">{{ item.name }}</div>
+          <!-- 分类切换 类型 -->
+          <div class="type-wrap">
+            <ul class="tabs-wrap">
+              <span>分类:</span>
+              <li class="tab" v-for="(item, index) in typeList" :key="index">
+                <span
+                  class="title"
+                  :class="{ active: type == item.value }"
+                  @click="type = item.value"
+                  >{{ item.label }}</span
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="init-wrap">
+            <ul class="tabs-wrap">
+              <span class="init-type">筛选:</span>
+              <li class="tab" v-for="(item, index) in initialList" :key="index">
+                <span
+                  class="title"
+                  :class="{ active: initial == item.value }"
+                  @click="initial = item.value"
+                  >{{ item.label }}</span
+                >
+              </li>
+            </ul>
           </div>
         </div>
+        <div class="singers">
+          <div class="items">
+            <CallToAction
+              class="item"
+              v-for="(item, index) in list"
+              :key="index"
+              :src="item.img1v1Url"
+              :title="item.name"
+              @click.native="toDetailSinger(item)"
+            />
+          </div>
+          <!-- 分页器 -->
+          <el-pagination
+            @current-change="handleCurrentChange"
+            background
+            layout="prev, pager, next"
+            :total="total"
+            :current-page="page"
+            :page-size="5"
+            :limit="limit"
+          ></el-pagination>
+        </div>
       </div>
-      <!-- 分页器 -->
-      <el-pagination
-        @current-change="handleCurrentChange"
-        background
-        layout="prev, pager, next"
-        :total="total"
-        :current-page="page"
-        :page-size="5"
-        :limit="limit"
-      ></el-pagination>
     </div>
-  </div>
-  </div>
   </div>
 </template>
 
 <script>
 import { rect1_1 } from "../../skeleton/image";
-
+import CallToAction from "../../components/CallToAction.vue";
 export default {
   name: "singer",
+  components: {
+    CallToAction
+  },
   data() {
     return {
       areaList: [
@@ -179,7 +177,7 @@ export default {
       this.page = 1;
       this.getData();
     },
-    toSingerDetail(item) {
+    toDetailSinger(item) {
       this.$router.push({
         name: "detailSinger",
         query: {

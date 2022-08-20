@@ -1,27 +1,26 @@
 <template>
   <div class="rank-list">
     <div class="items">
-      <div
+      <CallToAction
         class="item"
         v-for="(item, index) in list"
         :key="index"
-        @click="toSongSheetDetail(item)"
-      >
-        <div class="item-box img-wrap">
-          <img :src="item.coverImgUrl" alt />
-          <span class="iconfont icon-play"></span>
-          <span class="num">{{ item.playCount | numbertocount }}</span>
-        </div>
-      </div>
+        :src="item.coverImgUrl"
+        :count="item.playCount"
+        @click.native="toDetailSongSheet(item)"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import { rect1_1 } from "../../skeleton/image";
-
+import CallToAction from "../../components/CallToAction.vue";
 export default {
   name: "rankList",
+  components: {
+    CallToAction
+  },
   data() {
     return {
       list: new Array(20).fill({
@@ -39,7 +38,7 @@ export default {
         this.list = res.data.list;
       });
     },
-    toSongSheetDetail(item) {
+    toDetailSongSheet(item) {
       this.$router.push({
         name: "detailSongSheet",
         query: {

@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import local from "@/storage/local"
+
 // options
 import state from "./state";
 import mutations from "./mutations";
@@ -22,7 +22,5 @@ const store = new Vuex.Store({
     song
   }
 });
-
-setTimeout(()=>{store.commit("song/setSong",local.get("song"))})
 
 export default store;

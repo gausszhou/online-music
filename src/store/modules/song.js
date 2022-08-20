@@ -103,6 +103,8 @@ const song = {
       });
       state.songList = list;
       state.songIndex = 0;
+      this.commit("song/setSongIndex", 0);
+      this.dispatch("song/getMusic",list[0])
     }
   },
   actions: {

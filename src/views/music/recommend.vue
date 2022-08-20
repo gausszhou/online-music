@@ -29,30 +29,27 @@
     <div class="recommend recommend-songlist">
       <h3 class="title">推荐歌单</h3>
       <div class="items">
-        <div
+        <CallToAction
           class="item"
           v-for="(item, index) in list"
           :key="index"
-          @click="toDetailSongSheet(item)"
-        >
-          <div class="item-box img-wrap">
-            <div class="desc-wrap">
-              <span class="desc">{{ item.name }}</span>
-            </div>
-            <img :src="item.picUrl" alt />
-            <span class="iconfont icon-play"></span>
-          </div>
-        </div>
+          :src="item.picUrl"
+          :count="item.playCount"
+          :title="item.name"
+          @click.native="toDetailSongSheet(item)"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { rect1_1 } from "../../skeleton/image";
+import { rect1_1 } from "@/skeleton/image";
+import CallToAction from "@/components/CallToAction.vue";
 
 export default {
   name: "recommend",
+  components: { CallToAction },
   data() {
     return {
       // 轮播图
@@ -84,7 +81,6 @@ export default {
       this.getNewSong();
       this.getPersonalized();
     },
-
     getNewSong() {
       let params = {
         limit: 12

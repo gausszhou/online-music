@@ -42,45 +42,28 @@
 
         <el-tab-pane label="歌单" name="lists">
           <div class="items">
-            <div
+            <CallToAction
               class="item"
               v-for="(item, index) in playList"
               :key="index"
-              @click="toSongSheetDetail(item)"
-            >
-              <div class="img-wrap">
-                <div class="num-wrap">
-                  <span class="num">{{ item.playCount | numbertocount }}</span>
-                </div>
-                <img :src="item.coverImgUrl" alt />
-                <span class="iconfont icon-play"></span>
-              </div>
-              <p class="name">{{ item.name }}</p>
-            </div>
+              :src="item.coverImgUrl"
+              :count="item.playCount"
+              :title="item.name"
+              @click.native="toDetailSongSheet(item)"
+            />
           </div>
         </el-tab-pane>
         <el-tab-pane label="MV" name="mvs">
           <div class="items mv">
-            <div
-              class="item"
+             <CallToAction
+              class="item aspect-16-9"
               v-for="(item, index) in mvList"
               :key="index"
-              @click="playMV(item)"
-            >
-              <div class="img-wrap">
-                <img :src="item.cover" alt />
-                <span class="iconfont icon-play"></span>
-                <div class="num-wrap">
-                  <div class="iconfont icon-play"></div>
-                  <div class="num">{{ item.playCount | numbertocount }}</div>
-                </div>
-                <span class="time">{{ item.duration | mstotime }}</span>
-              </div>
-              <div class="info-wrap">
-                <div class="name">{{ item.name }}</div>
-                <div class="singer">{{ item.artistName }}</div>
-              </div>
-            </div>
+              :src="item.cover"
+              :count="item.playCount"
+              :title="item.artistName + `《${item.name.trim()}》`"
+              @click.native="playMV(item)"
+            />
           </div>
         </el-tab-pane>
       </el-tabs>
@@ -90,9 +73,12 @@
 
 <script>
 import { rect16_9, rect1_1 } from "../../skeleton/image";
-
+import CallToAction from "../../components/CallToAction.vue";
 export default {
   name: "search",
+  components: {
+    CallToAction
+  },
   data() {
     return {
       activeIndex: "songs",
@@ -112,7 +98,7 @@ export default {
       }),
       mvList: new Array(8).fill({
         name: "",
-        cover: rect16_9,
+        cover: rect1_1,
         playCount: 99999,
         artistName: ""
       }),
@@ -182,7 +168,7 @@ export default {
     getMusic(row) {
       this.$store.dispatch("song/getMusic", row);
     },
-    toSongSheetDetail(item) {
+    toDetailSongSheet(item) {
       this.$router.push({
         name: "detailSongSheet",
         query: {

@@ -27,21 +27,15 @@
       <!-- tab的内容区域 -->
       <div class="tab-content">
         <div class="items">
-          <div
+          <CallToAction
             class="item"
             v-for="(item, index) in list"
             :key="index"
-            @click="toSongSheetDetail(item)"
-          >
-            <div class="img-wrap">
-              <div class="num-wrap">
-                <span class="num">{{ item.playCount | numbertocount }}</span>
-              </div>
-              <img :src="item.coverImgUrl" alt />
-              <span class="iconfont icon-play"></span>
-            </div>
-            <p class="name">{{ item.name }}</p>
-          </div>
+            :src="item.coverImgUrl"
+            :count="item.playCount"
+            :title="item.name"
+            @click.native="toDetailSongSheet(item)"
+          />
         </div>
       </div>
     </div>
@@ -59,9 +53,12 @@
 
 <script>
 import { rect1_1 } from "../../skeleton/image";
-
+import CallToAction from "../../components/CallToAction.vue";
 export default {
   name: "songSheet",
+  components: {
+    CallToAction
+  },
   data() {
     return {
       // 标签列表
@@ -134,7 +131,7 @@ export default {
         this.list = res.data.playlists;
       });
     },
-    toSongSheetDetail(item) {
+    toDetailSongSheet(item) {
       this.$router.push({
         name: "detailSongSheet",
         query: {
@@ -149,5 +146,3 @@ export default {
   }
 };
 </script>
-
-<style></style>

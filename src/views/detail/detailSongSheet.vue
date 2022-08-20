@@ -42,12 +42,6 @@
           <el-table-column label="标题" show-overflow-tooltip>
             <template slot-scope="scope">
               <span>{{ scope.row.name }}</span>
-              <span
-                v-if="scope.row.mv"
-                class="iconfont mv-tag icon-mv"
-                @click="playMV(scope.row)"
-                >MV</span
-              >
             </template>
           </el-table-column>
           <el-table-column label="歌手">
@@ -136,11 +130,10 @@ export default {
         createTime: "000"
       },
       tracks: new Array(20).fill({
-        album: {
-          name: "",
-          duration: 0,
-          artists: [{ name: "" }]
-        }
+        name: "",
+        ar: [{ name: "" }],
+        al: { name: "" },
+        dt: 0
       }),
       comments: []
     };

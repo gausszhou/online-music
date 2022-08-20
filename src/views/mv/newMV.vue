@@ -19,24 +19,15 @@
     <!-- MV容器 -->
     <div class="mvs">
       <div class="items">
-        <div
-          class="item"
+        <CallToAction
+          class="item aspect-16-9"
           v-for="(item, index) in list"
           :key="index"
           @click="playMV(item)"
-        >
-          <div class="img-wrap">
-            <img :src="item.cover" alt />
-            <div class="num-wrap">
-              <div class="iconfont icon-play"></div>
-              <div class="num">{{ item.playCount | numbertocount }}</div>
-            </div>
-          </div>
-          <div class="info-wrap">
-            <div class="name">{{ item.name }}</div>
-            <div class="singer">{{ item.artistName }}</div>
-          </div>
-        </div>
+          :src="item.cover"
+          :count="item.playCount"
+          :title="item.artistName + `《${item.name.trim()}》`"
+        ></CallToAction>
       </div>
       <!-- 分页器 -->
       <el-pagination
@@ -54,9 +45,12 @@
 
 <script>
 import { rect16_9 } from "../../skeleton/image";
-
+import CallToAction from "@/components/CallToAction"
 export default {
   name: "latestMV",
+  components:{
+    CallToAction
+  },
   data() {
     return {
       areaList: ["", "内地", "港台", "欧美", "日本", "韩国"],

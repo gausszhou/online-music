@@ -68,7 +68,7 @@
       <h3 class="title">相关推荐</h3>
       <div class="mvs">
         <div class="items">
-          <div
+          <!-- <div
             class="item"
             v-for="(item, index) in simiMV"
             :key="index"
@@ -87,7 +87,16 @@
               <div class="name">{{ item.name }}</div>
               <div class="singer">{{ item.artistName }}</div>
             </div>
-          </div>
+          </div> -->
+          <CallToAction
+            class="item aspect-16-9"
+            v-for="(item, index) in simiMV"
+            :key="index"
+            @click="playMV(item)"
+            :src="item.cover"
+            :count="item.playCount"
+            :title="item.artistName + `《${item.name.trim()}》`"
+          ></CallToAction>
         </div>
       </div>
     </div>
@@ -95,10 +104,14 @@
 </template>
 
 <script>
-import { rect16_9 } from "../../skeleton/image";
+import { rect16_9 } from "@/skeleton/image";
+import CallToAction from "@/components/CallToAction";
 
 export default {
   name: "mv",
+  components: {
+    CallToAction
+  },
   data() {
     return {
       // 总条数
