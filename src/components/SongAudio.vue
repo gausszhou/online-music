@@ -63,25 +63,20 @@
 <script>
 import { mapState } from "vuex";
 import { songModeList } from "./SongData";
+import player from "@/lib/player";
 export default {
   data() {
     return {
-      // mode
       songModeList: songModeList,
-      // play progress percent
-      percent: 0,
-      actions: []
+      percent: 0
     };
   },
   computed: {
     ...mapState("song", {
       songList: (state) => state.songList,
-      songIndex: (state) => state.songIndex,
       song: (state) => state.song,
       songIsPlay: (state) => state.songIsPlay,
       songMode: (state) => state.songMode,
-      songVolume: (state) => state.songVolume,
-      songTargetTime: (state) => state.songTargetTime,
       songCurrentTime: (state) => state.songCurrentTime,
       songTotalTime: (state) => state.songTotalTime,
       songCurrentPercent: (state) => state.songCurrentPercent,
@@ -110,79 +105,21 @@ export default {
         this.songLoadedPercent + "%"
       );
     },
-    onAudioEnded() {
-      this.nextSongAuto();
-    },
     toggleSongMode() {
-      const mode = this.songMode;
+      const mode = this.songMode + 1;
       const length = this.songModeList.length;
-      const modeNew = (mode + length + 1) % length;
-      this.$store.commit("song/setSongMode", modeNew);
+      const modeNew = mode % length;
+      player.setMode(modeNew);
     },
     prevSong() {
-      this.switchSong(-1, false);
-    },
-    nextSong() {
-      this.switchSong(1, false);
-    },
-    nextSongAuto() {
-      this.switchSong(1, true);
-    },
-    // 区分手动和自动
-    switchSong(num, auto) {
-      let number = 0;
-      switch (this.songMode) {
-        case 0: // loop
-          number = num;
-          this.setSong(number);
-          break;
-        case 1: // single-loop
-          if (auto) {
-            this.$store.commit("song/setSongIsPlay", false);
-            setTimeout(() => {
-              this.$store.commit("song/setSongIsPlay", true);
-            });
-          } else {
-            setTimeout(() => {
-              this.onAudioSliderChange(0);
-            });
-          }
-          break;
-        case 2: // order
-          const lastIndex = this.songList.length - 1;
-          if (this.songIndex == lastIndex && auto) {
-            this.$store.commit("song/setSongIndex", -1);
-            return;
-          }
-          number = 1;
-          this.setSong(number);
-          break;
-        case 3: // random
-          // number [0, lenght) == [0, lenght-1]
-          const length = this.$store.state.songList.length;
-          number = Math.floor(Math.random() * length);
-          this.setSong(number);
-          break;
-        default:
-          break;
-      }
-    },
-    // -1 0 1
-    setSong(number) {
-      const songList = this.songList;
-      const songIndex = this.songIndex;
-      const length = songList.length;
-      if (length > 1) {
-        const targetIndex = (songIndex + length + number) % length;
-        this.$store.commit("song/setSongCurrentTime", 0);
-        this.$store.commit("song/setSongIndex", targetIndex);
-        const next = this.songList[targetIndex];
-        this.$store.dispatch("song/getMusic", next);
-      }
+      player.switchSong(-1, false);
     },
     toggleSongPlay() {
       if (!this.song.audioUrl) return;
       this.$store.commit("song/setSongIsPlay", !this.songIsPlay);
+    },
+    nextSong() {
+      player.switchSong(1, false);
     },
     toggleLyricFloat() {
       if (!this.song.audioUrl || this.songLyricList.length === 0) return;

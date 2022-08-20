@@ -2,7 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Music from "@/views/music/index.vue";
 import Recommend from "@/views/music/recommend.vue";
-import Video from "@/views/video/index.vue";
+import MV from "@/views/mv/index.vue";
+import NewMV from "@/views/mv/newMV.vue";
 
 Vue.use(VueRouter);
 
@@ -28,12 +29,7 @@ const routes = [
         component: () => import("@/views/music/newsongs.vue"),
         meta: { title: "新歌" }
       },
-      {
-        name: "singer",
-        path: "singer",
-        component: () => import("@/views/music/singer.vue"),
-        meta: { title: "歌手" }
-      },
+
       {
         name: "songlists",
         path: "songlists",
@@ -49,22 +45,29 @@ const routes = [
     ]
   },
   {
-    name: "video",
-    path: "/video",
-    component: Video,
+    name: "singer",
+    path: "/singer",
+    component: () => import("@/views/singer/singer.vue"),
+    meta: { title: "歌手" }
+  },
+  {
+    name: "mv",
+    path: "/mv",
+    component: MV,
     children: [
-      {
-        name: "allMV",
-        path: "allMV",
-        component: () => import("@/views/video/allMV.vue"),
-        meta: { title: "全部MV" }
-      },
       {
         name: "newMV",
         path: "newMV",
-        component: () => import("@/views/video/newMV.vue"),
+        component: NewMV,
         meta: { title: "最新MV" }
-      }
+      },
+      {
+        name: "allMV",
+        path: "allMV",
+        component: () => import("@/views/mv/allMV.vue"),
+        meta: { title: "全部MV" }
+      },
+    
     ]
   },
   {
@@ -99,11 +102,6 @@ const routes = [
     ]
   }
 ];
-
-function getAbsolutePath() {
-  let path = location.pathname;
-  return path.substring(0, path.lastIndexOf("/") + 1);
-}
 
 const router = new VueRouter({  
   mode: "history", //  history  hash

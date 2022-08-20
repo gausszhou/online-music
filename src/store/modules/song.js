@@ -1,9 +1,9 @@
+import { musicPolyfill, processLyric } from "@/utils/tools";
+import NProgress from "nprogress";
 import http from "@/api/http";
 import local from "@/storage/local";
 import player from "@/lib/player";
 
-import NProgress from "nprogress";
-import { musicPolyfill, processLyric } from "@/utils/tools";
 NProgress.configure({ showSpinner: false, parent: "#footer" });
 
 const proxy = "http://api.gausszhou.top/_proxy/";
@@ -20,26 +20,19 @@ const song = {
       song: local.get("song") || {},
       // 歌词数组
       songLyricList: local.get("songLyricList") || [],
-      // 播放音量，修改此值，同步修改Audio元素的音量 需在组件内监听此值
+      // 显示 播放音量，修改此值，同步修改Audio元素的音量 需在组件内监听此值
       songVolume: local.get("songVolume") || 50,
-      // 播放模式
+      // 显示 播放模式
       songMode: local.get("songMode") || 0,
       // 歌曲播放状态 不存储 修改此值用于控制播放
       songIsPlay: false,
-      songTargetTime: 0,
-      // 播放时间，此值跟随 Audio 的进度
-      // audio 
-      songAudio:{
-          currentTime:0,
-          totalTime:0,
-          currentPercent:0,
-          loadedPercent:0
-      },
-      // 歌曲总时间
-      songTotalTime: 0,
-      // 修改此值，不存储 同步修改 Audio 的播放时间 需在组件内监听此值
+      // 显示 播放时间，此值跟随 Audio 的进度
       songCurrentTime: 0,
+      // 显示 歌曲总时间
+      songTotalTime: 0,
+      // 显示 修改此值，不存储 同步修改 Audio 的播放时间 需在组件内监听此值
       songCurrentPercent: 0,
+      // 显示
       songLoadedPercent: 0
     };
   },
@@ -121,7 +114,7 @@ const song = {
       store.commit("setSongLyricList", []);
       // getAudioSrc
       NProgress.start();
-      console.log("[ajax ] 歌曲信息请求中1");
+      console.log("[ajax ] 歌曲信息请求中");
       const resSong = await http.getSongUrl({ id: musicId });
       if (resSong.data.data && resSong.data.data[0].url) {
         const audioUrl = resSong.data.data[0].url;
@@ -133,7 +126,7 @@ const song = {
       // update render
       store.commit("setSong", song);
       NProgress.done();
-      console.log("[ajax ] 歌曲信息请求完成1");
+      console.log("[ajax ] 歌曲信息请求完成");
 
       // send play message
       setTimeout(() => {
@@ -154,7 +147,6 @@ const song = {
         }
       }
       store.commit("setSong", song);
-
 
       // getLyric
       NProgress.start();
@@ -198,11 +190,6 @@ const song = {
   }
 };
 
-
-const url = song.state().song.audioUrl
-// const songVolume = song.state().songVolume
-player.setAudioSrc(url)
-// player.setVolume(songVolume)
 
 
 export default song;

@@ -65,7 +65,7 @@ export default {
       // 独家放送
       contents: [],
       // 最新音乐
-      songs: new Array(12).fill({
+      songs: new Array(14).fill({
         name: "",
         picUrl: rect1_1,
         song: {
@@ -95,7 +95,7 @@ export default {
     },
     getPersonalized() {
       let params = {
-        limit: 10
+        limit: 14
       };
       this.$http.getPersonalized(params).then((res) => {
         this.list = res.data.result;

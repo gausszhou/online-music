@@ -1,4 +1,6 @@
 <template>
+  <div class="app-main-view">
+    <div class="app-main-page search-container">
   <div class="singer-container">
     <div class="filter-wrap">
       <!-- 分类切换 语种 -->
@@ -70,6 +72,8 @@
         :limit="limit"
       ></el-pagination>
     </div>
+  </div>
+  </div>
   </div>
 </template>
 

@@ -5,13 +5,10 @@
         <span slot="label">个性推荐</span>
       </el-tab-pane>
       <el-tab-pane name="songlists">
-        <span slot="label">歌单</span>
+        <span slot="label">精品歌单</span>
       </el-tab-pane>
       <el-tab-pane name="ranklists">
         <span slot="label">排行榜</span>
-      </el-tab-pane>
-      <el-tab-pane name="singer">
-        <span slot="label">歌手</span>
       </el-tab-pane>
       <el-tab-pane name="newsongs">
         <span slot="label">最新音乐</span>

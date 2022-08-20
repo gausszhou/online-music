@@ -7,7 +7,7 @@
       class="slider-volume"
       v-model="volume"
       :min="0"
-      :max="1"
+      :max="100"
       :show-tooltip="false"
       @change="onVolumeSliderChange(volume)"
     ></el-slider>
@@ -24,7 +24,7 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      volume: 0.5
+      volume: 50
     };
   },
   computed: {

@@ -83,8 +83,6 @@ export default {
   top: calc(var(--app-header-height) + 4px);
   width: 400px;
   background-color: #fff;
-  // border-top: 1px solid #eee;
-  // border-left: 1px solid #eee;
   box-shadow: -1px 0 4px 1px #eee, 0 -1px 4px 1px #eee;
 }
 

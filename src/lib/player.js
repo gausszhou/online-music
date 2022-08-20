@@ -1,12 +1,13 @@
 import store from "@/store";
+import local from "@/storage/local"
 
 class Player {
   constructor() {
     this.audioEL = new Audio();
     this.crossOrign = "anonymous";
-    console.log(this);
     // control
-    this.volume = 0.5;
+    this.volume = 50;
+    this.songMode = 0;
     // source
     this.src = "";
 
@@ -20,11 +21,30 @@ class Player {
 
     this.init();
     this.initEventListener();
-    console.log("[audio] 初始化完成");
+    this.restore()
   }
   init() {
     this.audioEL.src = this.src;
-    this.audioEL.volume = this.volume;
+    this.audioEL.volume = this.volume / 100;
+    console.log("[audio] 初始化");
+  }
+  initEventListener() {
+    console.log("[audio] 初始化事件绑定");
+    this.audioEL.addEventListener("canplay", (e) => {
+      this._onCanplay(e);
+    });
+    this.audioEL.addEventListener("progress", (e) => {
+      this._onProgress(e);
+    });
+    this.audioEL.addEventListener("timeupdate", (e) => {
+      this._onTimeUpdate(e);
+    });
+    this.audioEL.addEventListener("ended", (e) => {
+      this._onEnded(e);
+    });
+  }
+  restore(){
+    setTimeout(()=>{store.commit("song/setSong",local.get("song"))})
   }
   play() {
     if (this.src) {
@@ -40,6 +60,7 @@ class Player {
       this.playing = false;
     }
   }
+  
   setAudioSrc(url) {
     if (this.src !== url) {
       this.src = url;
@@ -47,24 +68,17 @@ class Player {
       console.log("[audio] 切换了歌曲");
     }
   }
-  setTargetTime(time) {
-    this.audioEL.currentTime = time;
+  // set
+  setMode(mode) {
+    this.songMode = mode;
+    store.commit("song/setSongMode", mode);
   }
   setVolume(volume) {
     this.volume = volume;
-    this.audioEL.volume = this.volume;
+    this.audioEL.volume = this.volume / 100;
   }
-  initEventListener() {
-    console.log("[audio] 事件绑定初始化");
-    this.audioEL.addEventListener("canplay", (e) => {
-      this._onCanplay(e);
-    });
-    this.audioEL.addEventListener("progress", (e) => {
-      this._onProgress(e);
-    });
-    this.audioEL.addEventListener("timeupdate", (e) => {
-      this._onTimeUpdate(e);
-    });
+  setTargetTime(time) {
+    this.audioEL.currentTime = time;
   }
   // callback
   _onCanplay(e) {
@@ -77,11 +91,10 @@ class Player {
   _onProgress(e) {
     this.caclLoadProgress(e.target);
     store.commit("song/setSongLoadedPercent", this.loadedPercent);
-    console.log("[audio] 资源加载更新", this.loadedPercent);
+    console.log("[audio] 资源加载更新", this.loadedPercent, "%");
     this.onProgress && this.onProgress();
   }
   _onTimeUpdate(e) {
-    console.log("[audio] 播放进度更新");
     const currentTime = this.audioEL.currentTime;
     this.currentTime = currentTime;
     this.currentPercent = (this.currentTime * 100) / this.totalTime;
@@ -92,12 +105,74 @@ class Player {
 
     this.onTimeUpdate && this.onTimeUpdate();
   }
+  _onEnded() {
+    this.switchSong(1, true);
+  }
+  prevSong() {
+    this.switchSong(-1, false);
+  }
+  nextSong() {
+    this.switchSong(1, false);
+  }
+  // 区分手动和自动
+  switchSong(num, auto) {
+    let number = 0;
+    switch (this.songMode) {
+      case 0: // loop
+        number = num;
+        this.setSong(number);
+        break;
+      case 1: // single-loop
+        if (auto) {
+          store.commit("song/setSongIsPlay", false);
+          setTimeout(() => {
+            store.commit("song/setSongIsPlay", true);
+          });
+        } else {
+          setTimeout(() => {
+            this.onAudioSliderChange(0);
+          });
+        }
+        break;
+      case 2: // order
+        const lastIndex = this.songList.length - 1;
+        if (this.songIndex == lastIndex && auto) {
+          store.commit("song/setSongIndex", -1);
+          return;
+        }
+        number = 1;
+        this.setSong(number);
+        break;
+      case 3: // random
+        // number [0, lenght) == [0, lenght-1]
+        const length = store.state.song.songList.length;
+        number = Math.floor(Math.random() * length);
+        this.setSong(number);
+        break;
+      default:
+        break;
+    }
+  }
+  // -1 0 1
+  setSong(number) {
+    const songList = store.state.song.songList;
+    const songIndex = store.state.song.songIndex;
+    const length = songList.length;
+    if (length > 1) {
+      const targetIndex = (songIndex + length + number) % length;
+      store.commit("song/setSongCurrentTime", 0);
+      store.commit("song/setSongIndex", targetIndex);
+      const next = songList[targetIndex];
+      store.dispatch("song/getMusic", next);
+    }
+  }
   // methods
   caclLoadProgress(audio) {
     const buffered = audio.buffered;
     if (buffered.length) {
       const loadedTime = audio.buffered.end(0);
-      this.loadedPercent = 100 * (loadedTime / this.totalTime);
+      this.loadedPercent = Math.ceil(100 * (loadedTime / this.totalTime));
+      if(this.loadedPercent == Infinity) this.loadedPercent = 0
     }
   }
 }
