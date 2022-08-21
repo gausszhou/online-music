@@ -116,7 +116,7 @@ export default {
     },
 
     getMusic(item) {
-      if (item.id) return false;
+      if (!item.id) return false;
       this.$store.dispatch("song/getMusic", item);
     },
     handleCurrentChange(page) {

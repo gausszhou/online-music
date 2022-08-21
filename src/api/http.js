@@ -1,7 +1,7 @@
 import axios, { serialize } from "./axios-http";
 
 // API接口服务器地址
-let baseUrl = process.env.VUE_APP_API;
+const baseUrl = process.env.VUE_APP_API;
 
 const http = {
   // 登录

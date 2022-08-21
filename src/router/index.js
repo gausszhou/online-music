@@ -26,20 +26,20 @@ const routes = [
       {
         name: "newsongs",
         path: "newsongs",
-        component: () => import("@/views/music/newsongs.vue"),
+        component: () => import(/* webpackChunkName: "newsongs" */ "@/views/music/newsongs.vue"),
         meta: { title: "新歌" }
       },
 
       {
         name: "songlists",
         path: "songlists",
-        component: () => import("@/views/music/songlists.vue"),
+        component: () => import(/* webpackChunkName: "songlists" */ "@/views/music/songlists.vue"),
         meta: { title: "歌单" }
       },
       {
         name: "ranklists",
         path: "ranklists",
-        component: () => import("@/views/music/ranklists.vue"),
+        component: () => import(/* webpackChunkName: "ranklists" */ "@/views/music/ranklists.vue"),
         meta: { title: "排行" }
       }
     ]
@@ -47,7 +47,7 @@ const routes = [
   {
     name: "singer",
     path: "/singer",
-    component: () => import("@/views/singer/singer.vue"),
+    component: () => import(/* webpackChunkName: "singer" */  "@/views/singer/singer.vue"),
     meta: { title: "歌手" }
   },
   {
@@ -64,7 +64,7 @@ const routes = [
       {
         name: "allMV",
         path: "allMV",
-        component: () => import("@/views/mv/allMV.vue"),
+        component: () => import(/* webpackChunkName: "allMV" */ "@/views/mv/allMV.vue"),
         meta: { title: "全部MV" }
       },
     
@@ -104,7 +104,7 @@ const routes = [
 ];
 
 const router = new VueRouter({  
-  mode: "history", //  history  hash
+  mode: "hash", //  history  hash
   base: "/online-music/",
   routes
 });

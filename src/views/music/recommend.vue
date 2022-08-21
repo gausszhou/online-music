@@ -1,22 +1,18 @@
 <template>
   <div class="music-recommend">
-    <!-- 轮播图 -->
-    <!-- <el-carousel :interval="4000" type="card">
-      <el-carousel-item v-for="(item, index) in banners" :key="index">
-        <img :src="item.imageUrl" alt />
-      </el-carousel-item>
-    </el-carousel> -->
     <!-- 最新音乐 -->
     <div class="recommend-news">
       <h3 class="title">最新音乐</h3>
       <div class="news-list">
-        <div class="item" v-for="(item, index) in songs" :key="index">
+        <div
+          class="item"
+          v-for="(item, index) in songs"
+          :key="index"
+          @click="getMusic(item)"
+        >
           <div class="img-wrap">
             <img :src="item.picUrl" alt />
-            <span
-              class="iconfont ft_16 icon-play"
-              @click="getMusic(item)"
-            ></span>
+            <span class="iconfont ft_16 icon-play"></span>
           </div>
           <div class="song-wrap">
             <div class="song-name">{{ item.name }}</div>
@@ -98,7 +94,7 @@ export default {
       });
     },
     toDetailSongSheet(item) {
-      if (!item.id) return;
+      if (!item.id) return false;
       this.$router.push({
         name: "detailSongSheet",
         query: {
@@ -107,7 +103,7 @@ export default {
       });
     },
     getMusic(item) {
-      if (item.id) return false;
+      if (!item.id) return false;
       this.$store.dispatch("song/getMusic", item);
     }
   }

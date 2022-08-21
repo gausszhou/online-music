@@ -87,7 +87,7 @@ export default {
   },
   data() {
     return {
-      tab:"singer", 
+      tab: "singer",
       areaList: [
         { value: -1, label: "全部" },
         { value: 7, label: "华语" },
@@ -132,12 +132,12 @@ export default {
         { value: "z", label: "Z" },
         { value: 0, label: "#" }
       ],
-      total: 100,
-      page: 1,
-      limit: 20,
       area: -1,
       type: -1,
       initial: -1,
+      total: 100,
+      page: 1,
+      limit: 20,
       list: new Array(20).fill({
         name: "",
         img1v1Url: ImagePlaceholder
@@ -184,7 +184,7 @@ export default {
       this.getData();
     },
     toDetailSinger(item) {
-      if(!item.id) return ;
+      if (!item.id) return false;
       this.$router.push({
         name: "detailSinger",
         query: {

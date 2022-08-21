@@ -7,6 +7,11 @@
     flex: 1;
     display: flex;
     align-items: center;
+    max-width: 450px;
+  }
+  .song-control{
+    flex: 1;
+    min-width: 360px;  
   }
 
   .list-control {
@@ -97,8 +102,6 @@
 
 // 歌曲控制
 .song-control {
-  flex: 1;
-  min-width: 360px;
 
   .switch-control {
     display: flex;

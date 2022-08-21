@@ -6,7 +6,7 @@ import player from "@/lib/player";
 
 NProgress.configure({ showSpinner: false, parent: "#footer" });
 
-const proxy = "http://api.gausszhou.top/_proxy/";
+const proxy = process.env.VUE_APP_API_PROXY;
 
 const song = {
   namespaced: true,
@@ -109,6 +109,7 @@ const song = {
   },
   actions: {
     async getMusic(store, payload) {
+      console.log(1)
       let song = musicPolyfill(payload);
       const { musicId } = song;
       // update render
@@ -120,9 +121,11 @@ const song = {
       const resSong = await http.getSongUrl({ id: musicId });
       if (resSong.data.data && resSong.data.data[0].url) {
         const audioUrl = resSong.data.data[0].url;
-        song.audioUrl = audioUrl;
+        // song.audioUrl = audioUrl;
         song.audioUrlOrigin = audioUrl;
         song.audioUrlProxy = proxy + audioUrl;
+        // 
+        song.audioUrl = song.audioUrlProxy
       }
 
       // update render
