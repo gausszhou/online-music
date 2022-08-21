@@ -75,6 +75,9 @@ export default {
   overflow: hidden;
   text-align: right;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3));
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   .num-icon {
     margin-right: 0.5rem;
   }

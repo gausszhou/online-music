@@ -1,9 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Music from "@/views/music/index.vue";
-import Recommend from "@/views/music/recommend.vue";
 import MV from "@/views/mv/index.vue";
-import NewMV from "@/views/mv/newMV.vue";
 
 Vue.use(VueRouter);
 
@@ -20,26 +18,26 @@ const routes = [
       {
         name: "recommend",
         path: "recommend",
-        component: Recommend,
+        component: () => import(/* webpackChunkName: "route-recommend" */ "@/views/music/recommend.vue"),
         meta: { title: "发现" }
       },
       {
         name: "newsongs",
         path: "newsongs",
-        component: () => import(/* webpackChunkName: "newsongs" */ "@/views/music/newsongs.vue"),
+        component: () => import(/* webpackChunkName: "route-newsongs" */ "@/views/music/newsongs.vue"),
         meta: { title: "新歌" }
       },
 
       {
         name: "songlists",
         path: "songlists",
-        component: () => import(/* webpackChunkName: "songlists" */ "@/views/music/songlists.vue"),
+        component: () => import(/* webpackChunkName: "route-songlists" */ "@/views/music/songlists.vue"),
         meta: { title: "歌单" }
       },
       {
         name: "ranklists",
         path: "ranklists",
-        component: () => import(/* webpackChunkName: "ranklists" */ "@/views/music/ranklists.vue"),
+        component: () => import(/* webpackChunkName: "route-ranklists" */ "@/views/music/ranklists.vue"),
         meta: { title: "排行" }
       }
     ]
@@ -47,7 +45,7 @@ const routes = [
   {
     name: "singer",
     path: "/singer",
-    component: () => import(/* webpackChunkName: "singer" */  "@/views/singer/singer.vue"),
+    component: () => import(/* webpackChunkName: "route-singer" */  "@/views/singer/singer.vue"),
     meta: { title: "歌手" }
   },
   {
@@ -58,13 +56,13 @@ const routes = [
       {
         name: "newMV",
         path: "newMV",
-        component: NewMV,
+        component: () => import(/* webpackChunkName: "route-newMV" */ "@/views/mv/newMV.vue"),
         meta: { title: "最新MV" }
       },
       {
         name: "allMV",
         path: "allMV",
-        component: () => import(/* webpackChunkName: "allMV" */ "@/views/mv/allMV.vue"),
+        component: () => import(/* webpackChunkName: "route-allMV" */ "@/views/mv/allMV.vue"),
         meta: { title: "全部MV" }
       },
     

@@ -4,15 +4,13 @@
     <div class="recommend-news">
       <h3 class="title">最新音乐</h3>
       <div class="news-list">
-        <div
-          class="item"
-          v-for="(item, index) in songs"
-          :key="index"
-          @click="getMusic(item)"
-        >
+        <div class="item" v-for="(item, index) in songs" :key="index">
           <div class="img-wrap">
-            <img :src="item.picUrl" alt />
-            <span class="iconfont ft_16 icon-play"></span>
+            <img class="img-image" :src="item.picUrl" alt />
+            <span
+              class="img-icon iconfont icon-play ft_16"
+              @click="getMusic(item)"
+            ></span>
           </div>
           <div class="song-wrap">
             <div class="song-name">{{ item.name }}</div>

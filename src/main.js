@@ -16,7 +16,6 @@ import "nprogress/nprogress.css";
 import "@/assets/fonts/iconfont.css";
 import "@/styles/index.scss";
 
-
 // 引入http接口
 import http from "@/api/http";
 Vue.prototype.$http = http;
