@@ -121,10 +121,10 @@ const song = {
       const resSong = await http.getSongUrl({ id: musicId });
       if (resSong.data.data && resSong.data.data[0].url) {
         let url = resSong.data.data[0].url;
-        url = audioUrl.replace(/https{0,1}:/, location.protocol);
+        url = url.replace(/https{0,1}:/, location.protocol);
         song.audioUrlOrigin = url;
         song.audioUrlProxy = location.protocol + proxy + url;
-        song.audioUrl = song.audioUrlOrigin;
+        // song.audioUrl = song.audioUrlOrigin;
         song.audioUrl = song.audioUrlProxy
       }
 

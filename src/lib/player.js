@@ -135,8 +135,8 @@ class Player {
         }
         break;
       case 2: // order
-        const lastIndex = this.songList.length - 1;
-        if (this.songIndex == lastIndex && auto) {
+        const lastIndex = store.state.song.songList.length - 1;
+        if (store.state.song.songIndex == lastIndex && auto) {
           store.commit("song/setSongIndex", -1);
           return;
         }
