@@ -8,8 +8,8 @@
       v-model="volume"
       :min="0"
       :max="100"
-      :show-tooltip="false"
-      @change="onVolumeSliderChange(volume)"
+      :show-tooltip="true"
+      @input="onVolumeSliderChange(volume)"
     ></el-slider>
     <i
       class="button-menu iconfont icon-menu"

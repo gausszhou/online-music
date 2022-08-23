@@ -1,6 +1,6 @@
 module.exports = {
   devServer: {
-    https: false,
+    https: true,
     open: false
   },
   // 输出目录

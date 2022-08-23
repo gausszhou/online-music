@@ -6,7 +6,7 @@ import player from "@/lib/player";
 
 NProgress.configure({ showSpinner: false, parent: "#footer" });
 
-const proxy = process.env.VUE_APP_API_PROXY;
+const proxy = process.env.VUE_APP_API_PROXY || "";
 
 const song = {
   namespaced: true,
@@ -104,12 +104,12 @@ const song = {
       state.songList = list;
       state.songIndex = 0;
       this.commit("song/setSongIndex", 0);
-      this.dispatch("song/getMusic",list[0])
+      this.dispatch("song/getMusic", list[0]);
     }
   },
   actions: {
     async getMusic(store, payload) {
-      console.log(1)
+      console.log(1);
       let song = musicPolyfill(payload);
       const { musicId } = song;
       // update render
@@ -120,11 +120,11 @@ const song = {
       console.log("[ajax ] 歌曲信息请求中");
       const resSong = await http.getSongUrl({ id: musicId });
       if (resSong.data.data && resSong.data.data[0].url) {
-        const audioUrl = resSong.data.data[0].url;
-        // song.audioUrl = audioUrl;
-        song.audioUrlOrigin = audioUrl;
-        song.audioUrlProxy = proxy + audioUrl;
-        // 
+        let url = resSong.data.data[0].url;
+        url = audioUrl.replace(/https{0,1}:/, location.protocol);
+        song.audioUrlOrigin = url;
+        song.audioUrlProxy = location.protocol + proxy + url;
+        song.audioUrl = song.audioUrlOrigin;
         song.audioUrl = song.audioUrlProxy
       }
 
@@ -194,7 +194,5 @@ const song = {
     }
   }
 };
-
-
 
 export default song;
