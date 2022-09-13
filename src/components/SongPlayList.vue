@@ -62,8 +62,8 @@ export default {
     },
     clearPlayList() {
       this.$store.commit("song/setSongIndex", -1);
+      this.$store.commit("song/setSongIndexActive")
       this.$store.commit("song/setSongCurrentTime", 0);
-
       this.$store.commit("song/setSongList", []);
       this.$store.commit("song/setSong", {});
       setTimeout(() => {

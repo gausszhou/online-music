@@ -109,17 +109,17 @@ export default {
       const mode = this.songMode + 1;
       const length = this.songModeList.length;
       const modeNew = mode % length;
-      player.setMode(modeNew);
+      this.$store.commit("song/setSongMode", modeNew);
     },
     prevSong() {
-      player.switchSong(-1, false);
+      this.$store.dispatch("song/switchSong", -1, false);
     },
     toggleSongPlay() {
       if (!this.song.audioUrl) return;
       this.$store.commit("song/setSongIsPlay", !this.songIsPlay);
     },
     nextSong() {
-      player.switchSong(1, false);
+      this.$store.dispatch("song/switchSong", 1, false);
     },
     toggleLyricFloat() {
       if (!this.song.audioUrl || this.songLyricList.length === 0) return;

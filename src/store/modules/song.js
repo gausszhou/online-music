@@ -45,13 +45,17 @@ const song = {
       state.songIndex = payload;
       local.set("songIndex", payload);
     },
+    setSongIndexActive(state) {},
     setSong(state, payload) {
       state.song = payload;
-      player.setAudioSrc(payload.audioUrl);
-      local.set("song", payload);
+      if (payload.audioUrl) {
+        player.setAudioSrc(payload.audioUrl);
+        local.set("song", payload);
+      }
     },
     setSongMode(state, payload) {
       state.songMode = payload;
+      player.setMode(payload);
       local.set("songMode", payload);
     },
     setSongVolume(state, payload) {
@@ -108,30 +112,81 @@ const song = {
     }
   },
   actions: {
+    // -1 0 1
+    setSongIndex(store, number) {
+      const songList = store.state.songList;
+      const songIndex = store.state.songIndex;
+      const length = songList.length;
+      if (length > 1) {
+        const targetIndex = (songIndex + length + number) % length;
+        store.state.songCurrentTime = 0;
+        store.state.songIndex = targetIndex;
+        const next = songList[targetIndex];
+        store.dispatch("getMusic", next);
+      }
+    },
+    // 区分手动和自动
+    switchSong(store, num, auto) {
+      let number = 0;
+      const mode = store.state.songMode;
+      switch (mode) {
+        case 0: // loop
+          number = num;
+          store.dispatch("setSongIndex", number);
+          break;
+        case 1: // single-loop
+          if (auto) {
+            store.commit("song/setSongIsPlay", false);
+            setTimeout(() => {
+              store.commit("song/setSongIsPlay", true);
+            });
+          } else {
+            setTimeout(() => {
+              this.onAudioSliderChange(0);
+            });
+          }
+          break;
+        case 2: // order
+          const lastIndex = store.state.songList.length - 1;
+          if (store.state.song.songIndex == lastIndex && auto) {
+            store.commit("setSongIndex", -1);
+            return; //
+          }
+          number = 1;
+          store.dispatch("setSongIndex", number);
+          break;
+        case 3: // random
+          const length = store.state.songList.length;
+          number = Math.floor(Math.random() * length);
+          store.dispatch("setSongIndex", number);
+          break;
+        default:
+          break;
+      }
+    },
     async getMusic(store, payload) {
-      console.log(1);
       let song = musicPolyfill(payload);
       const { musicId } = song;
       // update render
       store.commit("setSong", song);
       store.commit("setSongLyricList", []);
       // getAudioSrc
+      console.log("[ajax ] 歌曲请求中");
       NProgress.start();
-      console.log("[ajax ] 歌曲信息请求中");
       const resSong = await http.getSongUrl({ id: musicId });
       if (resSong.data.data && resSong.data.data[0].url) {
         let url = resSong.data.data[0].url;
-        url = url.replace(/https{0,1}:/, location.protocol);
+        url = url.replace(/https?:/, location.protocol);
         song.audioUrlOrigin = url;
         song.audioUrlProxy = location.protocol + proxy + url;
-        // song.audioUrl = song.audioUrlOrigin;
-        song.audioUrl = song.audioUrlProxy
+        song.audioUrl = song.audioUrlOrigin;
+        console.log("[ajax ] 歌曲请求完成");
+      } else {
+        console.error("[ajax ] 歌曲请求失败");
       }
-
+      NProgress.done();
       // update render
       store.commit("setSong", song);
-      NProgress.done();
-      console.log("[ajax ] 歌曲信息请求完成");
 
       // send play message
       setTimeout(() => {
@@ -142,37 +197,41 @@ const song = {
       }, 0);
 
       // getSongDetail
-      NProgress.start();
+
       if (!(song.picUrl && song.albumName)) {
+        NProgress.start();
         const resDetail = await http.getSongDetail({ ids: musicId });
         if (resDetail.data.songs && resDetail.data.songs[0]) {
           song.albumName = resDetail.data.songs[0].al.name;
           song.picUrl = resDetail.data.songs[0].al.picUrl;
           song.author = resDetail.data.songs[0].ar;
         }
+        NProgress.done();
+        store.commit("setSong", song);
       }
-      store.commit("setSong", song);
 
       // getLyric
-      NProgress.start();
-      console.log("[ajax ] 歌词请求中");
 
       if (!song.lyricList.length) {
+        console.log("[ajax ] 歌词请求中");
+        NProgress.start();
         const resLyric = await http.getLyric({ id: musicId });
         const lyricText = resLyric.data.lrc.lyric;
         song.lyricList = processLyric(lyricText);
+        NProgress.done();
+        console.log("[ajax ] 歌词请求完成");
+        store.commit("setSong", song);
+        store.commit("setSongLyricList", song.lyricList);
       }
-      store.commit("setSong", song);
-      store.commit("setSongLyricList", song.lyricList);
-      NProgress.done();
-      console.log("[ajax ] 歌词请求完成");
 
       let list = [];
+      
       try {
         list = JSON.parse(JSON.stringify(store.state.songList));
       } catch (error) {
         console.log(error);
       }
+
       // 去重检查 找到时更新 index
       let flag = true;
       list.forEach((item, index) => {
@@ -191,6 +250,7 @@ const song = {
       }
 
       store.commit("setSongList", list);
+      console.log("[ajax ] 列表更新完成");
     }
   }
 };
