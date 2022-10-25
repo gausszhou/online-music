@@ -9,9 +9,7 @@
       </el-tab-pane>
     </el-tabs>
     <div class="app-main-page">
-      <keep-alive>
         <router-view></router-view>
-      </keep-alive>
     </div>
   </div>
 </template>
