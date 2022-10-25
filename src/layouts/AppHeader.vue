@@ -29,6 +29,9 @@
           <i class="el-input__icon el-icon-search"></i>
         </span>
       </div>
+      <el-button type="default" size="small" class="ml_5" @click="clearCache">
+          清空缓存
+      </el-button>
     </div>
     <LoginDialog
       v-if="loginDialogVisible"
@@ -38,6 +41,7 @@
 </template>
 
 <script>
+import forage from "@/storage/forage"
 import LoginDialog from "@/components/LoginDialog.vue";
 export default {
   name: "AppHeader",
@@ -51,6 +55,9 @@ export default {
     };
   },
   methods: {
+    clearCache(){
+      forage.clear()
+    },
     openLoginDialog() {
       this.loginDialogVisible = true;
     },

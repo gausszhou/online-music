@@ -1,6 +1,6 @@
 // 引入axios
 import axios from "axios";
-import local from "localforage";
+import forage from "@/storage/forage";
 
 const instance = axios.create({
   timeout: 10 * 1000,
@@ -24,7 +24,7 @@ instance.interceptors.request.use(
 // Add a response interceptor
 instance.interceptors.response.use(
   async function (response) {
-    await local.setItem(response.config.url, response.data);
+    await forage.setItem(response.config.url, response.data);
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     return response;
@@ -57,7 +57,7 @@ export function serialize(params) {
 }
 
 export async function get(url) {
-  let result = await local.getItem(url);
+  let result = await forage.getItem(url);
   if (result) {
     return  new Promise((resolve,reject)=>{
       resolve({data:result})
